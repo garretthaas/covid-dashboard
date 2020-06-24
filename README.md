@@ -5,7 +5,13 @@ If you haven't already Install Node.js and NPM, follow this link and install Nod
 https://nodejs.org/en/
 
 ## Working with GIT
-Download this repository locally then run the following commands in terminal:
+In Terminal, make a folder for this project and open the folder in VS Code.
+
+In the folder you just made in VS Code, go to Terminal > New Terminal and run the following command:
+
+`git clone https://github.com/garretthaas/covid-dashboard/tree/master`
+
+Once you see the repository files on your local computer, run the following commands in the same Terminal. Make sure to replace name-of-your-branch with your name, e.g. h0plyn.
 
 `git checkout -b name-of-your-branch`
 
@@ -21,13 +27,11 @@ commit your changes: `git commit -m 'brief note on what you changed'`
 
 push to your branch: `git push origin name-of-your-branch`
 
-## Make a repository 
+## Running the site locally
 
-
-## n terminal
-
+In any Terminal window run the following commands:
 `npm install -g http-server`
 
-`cd project/root/folder`
+Then in the project folder in VS Code, go into Terminal and run:
 
-`npm install`
+`http-server`
