@@ -1,0 +1,32 @@
+{
+  "name": "covid",
+  "version": "1.0.0",
+  "description": "Covid dashboard app by Garrett Haas and Ricky Rhodes",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "styles": "node-sass -w ./src/styles/sass/ -o ./site --output-style compressed",
+    "start": "http-server",
+    "scripts": "webpack",
+    "build": "node-sass ./src/styles/sass/styles.min.scss ./dist/styles.min.css --output-style compressed && webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/garretthaas/covid-dashboard.git"
+  },
+  "author": "Garrett Haas, Ricky Rhodes",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/garretthaas/covid-dashboard/issues"
+  },
+  "homepage": "https://github.com/garretthaas/covid-dashboard/dist/index.html",
+  "dependencies": {
+    "lodash": "^4.17.15"
+  },
+  "devDependencies": {
+    "node-sass": "^4.14.1",
+    "npm-server": "0.0.1",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12"
+  }
+}

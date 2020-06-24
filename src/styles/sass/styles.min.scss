@@ -1,0 +1,8 @@
+// PARTIALS
+// make sure all scss partials have an _ prefix like this... _module-name.scss
+@import './_modulestyle';
+
+// global
+h1 {
+    color: red;
+}
