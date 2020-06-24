@@ -4,6 +4,7 @@
 If you haven't already Install Node.js and NPM, follow this link and install Node (npm included)
 https://nodejs.org/en/
 
+
 ## Working with GIT
 In Terminal, make a folder for this project and open the folder in VS Code.
 
@@ -28,10 +29,6 @@ commit your changes: `git commit -m 'brief note on what you changed'`
 push to your branch: `git push origin name-of-your-branch`
 
 ## Running the site locally
-
-In any Terminal window run the following commands:
-
-`npm install -g http-server`
 
 Then in the project folder in VS Code, go into Terminal and run:
 
