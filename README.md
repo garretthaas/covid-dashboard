@@ -6,11 +6,11 @@ https://nodejs.org/en/
 
 
 ## Working with GIT
-Make a folder for this project somewhere on your computer. I keep them in a "sites" folder in my user folder. Open the project folder you just made in VS Code.
+Make a folder for this project somewhere on your computer. I keep them in a "sites" folder in my "User" folder. Open the project folder you just made in VS Code.
 
 1. In VS Code go to Terminal > New Terminal.
 2. Then go to Terminal > Split Terminal.
-3. Do that so you have 4 Terminal windos open.
+3. Do that so you have 4 Terminal windows open.
 4. In the first terminal window run the following command:
 
 `git clone https://github.com/garretthaas/covid-dashboard/tree/master`
