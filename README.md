@@ -15,7 +15,7 @@ Make a folder for this project somewhere on your computer. I keep them in a "sit
 
 `git clone https://github.com/garretthaas/covid-dashboard/tree/master`
 
-Once you see the repository files on your local computer, run the following commands in the same Terminal window. Make sure to replace name-of-your-branch with your name, e.g. h0plyn.
+Once you see the repository files on your local computer, run the following commands in the same Terminal window. Make sure to replace `name-of-your-branch` with your name, e.g. h0plyn.
 
 `git checkout -b name-of-your-branch`
 
