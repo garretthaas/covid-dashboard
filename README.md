@@ -35,7 +35,7 @@ finally, push to your branch: `git push origin name-of-your-branch`
 
 ## Running the site locally
 
-Then in the project folder in VS Code, go into Terminal and run:
+Go back to the first Terminal window in VS Code and run:
 
 `npm install` 
 
