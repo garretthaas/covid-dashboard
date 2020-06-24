@@ -34,4 +34,8 @@ In any Terminal window run the following commands:
 
 Then in the project folder in VS Code, go into Terminal and run:
 
+`npm install` 
+
+once, the install is done, run:
+
 `http-server`
