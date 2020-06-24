@@ -1,0 +1,24 @@
+{
+  "name": "covid",
+  "version": "1.0.0",
+  "description": "Covid dashboard app by Garrett Haas and Ricky Rhodes",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "styles": "node-sass --watch ./src/styles/sass -o ./src/styles/css",
+    "server": "http-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/garretthaas/covid-dashboard.git"
+  },
+  "author": "Garrett Haas, Ricky Rhodes",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/garretthaas/covid-dashboard/issues"
+  },
+  "homepage": "https://github.com/garretthaas/covid-dashboard#readme",
+  "dependencies": {
+    "node-sass": "^4.14.1"
+  }
+}

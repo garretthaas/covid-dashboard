@@ -30,12 +30,19 @@ push to your branch: `git push origin name-of-your-branch`
 ## Running the site locally
 
 In any Terminal window run the following commands:
+
 `npm install -g http-server`
 
 Then in the project folder in VS Code, go into Terminal and run:
 
 `npm install` 
 
-once, the install is done, run:
+once, the install is done, you can watch and run the local server with the following commands:
 
-`http-server`
+To watch for scss changes:
+
+`npm run styles`
+
+To Launch the local server:
+
+`npm run server`
