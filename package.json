@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "styles": "node-sass --watch ./src/styles/sass -o ./src/styles/css",
-    "server": "http-server"
+    "start": "http-server"
   },
   "repository": {
     "type": "git",
