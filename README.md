@@ -39,6 +39,8 @@ Go back to the first Terminal window in VS Code and run:
 
 `npm install` 
 
+Wait for the install to finish.
+
 This is where the other 3 terminal windows come into play...
 
 In terminal window 2, launch the local server with:
