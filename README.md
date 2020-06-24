@@ -6,13 +6,16 @@ https://nodejs.org/en/
 
 
 ## Working with GIT
-In Terminal, make a folder for this project and open the folder in VS Code.
+Make a folder for this project somewhere on your computer. I keep them in a "sites" folder in my user folder. Open the project folder you just made in VS Code.
 
-In the folder you just made in VS Code, go to Terminal > New Terminal and run the following command:
+1. In VS Code go to Terminal > New Terminal.
+2. Then go to Terminal > Split Terminal.
+3. Do that so you have 4 Terminal windos open.
+4. In the first terminal window run the following command:
 
 `git clone https://github.com/garretthaas/covid-dashboard/tree/master`
 
-Once you see the repository files on your local computer, run the following commands in the same Terminal. Make sure to replace name-of-your-branch with your name, e.g. h0plyn.
+Once you see the repository files on your local computer, run the following commands in the same Terminal window. Make sure to replace name-of-your-branch with your name, e.g. h0plyn.
 
 `git checkout -b name-of-your-branch`
 
@@ -20,13 +23,15 @@ Once you see the repository files on your local computer, run the following comm
 
 `git branch`
 
-All your changes will be done on this new branch. To commit your code use terminal.
+All your changes will be done on this new branch. This new branch is your own. You can't mess up the master branch by working on your branch. 
 
-add your changes: `git add .`
+Now, change the h1 tag in the index.html file and save. Next you will add, commit, and push your code changes to the repository branch you just made. To commit your code use the first Terminal Window again.
 
-commit your changes: `git commit -m 'brief note on what you changed'`
+Add your changes: `git add .`
 
-push to your branch: `git push origin name-of-your-branch`
+then commit your changes: `git commit -m 'brief note on what you changed'`
+
+finally, push to your branch: `git push origin name-of-your-branch`
 
 ## Running the site locally
 
@@ -34,12 +39,24 @@ Then in the project folder in VS Code, go into Terminal and run:
 
 `npm install` 
 
-once, the install is done, you can watch and run the local server with the following commands:
+This is where the other 3 terminal windows come into play...
 
-To watch for scss changes:
+In terminal window 2, launch the local server with:
+
+`npm run server`
+
+In terminal window 3 watch for scss changes with:
 
 `npm run styles`
 
-To Launch the local server:
+In terminal window 4 watch for javascript / js module changes with:
 
-`npm run server`
+`npm run scripts`
+
+Keep using terminal window 1 for git commands. 
+
+Having 4 different terminal windows for this is unideal and these commands need to be refactored. Ideally, we will have a single `npm run watch` command, but I don't know how to do that yet. For now this will have to do. Appreciate your flexibility working with this.
+
+If you run into errors message me on slack.
+
+-g
