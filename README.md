@@ -5,8 +5,12 @@ If you haven't already Install Node.js and NPM, follow this link and install Nod
 https://nodejs.org/en/
 
 ## Working with GIT
-Download and install [Sourcetree](https://www.sourcetreeapp.com/)
+Download this repository locally then:
+`git checkout -b name-of-your-new-branch`
 
+`git push origin name-of-your-new-branch`
+
+`git branch`
 
 ## Make a repository 
 
@@ -14,5 +18,7 @@ Download and install [Sourcetree](https://www.sourcetreeapp.com/)
 ## n terminal
 
 `npm install -g http-server`
+
 `cd project/root/folder`
+
 `npm install`
