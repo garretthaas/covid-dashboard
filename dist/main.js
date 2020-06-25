@@ -102,14 +102,13 @@ function component() {
     const element = document.createElement('div');
   
     // Lodash, now imported by this script
-    element.innerHTML = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.join(['Hello', 'Ricky'], ' ');
+    element.innerHTML = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.join(['Hello', 'Garrett'], ' ');
   
     return element;
   } 
   
   document.body.appendChild(component());
   
-  index.html
 
 /***/ }),
 /* 1 */
@@ -17280,7 +17279,7 @@ module.exports = function(module) {
 /* 4 */
 /***/ (function(module, exports) {
 
-console.log('Hi Ricky!');
+console.log('Hi Dan');
 
 /***/ })
 /******/ ]);
