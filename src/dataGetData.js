@@ -15,9 +15,8 @@ const getDataNational = () => {
     })
     .catch(error => console.log('error', error));
 }
-console.log('National Data:');
 const USA = getDataNational();
-
+ 
 //STATES//
 
 //GET COVID Tracking State Data x CA
@@ -31,12 +30,11 @@ const getDataByState = (state) => {
   .catch(error => console.log('error', error));
 }
 
-console.log('State Data:')
-const ohio = getDataByState('oh');
-const florida = getDataByState('fl');
-const cali = getDataByState('ca');
-const newyork = getDataByState('ny');
-const texas = getDataByState('tx');
+// const ohio = getDataByState('oh');
+// const florida = getDataByState('fl');
+// const cali = getDataByState('ca');
+// const newyork = getDataByState('ny');
+// const texas = getDataByState('tx');
 
 //WORLD//
 
@@ -48,8 +46,7 @@ const getDataWorld = () => {
   .then(data => console.log(data))
   .catch(error => console.log('error', error));
 }
-console.log('World Data')
-getDataWorld();
+
 
 // CITY/TERRITORY //
 //GET locatities from CovidData
@@ -57,3 +54,5 @@ getDataWorld();
 
 //COUNTRIES
 //GET Countries from CovidData
+
+export { getDataNational, getDataByState, getDataWorld };
