@@ -1,4 +1,4 @@
-import { getDataNational, getDataByState, getDataWorld, getDeathsTotalByCity, getDeathsNewByCity, getCasesTotalByCity, getCasesNewByCity, getCasesNewByRegion, getCasesTotalByRegion, getDeathsNewByRegion, getDeathsTotalByRegion } from './dataGetData';
+import { getDataNational, getDataByState, getDataWorld, getDeathsTotalByCity, getDeathsNewByCity, getCasesTotalByCity, getCasesNewByCity, getCasesNewByRegion, getCasesTotalByRegion, getDeathsNewByRegion, getDeathsTotalByRegion, getDataByCountry } from './dataGetData';
 
 export default function dataCallFunctions() {
     getDataNational();
@@ -29,6 +29,12 @@ export default function dataCallFunctions() {
     getDeathsTotalByRegion("Tokyo");
     getDeathsTotalByRegion("Hong Kong");
     getDeathsTotalByRegion("Sichuan");
+    getDataByCountry("China");
+    getDataByCountry("Japan");
+    getDataByCountry("Cambodia");
+    getDataByCountry("Italy");
+    getDataByCountry("South Korea");
+
     getDataWorld();
 }
 

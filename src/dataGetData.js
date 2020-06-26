@@ -151,6 +151,40 @@ const getDeathsTotalByRegion = (string) => {
 //COUNTRIES
 //GET Countries from CovidData
 //China, Cambodia, Japan, Italy, South Korea 
-//https://coviddata.github.io/coviddata/v1/countries/stats.json
 
-export { getDataNational, getDataByState, getDataWorld, getDeathsTotalByCity, getDeathsNewByCity, getCasesTotalByCity, getCasesNewByCity, getCasesNewByRegion, getCasesTotalByRegion, getDeathsNewByRegion, getDeathsTotalByRegion };
+//RED
+//Proof of Concept: Extracting all datapoints from one fetch then pushing them into an array
+const getDataByCountry = (string) => {
+  fetch('https://coviddata.github.io/coviddata/v1/countries/stats.json')
+  .then(response => response.json())
+  .then(data => {
+    const country = data.find(country => country.country.name === string)
+    console.log(`${country.country.name} new cases - ${country.dates["2020-06-25"].new.cases}`)
+    console.log(`${country.country.name} total cases- ${country.dates["2020-06-25"].cumulative.cases}`)
+    const newArray = [];
+    const innerArray = [];
+    const date = Object.keys(country.dates)
+    console.log(date)
+    const newCases = country.dates["2020-06-25"].new.cases
+    // const totalCases = country.dates["2020-06-25"].cumulative.cases
+    for (let i = 0; i < date.length; i++) {
+      let totalCases = country.dates[date[i]].cumulative.cases
+      innerArray.push(Object.keys(country.dates[i]))
+      innerArray.push(Object.keys())
+      // innerArray.push(totalCases)
+      newArray.push(innerArray);
+      console.log(newArray)
+      return newArray;
+      
+      
+    }
+   
+    // newArray.push(date[0])
+    // newArray.push(totalCases)
+    // console.log(newArray)
+    // return newArray;
+  })
+ 
+};
+getDataByCountry("China");
+export { getDataNational, getDataByState, getDataWorld, getDeathsTotalByCity, getDeathsNewByCity, getCasesTotalByCity, getCasesNewByCity, getCasesNewByRegion, getCasesTotalByRegion, getDeathsNewByRegion, getDeathsTotalByRegion, getDataByCountry };

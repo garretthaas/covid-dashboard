@@ -17305,6 +17305,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getCasesTotalByRegion", function() { return getCasesTotalByRegion; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDeathsNewByRegion", function() { return getDeathsNewByRegion; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDeathsTotalByRegion", function() { return getDeathsTotalByRegion; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDataByCountry", function() { return getDataByCountry; });
 //US//
 
 //GET COVID Tracking US Current Stats
@@ -17458,8 +17459,42 @@ const getDeathsTotalByRegion = (string) => {
 //COUNTRIES
 //GET Countries from CovidData
 //China, Cambodia, Japan, Italy, South Korea 
-//https://coviddata.github.io/coviddata/v1/countries/stats.json
 
+//RED
+//Proof of Concept: Extracting all datapoints from one fetch then pushing them into an array
+const getDataByCountry = (string) => {
+  fetch('https://coviddata.github.io/coviddata/v1/countries/stats.json')
+  .then(response => response.json())
+  .then(data => {
+    const country = data.find(country => country.country.name === string)
+    console.log(`${country.country.name} new cases - ${country.dates["2020-06-25"].new.cases}`)
+    console.log(`${country.country.name} total cases- ${country.dates["2020-06-25"].cumulative.cases}`)
+    const newArray = [];
+    const innerArray = [];
+    const date = Object.keys(country.dates)
+    console.log(date)
+    const newCases = country.dates["2020-06-25"].new.cases
+    // const totalCases = country.dates["2020-06-25"].cumulative.cases
+    for (let i = 0; i < date.length; i++) {
+      let totalCases = country.dates[date[i]].cumulative.cases
+      innerArray.push(Object.keys(country.dates[i]))
+      innerArray.push(Object.keys())
+      // innerArray.push(totalCases)
+      newArray.push(innerArray);
+      console.log(newArray)
+      return newArray;
+      
+      
+    }
+   
+    // newArray.push(date[0])
+    // newArray.push(totalCases)
+    // console.log(newArray)
+    // return newArray;
+  })
+ 
+};
+getDataByCountry("China");
 
 
 /***/ }),
@@ -17501,6 +17536,12 @@ function dataCallFunctions() {
     Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDeathsTotalByRegion"])("Tokyo");
     Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDeathsTotalByRegion"])("Hong Kong");
     Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDeathsTotalByRegion"])("Sichuan");
+    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataByCountry"])("China");
+    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataByCountry"])("Japan");
+    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataByCountry"])("Cambodia");
+    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataByCountry"])("Italy");
+    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataByCountry"])("South Korea");
+
     Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataWorld"])();
 }
 
