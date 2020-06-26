@@ -29,11 +29,7 @@ export default function dataCallFunctions() {
     getDeathsTotalByRegion("Tokyo");
     getDeathsTotalByRegion("Hong Kong");
     getDeathsTotalByRegion("Sichuan");
-    getDataByCountry("China");
-    getDataByCountry("Japan");
-    getDataByCountry("Cambodia");
-    getDataByCountry("Italy");
-    getDataByCountry("South Korea");
+    getDataByCountry();
 
     getDataWorld();
 }

@@ -6,11 +6,11 @@ const getDataNational = () => {
     fetch('https://covidtracking.com/api/v1/us/current.json')
     .then(response => response.json())
     .then(result => {
-        console.log(result)
+        // console.log(result)
         //Access Results from promise object
-        console.log('USA Hospitalizations: ' + result[0].hospitalized)
+        // console.log('USA Hospitalizations: ' + result[0].hospitalized)
     })
-    .catch(error => console.log('error', error));
+    // .catch(error => console.log('error', error));
 }
 
 //STATES//
@@ -22,8 +22,8 @@ const getDataByState = (state) => {
   const url = `https://covidtracking.com/api/v1/states/${state}/current.json`
   fetch(url)
   .then(response => response.json())
-  .then(data => console.log(data))
-  .catch(error => console.log('error', error));
+  // .then(data => console.log(data))
+  // .catch(error => console.log('error', error));
 }
 
 //WORLD//
@@ -33,8 +33,8 @@ const getDataByState = (state) => {
 const getDataWorld = () => {
   fetch('https://api.covid19api.com/world/total')
   .then(response => response.json())
-  .then(data => console.log(data))
-  .catch(error => console.log('error', error));
+  // .then(data => console.log(data))
+  // .catch(error => console.log('error', error));
 }
 
 // CITIES //
@@ -50,7 +50,7 @@ const getDeathsTotalByCity = (string) => {
   .then(response => response.json())
   .then(data => {
     const city = data.find(city => city.place.name === string);
-    console.log(`Total deaths in ${city.place.name}: ${city.dates["2020-06-24"].cumulative.deaths}`)
+    // console.log(`Total deaths in ${city.place.name}: ${city.dates["2020-06-24"].cumulative.deaths}`)
   })
 };
 
@@ -60,7 +60,7 @@ const getDeathsNewByCity = (string) => {
   .then(response => response.json())
   .then(data => {
     const city = data.find(city => city.place.name === string);
-    console.log(`New deaths in ${city.place.name}: ${city.dates["2020-06-24"].new.deaths}`)
+    // console.log(`New deaths in ${city.place.name}: ${city.dates["2020-06-24"].new.deaths}`)
   })
 };
 
@@ -71,7 +71,7 @@ const test = (string) => {
   .then(data => {
     let newArray = [];
     const city = data.find(city => city.place.name === string);
-    console.log(`New deaths in ${city.place.name}: ${city.dates["2020-06-24"].new.deaths}`)
+    // console.log(`New deaths in ${city.place.name}: ${city.dates["2020-06-24"].new.deaths}`)
     newArray.push(Object.values(city))
   })
 };
@@ -86,7 +86,7 @@ const getCasesTotalByCity = (string) => {
   .then(response => response.json())
   .then(data => {
     const city = data.find(city => city.place.name === string);
-    console.log(`Total cases in ${city.place.name}: ${city.dates["2020-06-24"].cumulative.cases}`)
+    // console.log(`Total cases in ${city.place.name}: ${city.dates["2020-06-24"].cumulative.cases}`)
   })
 };
 
@@ -97,7 +97,7 @@ const getCasesNewByCity = (string) => {
   .then(response => response.json())
   .then(data => {
     const city = data.find(city => city.place.name === string);
-    console.log(`New cases in ${city.place.name}: ${city.dates["2020-06-24"].new.cases}`)
+    // console.log(`New cases in ${city.place.name}: ${city.dates["2020-06-24"].new.cases}`)
   })
 };
 
@@ -111,7 +111,7 @@ const getCasesNewByRegion = (string) => {
   .then (data => {
     //Does using city make sense here? region gets messy
     const city = data.find(city => city.region.name === string);
-    console.log(`New cases in ${city.region.name}: ${city.dates["2020-06-24"].new.cases}`)
+    // console.log(`New cases in ${city.region.name}: ${city.dates["2020-06-24"].new.cases}`)
   })
 };
 
@@ -122,7 +122,7 @@ const getCasesTotalByRegion = (string) => {
   .then (data => {
     //Does using city make sense here? region gets messy
     const city = data.find(city => city.region.name === string);
-    console.log(`Total cases in ${city.region.name}: ${city.dates["2020-06-24"].cumulative.cases}`)
+    // console.log(`Total cases in ${city.region.name}: ${city.dates["2020-06-24"].cumulative.cases}`)
   })
 };
 
@@ -133,7 +133,7 @@ const getDeathsNewByRegion = (string) => {
   .then (data => {
     //Does using city make sense here? region gets messy
     const city = data.find(city => city.region.name === string);
-    console.log(`New deaths in ${city.region.name}: ${city.dates["2020-06-24"].new.deaths}`)
+    // console.log(`New deaths in ${city.region.name}: ${city.dates["2020-06-24"].new.deaths}`)
   })
 };
 
@@ -144,7 +144,7 @@ const getDeathsTotalByRegion = (string) => {
   .then (data => {
     //Does using city make sense here? region gets messy
     const city = data.find(city => city.region.name === string);
-    console.log(`Total Deaths in ${city.region.name}: ${city.dates["2020-06-24"].cumulative.deaths}`)
+    // console.log(`Total Deaths in ${city.region.name}: ${city.dates["2020-06-24"].cumulative.deaths}`)
   })
 };
 
@@ -154,37 +154,35 @@ const getDeathsTotalByRegion = (string) => {
 
 //RED
 //Proof of Concept: Extracting all datapoints from one fetch then pushing them into an array
-const getDataByCountry = (string) => {
+const getDataByCountry = () => {
+  // set up the data array
+  let dataArray = [];
+
+  // fetch the data
   fetch('https://coviddata.github.io/coviddata/v1/countries/stats.json')
   .then(response => response.json())
   .then(data => {
-    const country = data.find(country => country.country.name === string)
-    console.log(`${country.country.name} new cases - ${country.dates["2020-06-25"].new.cases}`)
-    console.log(`${country.country.name} total cases- ${country.dates["2020-06-25"].cumulative.cases}`)
-    const newArray = [];
-    const innerArray = [];
-    const date = Object.keys(country.dates)
-    console.log(date)
-    const newCases = country.dates["2020-06-25"].new.cases
-    // const totalCases = country.dates["2020-06-25"].cumulative.cases
-    for (let i = 0; i < date.length; i++) {
-      let totalCases = country.dates[date[i]].cumulative.cases
-      innerArray.push(Object.keys(country.dates[i]))
-      innerArray.push(Object.keys())
-      // innerArray.push(totalCases)
-      newArray.push(innerArray);
-      console.log(newArray)
-      return newArray;
-      
-      
-    }
-   
-    // newArray.push(date[0])
-    // newArray.push(totalCases)
-    // console.log(newArray)
-    // return newArray;
+
+    // this is unique to the data at https://coviddata.github.io/coviddata/v1/countries/stats.json
+    let scope = data[0]; // set the scope
+    let scopeName = scope.country.name; // get the name of the scope (in this case country name) to print as a title
+    let dataOne = scope.dates; // drill down to the arrays of dates
+    
+    // this iterates over and separates the arrays of dates console.log(key) to see it
+    Object.keys(dataOne).forEach(function (key){
+      let one = key; // make this the first data point
+      let dataOneEach = dataOne[key]; // separates all the data in the dates so we can drill down further
+      let two = dataOneEach.cumulative.cases; // get cumulative cases and make it the second data point (this can be changed to any nested key in the dates array)
+
+      // now we take those data points and make them an array
+      let result = ({one, two});
+      dataArray.push(result);
+    });
+    
   })
+
+  // console.log(dataArray); // needed to use this in  visLineChart.js (check in there for changes). I couldn't figure out how to export the data. to mess with it
  
 };
-getDataByCountry("China");
+
 export { getDataNational, getDataByState, getDataWorld, getDeathsTotalByCity, getDeathsNewByCity, getCasesTotalByCity, getCasesNewByCity, getCasesNewByRegion, getCasesTotalByRegion, getDeathsNewByRegion, getDeathsTotalByRegion, getDataByCountry };
