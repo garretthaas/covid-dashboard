@@ -7,16 +7,12 @@ const getDataNational = () => {
     .then(response => response.json())
     .then(result => {
         console.log(result)
-        const dataNational = document.getElementById('dataNational')
-        const resultRendered = JSON.stringify(result, null, 2)
-        dataNational.innerHTML = resultRendered
         //Access Results from promise object
         console.log('USA Hospitalizations: ' + result[0].hospitalized)
     })
     .catch(error => console.log('error', error));
 }
-const USA = getDataNational();
- 
+
 //STATES//
 
 //GET COVID Tracking State Data x CA
@@ -30,12 +26,6 @@ const getDataByState = (state) => {
   .catch(error => console.log('error', error));
 }
 
-// const ohio = getDataByState('oh');
-// const florida = getDataByState('fl');
-// const cali = getDataByState('ca');
-// const newyork = getDataByState('ny');
-// const texas = getDataByState('tx');
-
 //WORLD//
 
 //GET World Total from COVID19API
@@ -47,12 +37,120 @@ const getDataWorld = () => {
   .catch(error => console.log('error', error));
 }
 
+// CITIES //
+//GET places from CovidData
+//Cases, Deaths
+//TO-DO
+//[] 1. Write function to insert current date as YYYY-MM-DD
 
-// CITY/TERRITORY //
-//GET locatities from CovidData
+//Cumulative Deaths
+//string === "City Name"
+const getDeathsTotalByCity = (string) => {
+  fetch('https://coviddata.github.io/coviddata/v1/places/stats.json')
+  .then(response => response.json())
+  .then(data => {
+    const city = data.find(city => city.place.name === string);
+    console.log(`Total deaths in ${city.place.name}: ${city.dates["2020-06-24"].cumulative.deaths}`)
+  })
+};
 
+//New Deaths
+const getDeathsNewByCity = (string) => {
+  fetch('https://coviddata.github.io/coviddata/v1/places/stats.json')
+  .then(response => response.json())
+  .then(data => {
+    const city = data.find(city => city.place.name === string);
+    console.log(`New deaths in ${city.place.name}: ${city.dates["2020-06-24"].new.deaths}`)
+  })
+};
+
+//TEST FOR DATAPPOINTS - DELETE
+const test = (string) => {
+  fetch('https://coviddata.github.io/coviddata/v1/places/stats.json')
+  .then(response => response.json())
+  .then(data => {
+    let newArray = [];
+    const city = data.find(city => city.place.name === string);
+    console.log(`New deaths in ${city.place.name}: ${city.dates["2020-06-24"].new.deaths}`)
+    newArray.push(Object.values(city))
+  })
+};
+
+test("Sullivan");
+
+
+//Cumulative Cases
+//string === "City Name"
+const getCasesTotalByCity = (string) => {
+  fetch('https://coviddata.github.io/coviddata/v1/places/stats.json')
+  .then(response => response.json())
+  .then(data => {
+    const city = data.find(city => city.place.name === string);
+    console.log(`Total cases in ${city.place.name}: ${city.dates["2020-06-24"].cumulative.cases}`)
+  })
+};
+
+//New Cases
+//String === "City Name"
+const getCasesNewByCity = (string) => {
+  fetch('https://coviddata.github.io/coviddata/v1/places/stats.json')
+  .then(response => response.json())
+  .then(data => {
+    const city = data.find(city => city.place.name === string);
+    console.log(`New cases in ${city.place.name}: ${city.dates["2020-06-24"].new.cases}`)
+  })
+};
+
+//REGIONS     
+//Tokyo, Hong Kong, Sichuan
+
+//New Cases by Region
+const getCasesNewByRegion = (string) => {
+  fetch('https://coviddata.github.io/coviddata/v1/regions/stats.json')
+  .then (response => response.json())
+  .then (data => {
+    //Does using city make sense here? region gets messy
+    const city = data.find(city => city.region.name === string);
+    console.log(`New cases in ${city.region.name}: ${city.dates["2020-06-24"].new.cases}`)
+  })
+};
+
+//Cumulative Cases by Region
+const getCasesTotalByRegion = (string) => {
+  fetch('https://coviddata.github.io/coviddata/v1/regions/stats.json')
+  .then (response => response.json())
+  .then (data => {
+    //Does using city make sense here? region gets messy
+    const city = data.find(city => city.region.name === string);
+    console.log(`Total cases in ${city.region.name}: ${city.dates["2020-06-24"].cumulative.cases}`)
+  })
+};
+
+//New Deaths By Region
+const getDeathsNewByRegion = (string) => {
+  fetch('https://coviddata.github.io/coviddata/v1/regions/stats.json')
+  .then (response => response.json())
+  .then (data => {
+    //Does using city make sense here? region gets messy
+    const city = data.find(city => city.region.name === string);
+    console.log(`New deaths in ${city.region.name}: ${city.dates["2020-06-24"].new.deaths}`)
+  })
+};
+
+//Total Deaths By Region
+const getDeathsTotalByRegion = (string) => {
+  fetch('https://coviddata.github.io/coviddata/v1/regions/stats.json')
+  .then (response => response.json())
+  .then (data => {
+    //Does using city make sense here? region gets messy
+    const city = data.find(city => city.region.name === string);
+    console.log(`Total Deaths in ${city.region.name}: ${city.dates["2020-06-24"].cumulative.deaths}`)
+  })
+};
 
 //COUNTRIES
 //GET Countries from CovidData
+//China, Cambodia, Japan, Italy, South Korea 
+//https://coviddata.github.io/coviddata/v1/countries/stats.json
 
-export { getDataNational, getDataByState, getDataWorld };
+export { getDataNational, getDataByState, getDataWorld, getDeathsTotalByCity, getDeathsNewByCity, getCasesTotalByCity, getCasesNewByCity, getCasesNewByRegion, getCasesTotalByRegion, getDeathsNewByRegion, getDeathsTotalByRegion };
