@@ -103,6 +103,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+//Call all API gets//
+=======
+
 //EXAMPLE of export - to be deleted
 Object(_dataGetData_js__WEBPACK_IMPORTED_MODULE_2__["getDataNational"])();
 Object(_dataGetData_js__WEBPACK_IMPORTED_MODULE_2__["getDataByState"])('oh');
@@ -112,6 +115,7 @@ Object(_dataGetData_js__WEBPACK_IMPORTED_MODULE_2__["getDataWorld"])();
 Object(_visLineChart__WEBPACK_IMPORTED_MODULE_4__["visLineChart"])();
 
 //Call all API gets
+
 Object(_dataCallFunctions_js__WEBPACK_IMPORTED_MODULE_3__["default"])();
 
 _module__WEBPACK_IMPORTED_MODULE_1__["module"];
@@ -17296,7 +17300,7 @@ module.exports = function(module) {
 /* 4 */
 /***/ (function(module, exports) {
 
-console.log('Hi Dan');
+
 
 /***/ }),
 /* 5 */
@@ -17307,6 +17311,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDataNational", function() { return getDataNational; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDataByState", function() { return getDataByState; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDataWorld", function() { return getDataWorld; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDeathsTotalByCity", function() { return getDeathsTotalByCity; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDeathsNewByCity", function() { return getDeathsNewByCity; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getCasesTotalByCity", function() { return getCasesTotalByCity; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getCasesNewByCity", function() { return getCasesNewByCity; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getCasesNewByRegion", function() { return getCasesNewByRegion; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getCasesTotalByRegion", function() { return getCasesTotalByRegion; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDeathsNewByRegion", function() { return getDeathsNewByRegion; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDeathsTotalByRegion", function() { return getDeathsTotalByRegion; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDataByCountry", function() { return getDataByCountry; });
 //US//
 
 //GET COVID Tracking US Current Stats
@@ -17316,16 +17329,12 @@ const getDataNational = () => {
     .then(response => response.json())
     .then(result => {
         console.log(result)
-        const dataNational = document.getElementById('dataNational')
-        const resultRendered = JSON.stringify(result, null, 2)
-        dataNational.innerHTML = resultRendered
         //Access Results from promise object
         console.log('USA Hospitalizations: ' + result[0].hospitalized)
     })
     .catch(error => console.log('error', error));
 }
-const USA = getDataNational();
- 
+
 //STATES//
 
 //GET COVID Tracking State Data x CA
@@ -17339,12 +17348,6 @@ const getDataByState = (state) => {
   .catch(error => console.log('error', error));
 }
 
-// const ohio = getDataByState('oh');
-// const florida = getDataByState('fl');
-// const cali = getDataByState('ca');
-// const newyork = getDataByState('ny');
-// const texas = getDataByState('tx');
-
 //WORLD//
 
 //GET World Total from COVID19API
@@ -17356,14 +17359,156 @@ const getDataWorld = () => {
   .catch(error => console.log('error', error));
 }
 
+// CITIES //
+//GET places from CovidData
+//Cases, Deaths
+//TO-DO
+//[] 1. Write function to insert current date as YYYY-MM-DD
 
-// CITY/TERRITORY //
-//GET locatities from CovidData
+//Cumulative Deaths
+//string === "City Name"
+const getDeathsTotalByCity = (string) => {
+  fetch('https://coviddata.github.io/coviddata/v1/places/stats.json')
+  .then(response => response.json())
+  .then(data => {
+    const city = data.find(city => city.place.name === string);
+    console.log(`Total deaths in ${city.place.name}: ${city.dates["2020-06-24"].cumulative.deaths}`)
+  })
+};
 
+//New Deaths
+const getDeathsNewByCity = (string) => {
+  fetch('https://coviddata.github.io/coviddata/v1/places/stats.json')
+  .then(response => response.json())
+  .then(data => {
+    const city = data.find(city => city.place.name === string);
+    console.log(`New deaths in ${city.place.name}: ${city.dates["2020-06-24"].new.deaths}`)
+  })
+};
+
+//TEST FOR DATAPPOINTS - DELETE
+const test = (string) => {
+  fetch('https://coviddata.github.io/coviddata/v1/places/stats.json')
+  .then(response => response.json())
+  .then(data => {
+    let newArray = [];
+    const city = data.find(city => city.place.name === string);
+    console.log(`New deaths in ${city.place.name}: ${city.dates["2020-06-24"].new.deaths}`)
+    newArray.push(Object.values(city))
+  })
+};
+
+test("Sullivan");
+
+
+//Cumulative Cases
+//string === "City Name"
+const getCasesTotalByCity = (string) => {
+  fetch('https://coviddata.github.io/coviddata/v1/places/stats.json')
+  .then(response => response.json())
+  .then(data => {
+    const city = data.find(city => city.place.name === string);
+    console.log(`Total cases in ${city.place.name}: ${city.dates["2020-06-24"].cumulative.cases}`)
+  })
+};
+
+//New Cases
+//String === "City Name"
+const getCasesNewByCity = (string) => {
+  fetch('https://coviddata.github.io/coviddata/v1/places/stats.json')
+  .then(response => response.json())
+  .then(data => {
+    const city = data.find(city => city.place.name === string);
+    console.log(`New cases in ${city.place.name}: ${city.dates["2020-06-24"].new.cases}`)
+  })
+};
+
+//REGIONS     
+//Tokyo, Hong Kong, Sichuan
+
+//New Cases by Region
+const getCasesNewByRegion = (string) => {
+  fetch('https://coviddata.github.io/coviddata/v1/regions/stats.json')
+  .then (response => response.json())
+  .then (data => {
+    //Does using city make sense here? region gets messy
+    const city = data.find(city => city.region.name === string);
+    console.log(`New cases in ${city.region.name}: ${city.dates["2020-06-24"].new.cases}`)
+  })
+};
+
+//Cumulative Cases by Region
+const getCasesTotalByRegion = (string) => {
+  fetch('https://coviddata.github.io/coviddata/v1/regions/stats.json')
+  .then (response => response.json())
+  .then (data => {
+    //Does using city make sense here? region gets messy
+    const city = data.find(city => city.region.name === string);
+    console.log(`Total cases in ${city.region.name}: ${city.dates["2020-06-24"].cumulative.cases}`)
+  })
+};
+
+//New Deaths By Region
+const getDeathsNewByRegion = (string) => {
+  fetch('https://coviddata.github.io/coviddata/v1/regions/stats.json')
+  .then (response => response.json())
+  .then (data => {
+    //Does using city make sense here? region gets messy
+    const city = data.find(city => city.region.name === string);
+    console.log(`New deaths in ${city.region.name}: ${city.dates["2020-06-24"].new.deaths}`)
+  })
+};
+
+//Total Deaths By Region
+const getDeathsTotalByRegion = (string) => {
+  fetch('https://coviddata.github.io/coviddata/v1/regions/stats.json')
+  .then (response => response.json())
+  .then (data => {
+    //Does using city make sense here? region gets messy
+    const city = data.find(city => city.region.name === string);
+    console.log(`Total Deaths in ${city.region.name}: ${city.dates["2020-06-24"].cumulative.deaths}`)
+  })
+};
 
 //COUNTRIES
 //GET Countries from CovidData
+//China, Cambodia, Japan, Italy, South Korea 
 
+//RED
+//Proof of Concept: Extracting all datapoints from one fetch then pushing them into an array
+const getDataByCountry = (string) => {
+  fetch('https://coviddata.github.io/coviddata/v1/countries/stats.json')
+  .then(response => response.json())
+  .then(data => {
+    const country = data.find(country => country.country.name === string)
+    console.log(`${country.country.name} new cases - ${country.dates["2020-06-25"].new.cases}`)
+    console.log(`${country.country.name} total cases- ${country.dates["2020-06-25"].cumulative.cases}`)
+    const newArray = [];
+    const innerArray = [];
+    const date = Object.keys(country.dates)
+    console.log(date)
+    const newCases = country.dates["2020-06-25"].new.cases
+    // const totalCases = country.dates["2020-06-25"].cumulative.cases
+    for (let i = 0; i < date.length; i++) {
+      let totalCases = country.dates[date[i]].cumulative.cases
+      innerArray.push(Object.keys(country.dates[i]))
+      innerArray.push(Object.keys())
+      // innerArray.push(totalCases)
+      newArray.push(innerArray);
+      console.log(newArray)
+      return newArray;
+      
+      
+    }
+   
+    // newArray.push(date[0])
+    // newArray.push(totalCases)
+    // console.log(newArray)
+    // return newArray;
+  })
+ 
+};
+getDataByCountry("China");
 
 
 /***/ }),
@@ -17384,6 +17529,33 @@ function dataCallFunctions() {
     const cali = Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataByState"])('ca');
     const newyork = Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataByState"])('ny');
     const texas = Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataByState"])('tx');
+    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getCasesTotalByCity"])("New York City");
+    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getCasesTotalByCity"])("Los Angeles");
+    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getCasesTotalByCity"])("Lorain");
+    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDeathsTotalByCity"])("New York City");
+    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDeathsTotalByCity"])("Los Angeles");
+    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDeathsTotalByCity"])("Lorain");
+    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getCasesNewByCity"])("New York City");
+    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getCasesNewByCity"])("Los Angeles");
+    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getCasesNewByCity"])("Lorain");
+    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getCasesNewByRegion"])("Tokyo");
+    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getCasesNewByRegion"])("Hong Kong");
+    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getCasesNewByRegion"])("Sichuan");
+    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getCasesTotalByRegion"])("Tokyo");
+    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getCasesTotalByRegion"])("Hong Kong");
+    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getCasesTotalByRegion"])("Sichuan");
+    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDeathsNewByRegion"])("Tokyo");
+    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDeathsNewByRegion"])("Hong Kong");
+    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDeathsNewByRegion"])("Sichuan");
+    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDeathsTotalByRegion"])("Tokyo");
+    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDeathsTotalByRegion"])("Hong Kong");
+    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDeathsTotalByRegion"])("Sichuan");
+    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataByCountry"])("China");
+    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataByCountry"])("Japan");
+    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataByCountry"])("Cambodia");
+    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataByCountry"])("Italy");
+    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataByCountry"])("South Korea");
+
     Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataWorld"])();
 }
 

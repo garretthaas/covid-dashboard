@@ -13,6 +13,7 @@ getDataWorld();
 visLineChart();
 
 //Call all API gets
+
 dataCallFunctions();
 
 module;
