@@ -2,8 +2,18 @@ import _ from 'lodash';
 import { module } from './module';
 import { getDataNational, getDataByState, getDataWorld } from './dataGetData.js'
 import dataCallFunctions from './dataCallFunctions.js';
+import { visLineChart } from './visLineChart';
 
-//Call all API gets//
+//EXAMPLE of export - to be deleted
+getDataNational();
+getDataByState('oh');
+getDataWorld();
+
+// testing d3 visualization - delete when done
+visLineChart();
+
+//Call all API gets
+
 dataCallFunctions();
 
 module;
