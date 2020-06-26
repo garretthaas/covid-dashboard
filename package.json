@@ -24,6 +24,7 @@
     "lodash": "^4.17.15"
   },
   "devDependencies": {
+    "csv-loader": "^3.0.3",
     "node-sass": "^4.14.1",
     "npm-server": "0.0.1",
     "webpack": "^4.43.0",
