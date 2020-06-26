@@ -90,27 +90,31 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(module) {/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _visLineChart__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(7);
+/* harmony import */ var _module__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
+/* harmony import */ var _module__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_module__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _dataGetData_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5);
+/* harmony import */ var _dataCallFunctions_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(6);
+/* harmony import */ var _visLineChart__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(7);
 
-// import { module } from './module';
-// import { getDataNational, getDataByState, getDataWorld } from './dataGetData.js'
-// import dataCallFunctions from './dataCallFunctions.js';
 
 
-// //EXAMPLE of export - to be deleted
-// getDataNational();
-// getDataByState('oh');
-// getDataWorld();
+
+
+
+//EXAMPLE of export - to be deleted
+Object(_dataGetData_js__WEBPACK_IMPORTED_MODULE_2__["getDataNational"])();
+Object(_dataGetData_js__WEBPACK_IMPORTED_MODULE_2__["getDataByState"])('oh');
+Object(_dataGetData_js__WEBPACK_IMPORTED_MODULE_2__["getDataWorld"])();
 
 // testing d3 visualization - delete when done
-Object(_visLineChart__WEBPACK_IMPORTED_MODULE_1__["visLineChart"])();
+Object(_visLineChart__WEBPACK_IMPORTED_MODULE_4__["visLineChart"])();
 
-// //Call all API gets
-// dataCallFunctions();
+//Call all API gets
+Object(_dataCallFunctions_js__WEBPACK_IMPORTED_MODULE_3__["default"])();
 
-module;
+_module__WEBPACK_IMPORTED_MODULE_1__["module"];
 function component() {
     const element = document.createElement('div');
   
@@ -122,7 +126,6 @@ function component() {
   
   document.body.appendChild(component());
   
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(4)(module)))
 
 /***/ }),
 /* 1 */
@@ -17293,35 +17296,100 @@ module.exports = function(module) {
 /* 4 */
 /***/ (function(module, exports) {
 
-module.exports = function(originalModule) {
-	if (!originalModule.webpackPolyfill) {
-		var module = Object.create(originalModule);
-		// module.parent = undefined by default
-		if (!module.children) module.children = [];
-		Object.defineProperty(module, "loaded", {
-			enumerable: true,
-			get: function() {
-				return module.l;
-			}
-		});
-		Object.defineProperty(module, "id", {
-			enumerable: true,
-			get: function() {
-				return module.i;
-			}
-		});
-		Object.defineProperty(module, "exports", {
-			enumerable: true
-		});
-		module.webpackPolyfill = 1;
-	}
-	return module;
-};
+console.log('Hi Dan');
+
+/***/ }),
+/* 5 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDataNational", function() { return getDataNational; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDataByState", function() { return getDataByState; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDataWorld", function() { return getDataWorld; });
+//US//
+
+//GET COVID Tracking US Current Stats
+//All current datapoint for USA
+const getDataNational = () => {
+    fetch('https://covidtracking.com/api/v1/us/current.json')
+    .then(response => response.json())
+    .then(result => {
+        console.log(result)
+        const dataNational = document.getElementById('dataNational')
+        const resultRendered = JSON.stringify(result, null, 2)
+        dataNational.innerHTML = resultRendered
+        //Access Results from promise object
+        console.log('USA Hospitalizations: ' + result[0].hospitalized)
+    })
+    .catch(error => console.log('error', error));
+}
+const USA = getDataNational();
+ 
+//STATES//
+
+//GET COVID Tracking State Data x CA
+//All current datapoints for the States
+//state argument takes a 'string' of the 2 letter code of a state
+const getDataByState = (state) => {
+  const url = `https://covidtracking.com/api/v1/states/${state}/current.json`
+  fetch(url)
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.log('error', error));
+}
+
+// const ohio = getDataByState('oh');
+// const florida = getDataByState('fl');
+// const cali = getDataByState('ca');
+// const newyork = getDataByState('ny');
+// const texas = getDataByState('tx');
+
+//WORLD//
+
+//GET World Total from COVID19API
+//TotalConfirmed, TotalDeaths, TotalRecovered
+const getDataWorld = () => {
+  fetch('https://api.covid19api.com/world/total')
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.log('error', error));
+}
+
+
+// CITY/TERRITORY //
+//GET locatities from CovidData
+
+
+//COUNTRIES
+//GET Countries from CovidData
+
 
 
 /***/ }),
-/* 5 */,
-/* 6 */,
+/* 6 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return dataCallFunctions; });
+/* harmony import */ var _dataGetData__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
+
+
+function dataCallFunctions() {
+    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataNational"])();
+    //This is wrong, needs refactored
+    const ohio = Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataByState"])('oh');
+    const florida = Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataByState"])('fl');
+    const cali = Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataByState"])('ca');
+    const newyork = Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataByState"])('ny');
+    const texas = Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataByState"])('tx');
+    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataWorld"])();
+}
+
+
+
+/***/ }),
 /* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
