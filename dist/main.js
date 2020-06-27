@@ -103,13 +103,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-//EXAMPLE of export - to be deleted
-Object(_dataGetData_js__WEBPACK_IMPORTED_MODULE_2__["getDataNational"])();
-Object(_dataGetData_js__WEBPACK_IMPORTED_MODULE_2__["getDataByState"])('oh');
-Object(_dataGetData_js__WEBPACK_IMPORTED_MODULE_2__["getDataWorld"])();
+
 
 // testing d3 visualization - delete when done
-Object(_visLineChart__WEBPACK_IMPORTED_MODULE_4__["visLineChart"])("https://coviddata.github.io/coviddata/v1/countries/stats.json", "india");
+// visLineChart("https://coviddata.github.io/coviddata/v1/countries/stats.json", "india");
 
 //Call all API gets
 
@@ -17322,28 +17319,46 @@ __webpack_require__.r(__webpack_exports__);
 //GET COVID Tracking US Current Stats
 //All current datapoint for USA
 const getDataNational = () => {
-    fetch('https://covidtracking.com/api/v1/us/current.json')
-    .then(response => response.json())
-    .then(result => {
-        // console.log(result)
-        //Access Results from promise object
-        // console.log('USA Hospitalizations: ' + result[0].hospitalized)
-    })
-    // .catch(error => console.log('error', error));
+  fetch('https://covidtracking.com/api/v1/us/daily.json')
+  .then(response => response.json())
+  .then(result => {
+      const totalCases = result[0].positive
+      const totalChange = Math.round(((result[0].positive - result[1].positive) / result[1].positive)  * 100);
+      const totalPositive = Math.round(((result[0].positive / result[0].negative) * 100));
+      const positiveChange = Math.round(((result[0].positiveIncrease - result[1].positiveIncrease) / result[1].positiveIncrease) * 100);
+      const totalDeath = result[0].death;
+      const deathChange = Math.round(((result[0].deathIncrease - result[1].deathIncrease) / result[1].deathIncrease) * 100);
+      const totalHospitalizedCurrent = result[0].hospitalizedCurrently;
+      const hospitalizedChange = ((result[0].hospitalizedCurrently - result[1].hospitalizedCurrently) / result[1].hospitalizedCurrently) * 100;
+      
+      console.log(`United States Total Cases: ${totalCases}`);
+      console.log(`United States Total Percentage Change: ${totalChange}%`);
+      console.log(`United States Daily Positive Percentage: ${totalPositive}%`);
+      console.log(`United States Positive vs Prev Day: ${positiveChange}%`);
+      console.log(`United States Total Deaths: ${totalDeath}`);
+      console.log(`United States Deaths vs Prev Day: ${deathChange}%`)
+      console.log(`United States Total Hospitalizations: ${totalHospitalizedCurrent}`)
+      console.log(`United States Hospitalized vs. Prev Day: ${hospitalizedChange.toFixed(2)}%`)
+  })
+  .catch(error => console.log('error', error));
 }
 
 //STATES//
 
 //GET COVID Tracking State Data x CA
 //All current datapoints for the States
-//state argument takes a 'string' of the 2 letter code of a state
-const getDataByState = (state) => {
-  const url = `https://covidtracking.com/api/v1/states/${state}/current.json`
-  fetch(url)
-  .then(response => response.json())
-  // .then(data => console.log(data))
-  // .catch(error => console.log('error', error));
+//Argument takes a 'string' of the 2 letter code of a state
+const getDataByState = (state, dataPoint) => {
+const url = `https://covidtracking.com/api/v1/states/${state}/current.json`
+fetch(url)
+.then(response => response.json())
+.then(data => {
+  const attr = data[dataPoint]
+  return console.log(JSON.stringify(attr));
+});
+// .catch(error => console.log('error', error));
 }
+
 
 //WORLD//
 
@@ -17394,9 +17409,6 @@ const test = (string) => {
     newArray.push(Object.values(city))
   })
 };
-
-test("Sullivan");
-
 
 //Cumulative Cases
 //string === "City Name"
@@ -17522,11 +17534,11 @@ __webpack_require__.r(__webpack_exports__);
 function dataCallFunctions() {
     Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataNational"])();
     //This is wrong, needs refactored
-    const ohio = Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataByState"])('oh');
-    const florida = Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataByState"])('fl');
-    const cali = Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataByState"])('ca');
-    const newyork = Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataByState"])('ny');
-    const texas = Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataByState"])('tx');
+    const ohio = Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataByState"])('oh', 'positive');
+    const florida = Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataByState"])('fl', 'positive');
+    const cali = Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataByState"])('ca', 'positive');
+    const newyork = Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataByState"])('ny', 'positive');
+    const texas = Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataByState"])('tx', 'positive');
     Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getCasesTotalByCity"])("New York City");
     Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getCasesTotalByCity"])("Los Angeles");
     Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getCasesTotalByCity"])("Lorain");

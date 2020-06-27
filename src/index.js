@@ -4,13 +4,10 @@ import { getDataNational, getDataByState, getDataWorld } from './dataGetData.js'
 import dataCallFunctions from './dataCallFunctions.js';
 import { visLineChart } from './visLineChart';
 
-//EXAMPLE of export - to be deleted
-getDataNational();
-getDataByState('oh');
-getDataWorld();
+
 
 // testing d3 visualization - delete when done
-visLineChart("https://coviddata.github.io/coviddata/v1/countries/stats.json", "india");
+// visLineChart("https://coviddata.github.io/coviddata/v1/countries/stats.json", "india");
 
 //Call all API gets
 

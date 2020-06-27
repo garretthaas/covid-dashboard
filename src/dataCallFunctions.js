@@ -3,11 +3,11 @@ import { getDataNational, getDataByState, getDataWorld, getDeathsTotalByCity, ge
 export default function dataCallFunctions() {
     getDataNational();
     //This is wrong, needs refactored
-    const ohio = getDataByState('oh');
-    const florida = getDataByState('fl');
-    const cali = getDataByState('ca');
-    const newyork = getDataByState('ny');
-    const texas = getDataByState('tx');
+    const ohio = getDataByState('oh', 'positive');
+    const florida = getDataByState('fl', 'positive');
+    const cali = getDataByState('ca', 'positive');
+    const newyork = getDataByState('ny', 'positive');
+    const texas = getDataByState('tx', 'positive');
     getCasesTotalByCity("New York City");
     getCasesTotalByCity("Los Angeles");
     getCasesTotalByCity("Lorain");
