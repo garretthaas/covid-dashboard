@@ -170,18 +170,21 @@ const getDataByCountry = () => {
     
     // this iterates over and separates the arrays of dates console.log(key) to see it
     Object.keys(dataOne).forEach(function (key){
-      let one = key; // make this the first data point
+      //let one = key; // make this the first data point
+      let one = key;
+      //console.log(one);
       let dataOneEach = dataOne[key]; // separates all the data in the dates so we can drill down further
       let two = dataOneEach.cumulative.cases; // get cumulative cases and make it the second data point (this can be changed to any nested key in the dates array)
 
       // now we take those data points and make them an array
       let result = ({one, two});
       dataArray.push(result);
+      
     });
-    
+
   })
 
-  // console.log(dataArray); // needed to use this in  visLineChart.js (check in there for changes). I couldn't figure out how to export the data. to mess with it
+  return dataArray; // needed to use this in  visLineChart.js (check in there for changes). I couldn't figure out how to export the data. to mess with it
  
 };
 
