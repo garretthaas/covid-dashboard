@@ -1,5 +1,4 @@
-import { getDataByCountry } from './dataGetData';
-export const visLineChart = () => { 
+export const visLineChart = (dataUrl, dataCountry) => { 
 
     // set the dimensions and margins of the graph
     var margin = {top: 20, right: 20, bottom: 30, left: 50},
@@ -7,7 +6,7 @@ export const visLineChart = () => {
         height = 500 - margin.top - margin.bottom;
     
     // parse the one / time
-    var parseTime = d3.timeParse("%Y-%b-%d");
+    var parseTime = d3.timeParse("%Y-%m-%d");
     
     // set the ranges
     var x = d3.scaleTime().range([0, width]);
@@ -41,12 +40,24 @@ export const visLineChart = () => {
         const dataArrayObjects = {};
       
         // fetch the data
-        fetch('https://coviddata.github.io/coviddata/v1/countries/stats.json')
+        fetch(dataUrl)
         .then(response => response.json())
         .then(data => {
+            console.log(data);
       
           // this is unique to the data at https://coviddata.github.io/coviddata/v1/countries/stats.json
-          let scope = data[0]; // set the scope
+            function findIndexWithAttr(array, name, parent, attr) {
+                for(var i = 0; i < array.length; i += 1) {
+                    if(array[i][parent][attr] === name) {
+                        return i;
+                    }
+                }
+                return -1;
+            }
+            const index = findIndexWithAttr(data, dataCountry, 'country', 'key');
+            console.log(index);
+          
+          let scope = data[index]; // set the scope
           let scopeName = scope.country.name; // get the name of the scope (in this case country name)
           let dataOne = scope.dates; // drill down to the arrays of dates
           
@@ -54,7 +65,6 @@ export const visLineChart = () => {
           
           // this iterates over and separates the arrays of dates
           Object.keys(dataOne).forEach(function (key){
-              console.log(key);
             let one = key;
             let dataOneEach = dataOne[key]; // separates all the data in the dates so we can drill down further
             let two = dataOneEach.cumulative.cases; // get cumulative cases
