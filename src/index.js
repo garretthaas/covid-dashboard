@@ -10,7 +10,8 @@ getDataByState('oh');
 getDataWorld();
 
 // testing d3 visualization - delete when done
-visLineChart("https://coviddata.github.io/coviddata/v1/countries/stats.json", "india");
+visLineChart("https://coviddata.github.io/coviddata/v1/countries/stats.json", "united-states", "cumulative", "cases");
+visLineChart("https://coviddata.github.io/coviddata/v1/countries/stats.json", "united-states", "cumulative", "deaths");
 
 //Call all API gets
 

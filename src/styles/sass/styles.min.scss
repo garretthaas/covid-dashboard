@@ -1,6 +1,7 @@
 // PARTIALS
 // make sure all scss partials have an _ prefix like this... _module-name.scss
-@import './_modulestyle';
+@import './_line-graph';
+@import './_grid';
 
 // global
 h1 {

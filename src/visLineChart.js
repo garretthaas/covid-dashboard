@@ -1,4 +1,4 @@
-export const visLineChart = (dataUrl, dataCountry) => { 
+export const visLineChart = (dataUrl, dataCountry, dataCat, dataPoint) => { 
 
     // set the dimensions and margins of the graph
     var margin = {top: 20, right: 20, bottom: 30, left: 50},
@@ -26,9 +26,10 @@ export const visLineChart = (dataUrl, dataCountry) => {
     // append the svg obgect to the body of the page
     // appends a 'group' element to 'svg'
     // moves the 'group' element to the top left margin
-    var svg = d3.select("body").append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
+    var svg = d3.select(`#line-graph-${dataCountry}-${dataCat}-${dataPoint}`).append("svg")
+        .attr("viewBox", `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
+        // .attr("width", width + margin.left + margin.right)
+        // .attr("height", height + margin.top + margin.bottom)
       .append("g")
         .attr("transform",
               "translate(" + margin.left + "," + margin.top + ")");
@@ -67,7 +68,7 @@ export const visLineChart = (dataUrl, dataCountry) => {
           Object.keys(dataOne).forEach(function (key){
             let one = key;
             let dataOneEach = dataOne[key]; // separates all the data in the dates so we can drill down further
-            let two = dataOneEach.cumulative.cases; // get cumulative cases
+            let two = dataOneEach[dataCat][dataPoint]; // get cumulative cases
       
             // now we take those pieces of info and make them an array
             let result = ({one, two});
@@ -99,14 +100,14 @@ export const visLineChart = (dataUrl, dataCountry) => {
                     .attr("class", "line")
                     .attr("d", valueline);
                 
-                // add the X Axis
-                svg.append("g")
-                    .attr("transform", "translate(0," + height + ")")
-                    .call(d3.axisBottom(x));
+                // // add the X Axis
+                // svg.append("g")
+                //     .attr("transform", "translate(0," + height + ")")
+                //     .call(d3.axisBottom(x));
                 
-                // add the Y Axis
-                svg.append("g")
-                    .call(d3.axisLeft(y));
+                // // add the Y Axis
+                // svg.append("g")
+                //     .call(d3.axisLeft(y));
                 
                 });
           
