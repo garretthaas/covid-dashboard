@@ -1,5 +1,6 @@
 # user
 node_modules
+dist/main.js
 
 # Logs
 logs
