@@ -109,7 +109,7 @@ Object(_dataGetData_js__WEBPACK_IMPORTED_MODULE_2__["getDataByState"])('oh');
 Object(_dataGetData_js__WEBPACK_IMPORTED_MODULE_2__["getDataWorld"])();
 
 // testing d3 visualization - delete when done
-Object(_visLineChart__WEBPACK_IMPORTED_MODULE_4__["visLineChart"])();
+Object(_visLineChart__WEBPACK_IMPORTED_MODULE_4__["visLineChart"])("https://coviddata.github.io/coviddata/v1/countries/stats.json", "india");
 
 //Call all API gets
 
@@ -17489,18 +17489,21 @@ const getDataByCountry = () => {
     
     // this iterates over and separates the arrays of dates console.log(key) to see it
     Object.keys(dataOne).forEach(function (key){
-      let one = key; // make this the first data point
+      //let one = key; // make this the first data point
+      let one = key;
+      //console.log(one);
       let dataOneEach = dataOne[key]; // separates all the data in the dates so we can drill down further
       let two = dataOneEach.cumulative.cases; // get cumulative cases and make it the second data point (this can be changed to any nested key in the dates array)
 
       // now we take those data points and make them an array
       let result = ({one, two});
       dataArray.push(result);
+      
     });
-    
+
   })
 
-  // console.log(dataArray); // needed to use this in  visLineChart.js (check in there for changes). I couldn't figure out how to export the data. to mess with it
+  return dataArray; // needed to use this in  visLineChart.js (check in there for changes). I couldn't figure out how to export the data. to mess with it
  
 };
 
@@ -17559,9 +17562,7 @@ function dataCallFunctions() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "visLineChart", function() { return visLineChart; });
-/* harmony import */ var _dataGetData__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
-
-const visLineChart = () => { 
+const visLineChart = (dataUrl, dataCountry) => { 
 
     // set the dimensions and margins of the graph
     var margin = {top: 20, right: 20, bottom: 30, left: 50},
@@ -17569,7 +17570,7 @@ const visLineChart = () => {
         height = 500 - margin.top - margin.bottom;
     
     // parse the one / time
-    var parseTime = d3.timeParse("%Y-%b-%d");
+    var parseTime = d3.timeParse("%Y-%m-%d");
     
     // set the ranges
     var x = d3.scaleTime().range([0, width]);
@@ -17603,12 +17604,24 @@ const visLineChart = () => {
         const dataArrayObjects = {};
       
         // fetch the data
-        fetch('https://coviddata.github.io/coviddata/v1/countries/stats.json')
+        fetch(dataUrl)
         .then(response => response.json())
         .then(data => {
+            console.log(data);
       
           // this is unique to the data at https://coviddata.github.io/coviddata/v1/countries/stats.json
-          let scope = data[0]; // set the scope
+            function findIndexWithAttr(array, name, parent, attr) {
+                for(var i = 0; i < array.length; i += 1) {
+                    if(array[i][parent][attr] === name) {
+                        return i;
+                    }
+                }
+                return -1;
+            }
+            const index = findIndexWithAttr(data, dataCountry, 'country', 'key');
+            console.log(index);
+          
+          let scope = data[index]; // set the scope
           let scopeName = scope.country.name; // get the name of the scope (in this case country name)
           let dataOne = scope.dates; // drill down to the arrays of dates
           
@@ -17616,7 +17629,6 @@ const visLineChart = () => {
           
           // this iterates over and separates the arrays of dates
           Object.keys(dataOne).forEach(function (key){
-              console.log(key);
             let one = key;
             let dataOneEach = dataOne[key]; // separates all the data in the dates so we can drill down further
             let two = dataOneEach.cumulative.cases; // get cumulative cases
