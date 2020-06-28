@@ -1,22 +1,14 @@
-import { getDataNational, getDataByState, getDataWorld, getDeathsTotalByCity, getDeathsNewByCity, getCasesTotalByCity, getCasesNewByCity, getCasesNewByRegion, getCasesTotalByRegion, getDeathsNewByRegion, getDeathsTotalByRegion, getDataByCountry } from './dataGetData';
+import { getDataNational, getDataByState, getDataWorld, getDeathsNewByCity, getCasesTotalByCity, getCasesNewByCity, getCasesNewByRegion, getCasesTotalByRegion, getDeathsNewByRegion, getDeathsTotalByRegion, getDataByCountry, getDataByPlaces } from './dataGetData';
 
 export default function dataCallFunctions() {
     getDataNational();
     //This is wrong, needs refactored
-    const ohio = getDataByState('oh', 'positive');
-    const florida = getDataByState('fl', 'positive');
-    const cali = getDataByState('ca', 'positive');
-    const newyork = getDataByState('ny', 'positive');
-    const texas = getDataByState('tx', 'positive');
-    getCasesTotalByCity("New York City");
-    getCasesTotalByCity("Los Angeles");
-    getCasesTotalByCity("Lorain");
-    getDeathsTotalByCity("New York City");
-    getDeathsTotalByCity("Los Angeles");
-    getDeathsTotalByCity("Lorain");
-    getCasesNewByCity("New York City");
-    getCasesNewByCity("Los Angeles");
-    getCasesNewByCity("Lorain");
+    // const ohio = getDataByState('oh', 'positive');
+    // const florida = getDataByState('fl', 'positive');
+    // const cali = getDataByState('ca', 'positive');
+    // const newyork = getDataByState('ny', 'positive');
+    // const texas = getDataByState('tx', 'positive');
+    
     getCasesNewByRegion("Tokyo");
     getCasesNewByRegion("Hong Kong");
     getCasesNewByRegion("Sichuan");
@@ -29,8 +21,9 @@ export default function dataCallFunctions() {
     getDeathsTotalByRegion("Tokyo");
     getDeathsTotalByRegion("Hong Kong");
     getDeathsTotalByRegion("Sichuan");
+    getDataByPlaces("Lorain");
+    getDataByPlaces("Los Angeles");
     getDataByCountry();
-
     getDataWorld();
 }
 

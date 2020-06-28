@@ -7,7 +7,11 @@ import { visLineChart } from './visLineChart';
 
 
 // testing d3 visualization - delete when done
-// visLineChart("https://coviddata.github.io/coviddata/v1/countries/stats.json", "india");
+visLineChart("https://coviddata.github.io/coviddata/v1/countries/stats.json", "india");
+visLineChart("https://coviddata.github.io/coviddata/v1/countries/stats.json", "russia");
+
+
+
 
 //Call all API gets
 

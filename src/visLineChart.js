@@ -60,7 +60,7 @@ export const visLineChart = (dataUrl, dataCountry) => {
           let scope = data[index]; // set the scope
           let scopeName = scope.country.name; // get the name of the scope (in this case country name)
           let dataOne = scope.dates; // drill down to the arrays of dates
-          
+
           
           
           // this iterates over and separates the arrays of dates
@@ -68,7 +68,6 @@ export const visLineChart = (dataUrl, dataCountry) => {
             let one = key;
             let dataOneEach = dataOne[key]; // separates all the data in the dates so we can drill down further
             let two = dataOneEach.cumulative.cases; // get cumulative cases
-      
             // now we take those pieces of info and make them an array
             let result = ({one, two});
             dataArray.push(result);
