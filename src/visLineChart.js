@@ -43,7 +43,7 @@ export const visLineChart = (dataUrl, dataCountry) => {
         fetch(dataUrl)
         .then(response => response.json())
         .then(data => {
-            console.log(data);
+            // console.log(data);
       
           // this is unique to the data at https://coviddata.github.io/coviddata/v1/countries/stats.json
             function findIndexWithAttr(array, name, parent, attr) {
@@ -55,7 +55,7 @@ export const visLineChart = (dataUrl, dataCountry) => {
                 return -1;
             }
             const index = findIndexWithAttr(data, dataCountry, 'country', 'key');
-            console.log(index);
+            // console.log(index);
           
           let scope = data[index]; // set the scope
           let scopeName = scope.country.name; // get the name of the scope (in this case country name)
@@ -73,7 +73,7 @@ export const visLineChart = (dataUrl, dataCountry) => {
             dataArray.push(result);
           });
       
-          console.log(dataArray);
+        //   console.log(dataArray);
           
                 // format the data
                 dataArray.forEach(function(d) {

@@ -110,8 +110,6 @@ Object(_visLineChart__WEBPACK_IMPORTED_MODULE_4__["visLineChart"])("https://covi
 Object(_visLineChart__WEBPACK_IMPORTED_MODULE_4__["visLineChart"])("https://coviddata.github.io/coviddata/v1/countries/stats.json", "russia");
 
 
-
-
 //Call all API gets
 
 Object(_dataCallFunctions_js__WEBPACK_IMPORTED_MODULE_3__["default"])();
@@ -17309,10 +17307,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDataNational", function() { return getDataNational; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDataByState", function() { return getDataByState; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDataWorld", function() { return getDataWorld; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getCasesNewByRegion", function() { return getCasesNewByRegion; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getCasesTotalByRegion", function() { return getCasesTotalByRegion; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDeathsNewByRegion", function() { return getDeathsNewByRegion; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDeathsTotalByRegion", function() { return getDeathsTotalByRegion; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDataByRegion", function() { return getDataByRegion; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDataByCountry", function() { return getDataByCountry; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDataByPlaces", function() { return getDataByPlaces; });
 //COVID Dashboard API GETS
@@ -17324,35 +17319,64 @@ __webpack_require__.r(__webpack_exports__);
 //World Data
 //COVID19 API: https://api.covid19api.com/
 
-
 //TO-DO
-//[] 1. Refator Regions using GH logic
-//
-//US//
+//[x] 1. Refator Regions using GH logic
+//[x] 2. Refactor Countries using GH logic
+//[] 3. Get datapoints by State - @GH - where should we handle this?
+//[x] 4. How do we handle 'no new deaths' on day over day percentage? Returns NaN currently.
 
+//US//
 //GET COVID Tracking US Current Stats
-//All current datapoint for USA
+//All current datapoints for USA
 const getDataNational = () => {
   fetch('https://covidtracking.com/api/v1/us/daily.json')
   .then(response => response.json())
   .then(result => {
-      // const totalCases = result[0].positive
-      // const totalChange = Math.round(((result[0].positive - result[1].positive) / result[1].positive)  * 100);
-      // const totalPositive = Math.round(((result[0].positive / result[0].negative) * 100));
-      // const positiveChange = Math.round(((result[0].positiveIncrease - result[1].positiveIncrease) / result[1].positiveIncrease) * 100);
-      // const totalDeath = result[0].death;
-      // const deathChange = Math.round(((result[0].deathIncrease - result[1].deathIncrease) / result[1].deathIncrease) * 100);
-      // const totalHospitalizedCurrent = result[0].hospitalizedCurrently;
-      // const hospitalizedChange = ((result[0].hospitalizedCurrently - result[1].hospitalizedCurrently) / result[1].hospitalizedCurrently) * 100;
-      
-      // console.log(`United States Total Cases: ${totalCases}`);
-      // console.log(`United States Total Percentage Change: ${totalChange}%`);
-      // console.log(`United States Daily Positive Percentage: ${totalPositive}%`);
-      // console.log(`United States Positive vs Prev Day: ${positiveChange}%`);
-      // console.log(`United States Total Deaths: ${totalDeath}`);
-      // console.log(`United States Deaths vs Prev Day: ${deathChange}%`)
-      // console.log(`United States Total Hospitalizations: ${totalHospitalizedCurrent}`)
-      // console.log(`United States Hospitalized vs. Prev Day: ${hospitalizedChange.toFixed(2)}%`)
+      const totalCases = result[0].positive
+      const totalChange = Math.round(((result[0].positive - result[1].positive) / result[1].positive)  * 100);
+      const totalChangeX = () => {
+        if (isNaN(totalChange)) {
+          return totalCases
+        } else {
+          return totalChange
+        }
+      }
+      const totalPositive = Math.round(((result[0].positive / result[0].negative) * 100));
+      const positiveChange = Math.round(((result[0].positiveIncrease - result[1].positiveIncrease) / result[1].positiveIncrease) * 100);
+      const positiveChangeX = () => {
+        if (isNaN(positiveChange)) {
+          return totalPositive
+        } else {
+          return totalChange
+        }
+      }
+      const totalDeath = result[0].death;
+      const deathChange = Math.round(((result[0].deathIncrease - result[1].deathIncrease) / result[1].deathIncrease) * 100);
+      const deathChangeX = () => {
+        if (isNaN(deathChange)) {
+          return totalDeath
+        } else {
+          return deathChange
+        }
+      }
+      const totalHospitalizedCurrent = result[0].hospitalizedCurrently;
+      const hospitalizedChange = ((result[0].hospitalizedCurrently - result[1].hospitalizedCurrently) / result[1].hospitalizedCurrently) * 100;
+      const hospitalizedChangeX = () => {
+        if (isNaN(hospitalizedChange)) {
+          return totalHospitalizedCurrent
+        } else {
+          return hospitalizedChange
+        }
+      }
+
+      console.log(`United States Total Cases: ${totalCases}`);
+      console.log(`United States Total Percentage Change: ${totalChangeX()}%`);
+      console.log(`United States Daily Positive Percentage: ${totalPositive}%`);
+      console.log(`United States Positive vs Prev Day: ${positiveChangeX()}%`);
+      console.log(`United States Total Deaths: ${totalDeath}`);
+      console.log(`United States Deaths vs Prev Day: ${deathChangeX()}%`)
+      console.log(`United States Total Hospitalizations: ${totalHospitalizedCurrent}`)
+      console.log(`United States Hospitalized vs. Prev Day: ${hospitalizedChangeX().toFixed(2)}%`)
   })
   .catch(error => console.log('error', error));
 }
@@ -17361,7 +17385,7 @@ const getDataNational = () => {
 
 //GET COVID Tracking State Data
 //All current datapoints for the States
-//Argument takes a 'string' of the 2 letter code of a state
+//Argument takes a lowercase 'string' of the 2 letter code of a state
 //Relavent Datapoints:
 //date, state, positive, negative, hospitalizedCurrently, hospitalizedCumulative, lastUpdatedEt, death, positiveIncrease, total, hospitalizedIncrease, deathIncrease
 const getDataByState = (state, dataPoint) => {
@@ -17371,67 +17395,79 @@ fetch(url)
 .then(data => {
   const attr = data[dataPoint]
   return console.log(JSON.stringify(attr));
-});
-// .catch(error => console.log('error', error));
+})
+.catch(error => console.log('error', error));
 }
 
-//WORLD//
+//REGIONS
+//GET Regions from CovidData
+//Argument takes a string with a county name. e.g. "Tokyo", "Hong Kong", "Sichuan"
+//String must be in Title Case
+const getDataByRegion = (string) => {
+  // set up the data array
+  let dataArray = [];
+  let allDates = [];
 
-//GET World Total from COVID19API
-//TotalConfirmed, TotalDeaths, TotalRecovered
-const getDataWorld = () => {
-  fetch('https://api.covid19api.com/world/total')
+  // fetch the data
+  fetch('https://coviddata.github.io/coviddata/v1/regions/stats.json')
   .then(response => response.json())
-  // .then(data => console.log(data))
-  // .catch(error => console.log('error', error));
-}
+  .then(data => {
+    
+    //@GH - I edited this to abstract the the argument
+    let scope = data.find(region => region.region.name === string) // set the scope
+    //@GH - I edited this for Region
+    let scopeName = scope.region.name; // get the name of the scope (in this case country name) to print as a title
+    let dataOne = scope.dates; // drill down to the arrays of dates
+    
+    // this iterates over and separates the arrays of dates console.log(key) to see it
+    Object.keys(dataOne).forEach(function (key){
+     
+      //let one = key; // make this the first data point
+      let one = key;
+      let dataOneEach = dataOne[key]; // separates all the data in the dates so we can drill down further
+      let two = dataOneEach.cumulative.cases; // get cumulative cases and make it the second data point (this can be changed to any nested key in the dates array)
 
+      // now we take those data points and make them an array
+      let result = ({one, two});
+      dataArray.push(result);
 
-//REGIONS     
-//Tokyo, Hong Kong, Sichuan
+      //push all dates into an array to find current data day and previous day
+      allDates.push(one)
+    });
+    
+    //datapoints for regions(Tokyo, Sichuan, Hong Kong, etc.)
+    const todayDate = allDates[allDates.length-1];
+    const yesterdayDate = allDates[allDates.length-2];
+    const casesTotal = dataOne[todayDate].cumulative.cases;
+    const casesNew = dataOne[todayDate].new.cases;
+    const casesChange = Math.round(((dataOne[todayDate].new.cases - dataOne[yesterdayDate].new.cases) / dataOne[yesterdayDate].new.cases) * 100);
+    const casesChangeX = () => {
+      if (isNaN(casesChange)) {
+        return `N/A`
+      } else {
+        return casesChange
+      }
+    }
+    const deathsTotal = dataOne[todayDate].cumulative.deaths
+    const deathsNew = dataOne[todayDate].new.deaths
+    const deathsChange = Math.round(((dataOne[todayDate].new.deaths - dataOne[yesterdayDate].new.deaths) / dataOne[yesterdayDate].new.deaths) * 100);
+    const deathsChangeX = () => {
+      if (isNaN(deathsChange)) {
+        return `N/A`
+      } else {
+        return deathsChange
+      }
+    }
+    console.log(`${scopeName} New Cases: ${casesNew}`)
+    console.log(`${scopeName} Total Case % change vs. previous day: ${casesChangeX()}%`)
+    console.log(`${scopeName} Total Deaths: ${deathsTotal}`)
+    console.log(`${scopeName} New Deaths: ${deathsNew}`)
+    console.log(`${scopeName} Total Death % change vs. previous day: ${deathsChangeX()}%`)
 
-//New Cases by Region
-const getCasesNewByRegion = (string) => {
-  fetch('https://coviddata.github.io/coviddata/v1/regions/stats.json')
-  .then (response => response.json())
-  .then (data => {
-    //Does using city make sense here? region gets messy
-    const city = data.find(city => city.region.name === string);
-    // console.log(`New cases in ${city.region.name}: ${city.dates["2020-06-24"].new.cases}`)
   })
-};
 
-//Cumulative Cases by Region
-const getCasesTotalByRegion = (string) => {
-  fetch('https://coviddata.github.io/coviddata/v1/regions/stats.json')
-  .then (response => response.json())
-  .then (data => {
-    //Does using city make sense here? region gets messy
-    const city = data.find(city => city.region.name === string);
-    // console.log(`Total cases in ${city.region.name}: ${city.dates["2020-06-24"].cumulative.cases}`)
-  })
-};
+    return dataArray; // needed to use this in  visLineChart.js (check in there for changes). I couldn't figure out how to export the data. to mess with it
 
-//New Deaths By Region
-const getDeathsNewByRegion = (string) => {
-  fetch('https://coviddata.github.io/coviddata/v1/regions/stats.json')
-  .then (response => response.json())
-  .then (data => {
-    //Does using city make sense here? region gets messy
-    const city = data.find(city => city.region.name === string);
-    // console.log(`New deaths in ${city.region.name}: ${city.dates["2020-06-24"].new.deaths}`)
-  })
-};
-
-//Total Deaths By Region
-const getDeathsTotalByRegion = (string) => {
-  fetch('https://coviddata.github.io/coviddata/v1/regions/stats.json')
-  .then (response => response.json())
-  .then (data => {
-    //Does using city make sense here? region gets messy
-    const city = data.find(city => city.region.name === string);
-    // console.log(`Total Deaths in ${city.region.name}: ${city.dates["2020-06-24"].cumulative.deaths}`)
-  })
 };
 
 //PLACES (Counties)
@@ -17449,7 +17485,6 @@ const getDataByPlaces = (string) => {
     
     //@GH - I edited this to abstract the the argument
     let scope = data.find(place => place.place.name === string) // set the scope
-    console.log(scope)
     //@GH - I edited this for Place 
     let scopeName = scope.place.name; // get the name of the scope (in this case country name) to print as a title
     let dataOne = scope.dates; // drill down to the arrays of dates
@@ -17464,8 +17499,8 @@ const getDataByPlaces = (string) => {
       let two = dataOneEach.cumulative.cases; // get cumulative cases and make it the second data point (this can be changed to any nested key in the dates array)
 
       // now we take those data points and make them an array
-      let result = ({one, two});
-      dataArray.push(result);
+      // let result = ({one, two});
+      // dataArray.push(result);
 
       //push all dates into an array to find current data day and previous day
       allDates.push(one)
@@ -17478,16 +17513,30 @@ const getDataByPlaces = (string) => {
     const casesTotal = dataOne[todayDate].cumulative.cases;
     const casesNew = dataOne[todayDate].new.cases;
     const casesChange = Math.round(((dataOne[todayDate].new.cases - dataOne[yesterdayDate].new.cases) / dataOne[yesterdayDate].new.cases) * 100);
+    const casesChangeX = () => {
+      if (isNaN(casesChange)) {
+        return `N/A`
+      } else {
+        return casesChange
+      }
+    }
     const deathsTotal = dataOne[todayDate].cumulative.deaths
     const deathsNew = dataOne[todayDate].new.deaths
     const deathsChange = Math.round(((dataOne[todayDate].new.deaths - dataOne[yesterdayDate].new.deaths) / dataOne[yesterdayDate].new.deaths) * 100);
+    const deathsChangeX = () => {
+      if (isNaN(deathsChange)) {
+        return `N/A`
+      } else {
+        return deathsChange
+      }
+    }
 
-    console.log(`Total Cases: ${casesTotal}`)
-    console.log(`New Cases: ${casesNew}`)
-    console.log(`Total Case % change vs. previous day: ${casesChange}%`)
-    console.log(`Total Deaths: ${deathsTotal}`)
-    console.log(`New Deaths: ${deathsNew}`)
-    console.log(`Total Death % change vs. previous day: ${deathsChange}%`)
+    console.log(`${scopeName} Total Cases: ${casesTotal}`)
+    console.log(`${scopeName} New Cases: ${casesNew}`)
+    console.log(`${scopeName} Total Case % change vs. previous day: ${casesChangeX()}%`)
+    console.log(`${scopeName} Total Deaths: ${deathsTotal}`)
+    console.log(`${scopeName} New Deaths: ${deathsNew}`)
+    console.log(`${scopeName} Total Death % change vs. previous day: ${deathsChangeX()}%`)
 
   })
 
@@ -17498,22 +17547,24 @@ const getDataByPlaces = (string) => {
 
 //COUNTRIES
 //GET Countries from CovidData
-//"China", "Cambodia", Japan, Italy, South Korea 
+//String must be Title Case
+//"China", "Cambodia", "Japan", "Italy", "South Korea" 
 
-const getDataByCountry = () => {
+const getDataByCountry = (string) => {
   // set up the data array
   let dataArray = [];
+  let allDates = [];
 
   // fetch the data
   fetch('https://coviddata.github.io/coviddata/v1/countries/stats.json')
   .then(response => response.json())
   .then(data => {
 
-    // this is unique to the data at https://coviddata.github.io/coviddata/v1/countries/stats.json
-    let scope = data[0]; // set the scope
+    //@GH - I edited this to abstract the the argument
+    let scope = data.find(country => country.country.name === string) // set the scope
     let scopeName = scope.country.name; // get the name of the scope (in this case country name) to print as a title
     let dataOne = scope.dates; // drill down to the arrays of dates
-    
+
     // this iterates over and separates the arrays of dates console.log(key) to see it
     Object.keys(dataOne).forEach(function (key){
       //let one = key; // make this the first data point
@@ -17524,14 +17575,60 @@ const getDataByCountry = () => {
 
       // now we take those data points and make them an array
       let result = ({one, two});
-      dataArray.push(result);
-      
+      // dataArray.push(result);
+
+      //push all dates into an array to find current data day and previous day
+      allDates.push(one)
+    
     });
+
+    //datapoints for countries(Italy, South Korea, etc.)
+    const todayDate = allDates[allDates.length-1];
+    const yesterdayDate = allDates[allDates.length-2];
+    const casesTotal = dataOne[todayDate].cumulative.cases;
+    const casesNew = dataOne[todayDate].new.cases;
+    const casesChange = Math.round(((dataOne[todayDate].new.cases - dataOne[yesterdayDate].new.cases) / dataOne[yesterdayDate].new.cases) * 100);
+    const casesChangeX = () => {
+      if (isNaN(casesChange)) {
+        return `N/A`
+      } else {
+        return casesChange
+      }
+    }
+    const deathsTotal = dataOne[todayDate].cumulative.deaths
+    const deathsNew = dataOne[todayDate].new.deaths
+    const deathsChange = Math.round(((dataOne[todayDate].new.deaths - dataOne[yesterdayDate].new.deaths) / dataOne[yesterdayDate].new.deaths) * 100);
+    const deathsChangeX = () => {
+      if (isNaN(deathsChange)) {
+        return `N/A`
+      } else {
+        return deathsChange
+      }
+    }
+    
+    console.log(`${scopeName} Total Cases: ${casesTotal}`)
+    console.log(`${scopeName} New Cases: ${casesNew}`)
+    console.log(`${scopeName} Total Case % change vs. previous day: ${casesChangeX()}%`)
+    console.log(`${scopeName} Total Deaths: ${deathsTotal}`)
+    console.log(`${scopeName} New Deaths: ${deathsNew}`)
+    console.log(`${scopeName} Total Death % change vs. previous day: ${deathsChangeX()}%`)
+
   })
 
   return dataArray; // needed to use this in  visLineChart.js (check in there for changes). I couldn't figure out how to export the data. to mess with it
  
 };
+
+//WORLD//
+
+//GET World Total from COVID19API
+//TotalConfirmed, TotalDeaths, TotalRecovered
+const getDataWorld = () => {
+  fetch('https://api.covid19api.com/world/total')
+  .then(response => response.json())
+  // .then(data => console.log(data))
+  // .catch(error => console.log('error', error));
+}
 
 
 
@@ -17548,27 +17645,17 @@ __webpack_require__.r(__webpack_exports__);
 function dataCallFunctions() {
     Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataNational"])();
     //This is wrong, needs refactored
-    // const ohio = getDataByState('oh', 'positive');
-    // const florida = getDataByState('fl', 'positive');
-    // const cali = getDataByState('ca', 'positive');
-    // const newyork = getDataByState('ny', 'positive');
-    // const texas = getDataByState('tx', 'positive');
-    
-    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getCasesNewByRegion"])("Tokyo");
-    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getCasesNewByRegion"])("Hong Kong");
-    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getCasesNewByRegion"])("Sichuan");
-    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getCasesTotalByRegion"])("Tokyo");
-    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getCasesTotalByRegion"])("Hong Kong");
-    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getCasesTotalByRegion"])("Sichuan");
-    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDeathsNewByRegion"])("Tokyo");
-    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDeathsNewByRegion"])("Hong Kong");
-    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDeathsNewByRegion"])("Sichuan");
-    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDeathsTotalByRegion"])("Tokyo");
-    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDeathsTotalByRegion"])("Hong Kong");
-    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDeathsTotalByRegion"])("Sichuan");
+    const ohio = Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataByState"])('oh', 'positive');
+    const florida = Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataByState"])('fl', 'positive');
+    const cali = Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataByState"])('ca', 'positive');
+    const newyork = Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataByState"])('ny', 'positive');
+    const texas = Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataByState"])('tx', 'positive');
+    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataByRegion"])("Tokyo");
+    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataByRegion"])("Hong Kong");
+    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataByRegion"])("Sichuan");
     Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataByPlaces"])("Lorain");
     Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataByPlaces"])("Los Angeles");
-    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataByCountry"])();
+    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataByCountry"])("Belize");
     Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataWorld"])();
 }
 
@@ -17626,7 +17713,7 @@ const visLineChart = (dataUrl, dataCountry) => {
         fetch(dataUrl)
         .then(response => response.json())
         .then(data => {
-            console.log(data);
+            // console.log(data);
       
           // this is unique to the data at https://coviddata.github.io/coviddata/v1/countries/stats.json
             function findIndexWithAttr(array, name, parent, attr) {
@@ -17638,7 +17725,7 @@ const visLineChart = (dataUrl, dataCountry) => {
                 return -1;
             }
             const index = findIndexWithAttr(data, dataCountry, 'country', 'key');
-            console.log(index);
+            // console.log(index);
           
           let scope = data[index]; // set the scope
           let scopeName = scope.country.name; // get the name of the scope (in this case country name)
@@ -17656,7 +17743,7 @@ const visLineChart = (dataUrl, dataCountry) => {
             dataArray.push(result);
           });
       
-          console.log(dataArray);
+        //   console.log(dataArray);
           
                 // format the data
                 dataArray.forEach(function(d) {

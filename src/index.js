@@ -11,8 +11,6 @@ visLineChart("https://coviddata.github.io/coviddata/v1/countries/stats.json", "i
 visLineChart("https://coviddata.github.io/coviddata/v1/countries/stats.json", "russia");
 
 
-
-
 //Call all API gets
 
 dataCallFunctions();
