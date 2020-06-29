@@ -1,8 +1,38 @@
 // PARTIALS
 // make sure all scss partials have an _ prefix like this... _module-name.scss
 @import './_modulestyle';
-
+@import './reset';
 // global
+body {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 16px;
+}
 h1 {
-    color: green;
+    color: black;
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: bold;
+    line-height: 2.1rem;
+}
+
+a {
+    font-family: Georgia;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 2rem;
+    line-height: 2.1rem;
+    text-decoration: none;
+    color: black;
+}
+
+.flex {
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+}
+.navbar {
+    display: flex;
+    padding-left: 42px;
+    padding-right: 42px;
+    padding-top: 36px
 }

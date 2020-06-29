@@ -12,6 +12,7 @@
 //[x] 2. Refactor Countries using GH logic
 //[] 3. Get datapoints by State - @GH - where should we handle this?
 //[x] 4. How do we handle 'no new deaths' on day over day percentage? Returns NaN currently.
+//[] 5. Optimize API load times?
 
 //US//
 //GET COVID Tracking US Current Stats
@@ -86,12 +87,12 @@ fetch(url)
 })
 .catch(error => console.log('error', error));
 }
-
+console.log(`OHIO ${getDataByState('oh', 'positive')}`)
 //REGIONS
 //GET Regions from CovidData
 //Argument takes a string with a county name. e.g. "Tokyo", "Hong Kong", "Sichuan"
 //String must be in Title Case
-const getDataByRegion = (string) => {
+const getDataByRegion = (string, dataPoint) => {
   // set up the data array
   let dataArray = [];
   let allDates = [];
@@ -146,12 +147,21 @@ const getDataByRegion = (string) => {
         return deathsChange
       }
     }
+
+    //Log datapoints in the console
     console.log(`${scopeName} New Cases: ${casesNew}`)
+    console.log(scopeName);
     console.log(`${scopeName} Total Case % change vs. previous day: ${casesChangeX()}%`)
     console.log(`${scopeName} Total Deaths: ${deathsTotal}`)
     console.log(`${scopeName} New Deaths: ${deathsNew}`)
     console.log(`${scopeName} Total Death % change vs. previous day: ${deathsChangeX()}%`)
-
+    
+    //Print variables onto index.html - @GH, this is currently printing all Regions for onto the page when called
+    if (scopeName === 'Tokyo') {
+    var mainContainer = document.getElementById('tokyoCases');
+    var div = document.createElement("div");
+    div.innerHTML = `${scopeName} Region Cases Total: ${casesTotal}`
+    mainContainer.appendChild(div);}
   })
 
     return dataArray; // needed to use this in  visLineChart.js (check in there for changes). I couldn't figure out how to export the data. to mess with it
@@ -208,7 +218,7 @@ const getDataByPlaces = (string) => {
         return casesChange
       }
     }
-    const deathsTotal = dataOne[todayDate].cumulative.deaths
+    const dataPoint = dataOne[todayDate].cumulative.deaths
     const deathsNew = dataOne[todayDate].new.deaths
     const deathsChange = Math.round(((dataOne[todayDate].new.deaths - dataOne[yesterdayDate].new.deaths) / dataOne[yesterdayDate].new.deaths) * 100);
     const deathsChangeX = () => {
@@ -222,7 +232,7 @@ const getDataByPlaces = (string) => {
     console.log(`${scopeName} Total Cases: ${casesTotal}`)
     console.log(`${scopeName} New Cases: ${casesNew}`)
     console.log(`${scopeName} Total Case % change vs. previous day: ${casesChangeX()}%`)
-    console.log(`${scopeName} Total Deaths: ${deathsTotal}`)
+    console.log(`${scopeName} Total Deaths: ${dataPoint}`)
     console.log(`${scopeName} New Deaths: ${deathsNew}`)
     console.log(`${scopeName} Total Death % change vs. previous day: ${deathsChangeX()}%`)
 
@@ -283,7 +293,8 @@ const getDataByCountry = (string) => {
         return casesChange
       }
     }
-    const deathsTotal = dataOne[todayDate].cumulative.deaths
+
+    const dataPoint = dataOne[todayDate].cumulative.deaths
     const deathsNew = dataOne[todayDate].new.deaths
     const deathsChange = Math.round(((dataOne[todayDate].new.deaths - dataOne[yesterdayDate].new.deaths) / dataOne[yesterdayDate].new.deaths) * 100);
     const deathsChangeX = () => {
@@ -293,11 +304,11 @@ const getDataByCountry = (string) => {
         return deathsChange
       }
     }
-    
+
     console.log(`${scopeName} Total Cases: ${casesTotal}`)
     console.log(`${scopeName} New Cases: ${casesNew}`)
     console.log(`${scopeName} Total Case % change vs. previous day: ${casesChangeX()}%`)
-    console.log(`${scopeName} Total Deaths: ${deathsTotal}`)
+    console.log(`${scopeName} Total Deaths: ${dataPoint}`)
     console.log(`${scopeName} New Deaths: ${deathsNew}`)
     console.log(`${scopeName} Total Death % change vs. previous day: ${deathsChangeX()}%`)
 

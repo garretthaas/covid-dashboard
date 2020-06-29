@@ -94,25 +94,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _module__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
 /* harmony import */ var _module__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_module__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _dataGetData_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5);
-/* harmony import */ var _dataCallFunctions_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(6);
-/* harmony import */ var _visLineChart__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(7);
-
-
-
+/* harmony import */ var _dataCallFunctions_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(6);
+/* harmony import */ var _visLineChart__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(7);
 
 
 
 
 
 // testing d3 visualization - delete when done
-Object(_visLineChart__WEBPACK_IMPORTED_MODULE_4__["visLineChart"])("https://coviddata.github.io/coviddata/v1/countries/stats.json", "india");
-Object(_visLineChart__WEBPACK_IMPORTED_MODULE_4__["visLineChart"])("https://coviddata.github.io/coviddata/v1/countries/stats.json", "russia");
-
+Object(_visLineChart__WEBPACK_IMPORTED_MODULE_3__["visLineChart"])("https://coviddata.github.io/coviddata/v1/countries/stats.json", "united-states");
+Object(_visLineChart__WEBPACK_IMPORTED_MODULE_3__["visLineChart"])("https://coviddata.github.io/coviddata/v1/countries/stats.json", "belgium");
 
 //Call all API gets
-
-Object(_dataCallFunctions_js__WEBPACK_IMPORTED_MODULE_3__["default"])();
+Object(_dataCallFunctions_js__WEBPACK_IMPORTED_MODULE_2__["default"])();
 
 _module__WEBPACK_IMPORTED_MODULE_1__["module"];
 function component() {
@@ -17324,6 +17318,7 @@ __webpack_require__.r(__webpack_exports__);
 //[x] 2. Refactor Countries using GH logic
 //[] 3. Get datapoints by State - @GH - where should we handle this?
 //[x] 4. How do we handle 'no new deaths' on day over day percentage? Returns NaN currently.
+//[] 5. Optimize API load times?
 
 //US//
 //GET COVID Tracking US Current Stats
@@ -17398,12 +17393,12 @@ fetch(url)
 })
 .catch(error => console.log('error', error));
 }
-
+console.log(`OHIO ${getDataByState('oh', 'positive')}`)
 //REGIONS
 //GET Regions from CovidData
 //Argument takes a string with a county name. e.g. "Tokyo", "Hong Kong", "Sichuan"
 //String must be in Title Case
-const getDataByRegion = (string) => {
+const getDataByRegion = (string, dataPoint) => {
   // set up the data array
   let dataArray = [];
   let allDates = [];
@@ -17458,12 +17453,21 @@ const getDataByRegion = (string) => {
         return deathsChange
       }
     }
+
+    //Log datapoints in the console
     console.log(`${scopeName} New Cases: ${casesNew}`)
+    console.log(scopeName);
     console.log(`${scopeName} Total Case % change vs. previous day: ${casesChangeX()}%`)
     console.log(`${scopeName} Total Deaths: ${deathsTotal}`)
     console.log(`${scopeName} New Deaths: ${deathsNew}`)
     console.log(`${scopeName} Total Death % change vs. previous day: ${deathsChangeX()}%`)
-
+    
+    //Print variables onto index.html - @GH, this is currently printing all Regions for onto the page when called
+    if (scopeName === 'Tokyo') {
+    var mainContainer = document.getElementById('tokyoCases');
+    var div = document.createElement("div");
+    div.innerHTML = `${scopeName} Region Cases Total: ${casesTotal}`
+    mainContainer.appendChild(div);}
   })
 
     return dataArray; // needed to use this in  visLineChart.js (check in there for changes). I couldn't figure out how to export the data. to mess with it
@@ -17520,7 +17524,7 @@ const getDataByPlaces = (string) => {
         return casesChange
       }
     }
-    const deathsTotal = dataOne[todayDate].cumulative.deaths
+    const dataPoint = dataOne[todayDate].cumulative.deaths
     const deathsNew = dataOne[todayDate].new.deaths
     const deathsChange = Math.round(((dataOne[todayDate].new.deaths - dataOne[yesterdayDate].new.deaths) / dataOne[yesterdayDate].new.deaths) * 100);
     const deathsChangeX = () => {
@@ -17534,7 +17538,7 @@ const getDataByPlaces = (string) => {
     console.log(`${scopeName} Total Cases: ${casesTotal}`)
     console.log(`${scopeName} New Cases: ${casesNew}`)
     console.log(`${scopeName} Total Case % change vs. previous day: ${casesChangeX()}%`)
-    console.log(`${scopeName} Total Deaths: ${deathsTotal}`)
+    console.log(`${scopeName} Total Deaths: ${dataPoint}`)
     console.log(`${scopeName} New Deaths: ${deathsNew}`)
     console.log(`${scopeName} Total Death % change vs. previous day: ${deathsChangeX()}%`)
 
@@ -17595,7 +17599,8 @@ const getDataByCountry = (string) => {
         return casesChange
       }
     }
-    const deathsTotal = dataOne[todayDate].cumulative.deaths
+
+    const dataPoint = dataOne[todayDate].cumulative.deaths
     const deathsNew = dataOne[todayDate].new.deaths
     const deathsChange = Math.round(((dataOne[todayDate].new.deaths - dataOne[yesterdayDate].new.deaths) / dataOne[yesterdayDate].new.deaths) * 100);
     const deathsChangeX = () => {
@@ -17605,11 +17610,11 @@ const getDataByCountry = (string) => {
         return deathsChange
       }
     }
-    
+
     console.log(`${scopeName} Total Cases: ${casesTotal}`)
     console.log(`${scopeName} New Cases: ${casesNew}`)
     console.log(`${scopeName} Total Case % change vs. previous day: ${casesChangeX()}%`)
-    console.log(`${scopeName} Total Deaths: ${deathsTotal}`)
+    console.log(`${scopeName} Total Deaths: ${dataPoint}`)
     console.log(`${scopeName} New Deaths: ${deathsNew}`)
     console.log(`${scopeName} Total Death % change vs. previous day: ${deathsChangeX()}%`)
 
@@ -17639,26 +17644,26 @@ const getDataWorld = () => {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return dataCallFunctions; });
-/* harmony import */ var _dataGetData__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
+/* harmony import */ var _dataGetData_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
 
 
 function dataCallFunctions() {
-    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataNational"])();
+    Object(_dataGetData_js__WEBPACK_IMPORTED_MODULE_0__["getDataNational"])();
     //This is wrong, needs refactored
-    const ohio = Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataByState"])('oh', 'positive');
-    const florida = Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataByState"])('fl', 'positive');
-    const cali = Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataByState"])('ca', 'positive');
-    const newyork = Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataByState"])('ny', 'positive');
-    const texas = Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataByState"])('tx', 'positive');
-    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataByRegion"])("Tokyo");
-    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataByRegion"])("Hong Kong");
-    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataByRegion"])("Sichuan");
-    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataByPlaces"])("Lorain");
-    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataByPlaces"])("Los Angeles");
-    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataByCountry"])("Belize");
-    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataWorld"])();
-}
+    var ohio = Object(_dataGetData_js__WEBPACK_IMPORTED_MODULE_0__["getDataByState"])('oh', 'positive');
+    const florida = Object(_dataGetData_js__WEBPACK_IMPORTED_MODULE_0__["getDataByState"])('fl', 'positive');
+    const cali = Object(_dataGetData_js__WEBPACK_IMPORTED_MODULE_0__["getDataByState"])('ca', 'positive');
+    const newyork = Object(_dataGetData_js__WEBPACK_IMPORTED_MODULE_0__["getDataByState"])('ny', 'positive');
+    Object(_dataGetData_js__WEBPACK_IMPORTED_MODULE_0__["getDataByState"])('tx', 'positive');
+    Object(_dataGetData_js__WEBPACK_IMPORTED_MODULE_0__["getDataByRegion"])("Tokyo");
+    Object(_dataGetData_js__WEBPACK_IMPORTED_MODULE_0__["getDataByRegion"])("Hong Kong");
+    Object(_dataGetData_js__WEBPACK_IMPORTED_MODULE_0__["getDataByRegion"])("Sichuan");
+    Object(_dataGetData_js__WEBPACK_IMPORTED_MODULE_0__["getDataByPlaces"])("Lorain");
+    Object(_dataGetData_js__WEBPACK_IMPORTED_MODULE_0__["getDataByPlaces"])("Los Angeles");
+    Object(_dataGetData_js__WEBPACK_IMPORTED_MODULE_0__["getDataByCountry"])("Belize");
+    Object(_dataGetData_js__WEBPACK_IMPORTED_MODULE_0__["getDataWorld"])();
 
+};
 
 
 /***/ }),

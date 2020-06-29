@@ -3,13 +3,19 @@
   <head>
     <title>Covid Dashboard</title>
     <link rel="stylesheet" href="./dist/styles.min.css">
+
   </head>
   <body>
-    <h1>Covid Dashboard</h1>
-    <!-- Create a div where the graph will take place -->
-    <div id="vis--line-chart"></div>
-    <div id="dataNational"></div>
-    <script src="https://d3js.org/d3.v5.min.js"></script>
-    <script src="./dist/main.js"></script>
+    <nav class="flex navbar">
+      <div>
+        <h1>Covid Dashboard</h1>
+      </div>
+      <div>
+        <a href="about.html">about</a>
+      </div>
+    </nav>
+    <div id="tokyoCases"></div>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/d3/5.16.0/d3.min.js'></script>
+    <script src="./dist/main.js" type="text/javascript"></script>
   </body>
 </html>
