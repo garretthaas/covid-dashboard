@@ -1,12 +1,11 @@
 import _ from 'lodash';
 import { module } from './module';
-import dataCallFunctions from './dataCallFunctions.js';
 import blockUnitedStates from './blockUnitedStates';
+import blockCounty from './blockCounty';
 
 blockUnitedStates();
+blockCounty();
 
-//Call all API gets
-dataCallFunctions();
 
 module;
 function component() {

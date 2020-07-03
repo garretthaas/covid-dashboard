@@ -10,14 +10,19 @@
 //TO-DO
 //[x] 1. Refator Regions using GH logic
 //[x] 2. Refactor Countries using GH logic
-//[] 3. Get datapoints by State - @GH - where should we handle this?
+//[] 3. Get datapoints by State - @GH - where should we handle this? 
 //[x] 4. How do we handle 'no new deaths' on day over day percentage? Returns NaN currently.
 //[] 5. Optimize API load times?
+        // I was thinking about this. Probably a good thing to do would be to write a script
+        // that parses the data with python and saves a CSV daily. that way we have only the 
+        // data we need, and it's not happening at site load time. I realize now we may have 
+        // done it a very expensive way.
 
 //US//
 //GET COVID Tracking US Current Stats
 //All current datapoints for USA
 const getDataNational = () => {
+
   fetch('https://covidtracking.com/api/v1/us/daily.json')
   .then(response => response.json())
   .then(result => {
@@ -58,6 +63,8 @@ const getDataNational = () => {
         }
       }
 
+      return { totalCases, totalChange, totalChange, totalDeath, totalHospitalizedCurrent, totalPositive, positiveChange, deathChange, hospitalizedChange };
+
       console.log(`United States Total Cases: ${totalCases}`);
       console.log(`United States Total Percentage Change: ${totalChangeX()}%`);
       console.log(`United States Daily Positive Percentage: ${totalPositive}%`);
@@ -66,6 +73,22 @@ const getDataNational = () => {
       console.log(`United States Deaths vs Prev Day: ${deathChangeX()}%`)
       console.log(`United States Total Hospitalizations: ${totalHospitalizedCurrent}`)
       console.log(`United States Hospitalized vs. Prev Day: ${hospitalizedChangeX().toFixed(2)}%`)
+      
+
+      // const printData = (dataPoint, target) => {
+      //   const parent = document.getElementById("united-states");
+      //     parent.querySelector(target).querySelector('.current')
+      // }
+
+      // printData(total-cases, total-cases);
+      
+      // // print individual data points to the DOM
+      // let 
+      //   parent = document.getElementById("united-states"),
+      //   totalCases = parent.getElementsByClassName("hero--title")
+
+      //   ;
+
   })
   .catch(error => console.log('error', error));
 }
@@ -77,7 +100,7 @@ const getDataNational = () => {
 //Argument takes a lowercase 'string' of the 2 letter code of a state
 //Relavent Datapoints:
 //date, state, positive, negative, hospitalizedCurrently, hospitalizedCumulative, lastUpdatedEt, death, positiveIncrease, total, hospitalizedIncrease, deathIncrease
-const getDataByState = (state, dataPoint) => {
+const getDataByState = (state, dataPoint, target) => {
 const url = `https://covidtracking.com/api/v1/states/${state}/current.json`
 fetch(url)
 .then(response => response.json())
@@ -86,8 +109,16 @@ fetch(url)
   return console.log(JSON.stringify(attr));
 })
 .catch(error => console.log('error', error));
+
+  // // print
+  // const parent = document.getElementById(`state-${state}`);
+  // return parent.querySelector(`.${target}.content`).innerHTML(attr);
+
 }
+
+
 console.log(`OHIO ${getDataByState('oh', 'positive')}`)
+
 //REGIONS
 //GET Regions from CovidData
 //Argument takes a string with a county name. e.g. "Tokyo", "Hong Kong", "Sichuan"
