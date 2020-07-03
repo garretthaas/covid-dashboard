@@ -4,8 +4,8 @@ import dataCallFunctions from './dataCallFunctions.js';
 import { visLineChart } from './visLineChart';
 
 // testing d3 visualization - delete when done
-visLineChart("https://coviddata.github.io/coviddata/v1/countries/stats.json", "united-states");
-visLineChart("https://coviddata.github.io/coviddata/v1/countries/stats.json", "belgium");
+visLineChart("https://coviddata.github.io/coviddata/v1/countries/stats.json", "united-states", "cumulative", "cases");
+visLineChart("https://coviddata.github.io/coviddata/v1/countries/stats.json", "united-states", "cumulative", "deaths");
 
 //Call all API gets
 dataCallFunctions();
