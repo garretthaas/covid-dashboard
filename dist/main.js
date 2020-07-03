@@ -95,15 +95,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _module__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
 /* harmony import */ var _module__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_module__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _dataCallFunctions_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5);
-/* harmony import */ var _visLineChart__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(7);
+/* harmony import */ var _blockUnitedStates__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(7);
 
 
 
 
 
-// testing d3 visualization - delete when done
-Object(_visLineChart__WEBPACK_IMPORTED_MODULE_3__["visLineChart"])("https://coviddata.github.io/coviddata/v1/countries/stats.json", "united-states", "cumulative", "cases");
-Object(_visLineChart__WEBPACK_IMPORTED_MODULE_3__["visLineChart"])("https://coviddata.github.io/coviddata/v1/countries/stats.json", "united-states", "cumulative", "deaths");
+Object(_blockUnitedStates__WEBPACK_IMPORTED_MODULE_3__["default"])();
 
 //Call all API gets
 Object(_dataCallFunctions_js__WEBPACK_IMPORTED_MODULE_2__["default"])();
@@ -17668,6 +17666,25 @@ const getDataWorld = () => {
 
 /***/ }),
 /* 7 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return blockUnitedStates; });
+/* harmony import */ var _visLineChart__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
+
+
+function blockUnitedStates() {
+    // cumulative cases
+Object(_visLineChart__WEBPACK_IMPORTED_MODULE_0__["visLineChart"])("https://coviddata.github.io/coviddata/v1/countries/stats.json", "united-states", "cumulative", "cases");
+
+// cumulative deaths
+Object(_visLineChart__WEBPACK_IMPORTED_MODULE_0__["visLineChart"])("https://coviddata.github.io/coviddata/v1/countries/stats.json", "united-states", "cumulative", "deaths");
+
+};
+
+/***/ }),
+/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

@@ -1,11 +1,9 @@
 import _ from 'lodash';
 import { module } from './module';
 import dataCallFunctions from './dataCallFunctions.js';
-import { visLineChart } from './visLineChart';
+import blockUnitedStates from './blockUnitedStates';
 
-// testing d3 visualization - delete when done
-visLineChart("https://coviddata.github.io/coviddata/v1/countries/stats.json", "united-states", "cumulative", "cases");
-visLineChart("https://coviddata.github.io/coviddata/v1/countries/stats.json", "united-states", "cumulative", "deaths");
+blockUnitedStates();
 
 //Call all API gets
 dataCallFunctions();
