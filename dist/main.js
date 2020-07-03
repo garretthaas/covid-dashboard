@@ -94,7 +94,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _module__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
 /* harmony import */ var _module__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_module__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _dataCallFunctions_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(6);
+/* harmony import */ var _dataCallFunctions_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5);
 /* harmony import */ var _visLineChart__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(7);
 
 
@@ -17298,6 +17298,35 @@ module.exports = function(module) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return dataCallFunctions; });
+/* harmony import */ var _dataGetData_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6);
+
+
+function dataCallFunctions() {
+    Object(_dataGetData_js__WEBPACK_IMPORTED_MODULE_0__["getDataNational"])();
+    //This is wrong, needs refactored
+    var ohio = Object(_dataGetData_js__WEBPACK_IMPORTED_MODULE_0__["getDataByState"])('oh', 'positive');
+    const florida = Object(_dataGetData_js__WEBPACK_IMPORTED_MODULE_0__["getDataByState"])('fl', 'positive');
+    const cali = Object(_dataGetData_js__WEBPACK_IMPORTED_MODULE_0__["getDataByState"])('ca', 'positive');
+    const newyork = Object(_dataGetData_js__WEBPACK_IMPORTED_MODULE_0__["getDataByState"])('ny', 'positive');
+    Object(_dataGetData_js__WEBPACK_IMPORTED_MODULE_0__["getDataByState"])('tx', 'positive');
+    Object(_dataGetData_js__WEBPACK_IMPORTED_MODULE_0__["getDataByRegion"])("Tokyo");
+    Object(_dataGetData_js__WEBPACK_IMPORTED_MODULE_0__["getDataByRegion"])("Hong Kong");
+    Object(_dataGetData_js__WEBPACK_IMPORTED_MODULE_0__["getDataByRegion"])("Sichuan");
+    Object(_dataGetData_js__WEBPACK_IMPORTED_MODULE_0__["getDataByPlaces"])("Lorain");
+    Object(_dataGetData_js__WEBPACK_IMPORTED_MODULE_0__["getDataByPlaces"])("Los Angeles");
+    Object(_dataGetData_js__WEBPACK_IMPORTED_MODULE_0__["getDataByCountry"])("Belize");
+    Object(_dataGetData_js__WEBPACK_IMPORTED_MODULE_0__["getDataWorld"])();
+
+};
+
+
+/***/ }),
+/* 6 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDataNational", function() { return getDataNational; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDataByState", function() { return getDataByState; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDataWorld", function() { return getDataWorld; });
@@ -17635,35 +17664,6 @@ const getDataWorld = () => {
   // .catch(error => console.log('error', error));
 }
 
-
-
-/***/ }),
-/* 6 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return dataCallFunctions; });
-/* harmony import */ var _dataGetData_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
-
-
-function dataCallFunctions() {
-    Object(_dataGetData_js__WEBPACK_IMPORTED_MODULE_0__["getDataNational"])();
-    //This is wrong, needs refactored
-    var ohio = Object(_dataGetData_js__WEBPACK_IMPORTED_MODULE_0__["getDataByState"])('oh', 'positive');
-    const florida = Object(_dataGetData_js__WEBPACK_IMPORTED_MODULE_0__["getDataByState"])('fl', 'positive');
-    const cali = Object(_dataGetData_js__WEBPACK_IMPORTED_MODULE_0__["getDataByState"])('ca', 'positive');
-    const newyork = Object(_dataGetData_js__WEBPACK_IMPORTED_MODULE_0__["getDataByState"])('ny', 'positive');
-    Object(_dataGetData_js__WEBPACK_IMPORTED_MODULE_0__["getDataByState"])('tx', 'positive');
-    Object(_dataGetData_js__WEBPACK_IMPORTED_MODULE_0__["getDataByRegion"])("Tokyo");
-    Object(_dataGetData_js__WEBPACK_IMPORTED_MODULE_0__["getDataByRegion"])("Hong Kong");
-    Object(_dataGetData_js__WEBPACK_IMPORTED_MODULE_0__["getDataByRegion"])("Sichuan");
-    Object(_dataGetData_js__WEBPACK_IMPORTED_MODULE_0__["getDataByPlaces"])("Lorain");
-    Object(_dataGetData_js__WEBPACK_IMPORTED_MODULE_0__["getDataByPlaces"])("Los Angeles");
-    Object(_dataGetData_js__WEBPACK_IMPORTED_MODULE_0__["getDataByCountry"])("Belize");
-    Object(_dataGetData_js__WEBPACK_IMPORTED_MODULE_0__["getDataWorld"])();
-
-};
 
 
 /***/ }),
