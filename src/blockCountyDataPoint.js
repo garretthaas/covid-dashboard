@@ -45,13 +45,13 @@ const getDataByPlaces = (string) => {
       const casesChangeX = () => {
         if (isNaN(casesChange)) {
           return `0`
-        } else {
+        } else { 
           return casesChange
         }
       }
-      const dataPoint = dataOne[todayDate].cumulative.deaths
+      const totalDeaths = dataOne[todayDate].cumulative.deaths
       const deathsNew = dataOne[todayDate].new.deaths
-      const deathsChange = Math.round(((dataOne[todayDate].new.deaths - dataOne[yesterdayDate].new.deaths) / dataOne[yesterdayDate].new.deaths) * 100);
+      const deathsChange = Math.round(((dataOne[todayDate].new.death - dataOne[yesterdayDate].new.deaths) / dataOne[yesterdayDate].new.deaths) * 100);
       const deathsChangeX = () => {
         if (isNaN(deathsChange)) {
           return `0`
@@ -63,7 +63,7 @@ const getDataByPlaces = (string) => {
       console.log(`${scopeName} Total Cases: ${casesTotal}`)
       console.log(`${scopeName} New Cases: ${casesNew}`)
       console.log(`${scopeName} Total Case % change vs. previous day: ${casesChangeX()}%`)
-      console.log(`${scopeName} Total Deaths: ${dataPoint}`)
+      console.log(`${scopeName} Total Deaths: ${totalDeaths}`)
       console.log(`${scopeName} New Deaths: ${deathsNew}`)
       console.log(`${scopeName} Total Death % change vs. previous day: ${deathsChangeX()}%`)
       console.log(`${scopeName} Total Death % change vs. previous day: ${deathsChangeX()}%`)
@@ -73,15 +73,28 @@ const getDataByPlaces = (string) => {
     let parent = document.querySelector(`[data-parent="${scope.place.key}"]`)
     let dataOne = parent.querySelector('[data-point="cumulative-cases"]')
     .querySelector('[data-item="content"]')
+    dataOne.innerHTML = casesTotal.toLocaleString()
+
     let dataTwo = parent.querySelector('[data-point="new-cases"]')
     .querySelector('[data-item="content"]')
-    let dataThree = parent.querySelector('[data-point="percent-change"]')
-    .querySelector('[data-item="content"]') 
-
-    dataOne.innerHTML = casesTotal.toLocaleString()
     dataTwo.innerHTML = casesNew.toLocaleString()
+
+    let dataThree = parent.querySelector('[data-point="cases-percent-change"]')
+    .querySelector('[data-item="content"]') 
     dataThree.innerHTML = casesChangeX() + '%'
-    
+    //HELP!!!
+    let dataFour = parent.querySelector('[data-point="total-deaths"]')
+    .querySelector('[data-item="content"]')
+    dataFour.innerHTNL = totalDeaths
+
+    let dataFive = parent.querySelector('[data-point="new-deaths"]')
+    .querySelector('[data-item="content"]')
+    dataFive.innerHTML = deathsNew
+
+    let dataSix = parent.querySelector('[data-point="deaths-percent-change"]')
+    .querySelector('[data-item="content"]')
+    dataSix.innerHTML = deathsChangeX() + '%'
+
     }
 
  })
