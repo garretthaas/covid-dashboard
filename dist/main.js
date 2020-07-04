@@ -94,8 +94,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _module__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
 /* harmony import */ var _module__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_module__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _blockUnitedStates__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(8);
-/* harmony import */ var _blockCounty__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(5);
+/* harmony import */ var _blockUnitedStates__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5);
+/* harmony import */ var _blockCounty__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(8);
 
 
 
@@ -17297,14 +17297,28 @@ module.exports = function(module) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return blockCounty; });
-/* harmony import */ var _blockCountyDataPoint__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(9);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return blockUnitedStates; });
+/* harmony import */ var _blockUnitedStatesLineGraph__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6);
+/* harmony import */ var _blockUnitedStatesDataPoints__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(7);
 
 
-function blockCounty() {
-  Object(_blockCountyDataPoint__WEBPACK_IMPORTED_MODULE_0__["getDataByPlaces"])("Los Angeles");
-  Object(_blockCountyDataPoint__WEBPACK_IMPORTED_MODULE_0__["getDataByPlaces"])("Lorain");
-}
+
+
+function blockUnitedStates() {
+    // cumulative cases
+
+    Object(_blockUnitedStatesLineGraph__WEBPACK_IMPORTED_MODULE_0__["blockUnitedStatesLineGraph"])("https://covidtracking.com/api/v1/us/daily.json", "positive", "cumulative-cases");
+
+    // positive tests
+    Object(_blockUnitedStatesLineGraph__WEBPACK_IMPORTED_MODULE_0__["blockUnitedStatesLineGraph"])("https://covidtracking.com/api/v1/us/daily.json", "positive", "positive-tests");
+    
+    // cumulative deaths
+    Object(_blockUnitedStatesLineGraph__WEBPACK_IMPORTED_MODULE_0__["blockUnitedStatesLineGraph"])("https://covidtracking.com/api/v1/us/daily.json", "death", "cumulative-deaths");
+    
+    // hospitalizations
+    Object(_blockUnitedStatesLineGraph__WEBPACK_IMPORTED_MODULE_0__["blockUnitedStatesLineGraph"])("https://covidtracking.com/api/v1/us/daily.json", "hospitalizedCumulative", "hospitalizations");
+
+};
 
 /***/ }),
 /* 6 */
@@ -17312,71 +17326,8 @@ function blockCounty() {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDataNational", function() { return getDataNational; });
-const getDataNational = () => {
-
-    fetch('https://covidtracking.com/api/v1/us/daily.json')
-    .then(response => response.json())
-    .then(result => {
-        const totalCases = result[0].positive
-        const totalChange = Math.round(((result[0].positive - result[1].positive) / result[1].positive)  * 100);
-        const totalChangeX = () => {
-          if (isNaN(totalChange)) {
-            return totalCases
-          } else {
-            return totalChange
-          }
-        }
-        const totalPositive = Math.round(((result[0].positive / result[0].negative) * 100));
-        const positiveChange = Math.round(((result[0].positiveIncrease - result[1].positiveIncrease) / result[1].positiveIncrease) * 100);
-        const positiveChangeX = () => {
-          if (isNaN(positiveChange)) {
-            return totalPositive
-          } else {
-            return totalChange
-          }
-        }
-        const totalDeath = result[0].death;
-        const deathChange = Math.round(((result[0].deathIncrease - result[1].deathIncrease) / result[1].deathIncrease) * 100);
-        const deathChangeX = () => {
-          if (isNaN(deathChange)) {
-            return totalDeath
-          } else {
-            return deathChange
-          }
-        }
-        const totalHospitalizedCurrent = result[0].hospitalizedCurrently;
-        const hospitalizedChange = ((result[0].hospitalizedCurrently - result[1].hospitalizedCurrently) / result[1].hospitalizedCurrently) * 100;
-        const hospitalizedChangeX = () => { 
-          if (isNaN(hospitalizedChange)) {
-            return totalHospitalizedCurrent
-          } else {
-            return hospitalizedChange
-          }
-        }
-        
-        let parent = document.querySelector('[data-parent="united-states"]')
-        let printHospitalizations = parent.querySelector('[data-point="hospitalizations"]')
-        .querySelector('[data-item="content"]');
-        
-        printHospitalizations.innerHTML = JSON.stringify(totalHospitalizedCurrent);
-  
-    })
-    .catch(error => console.log('error', error));
-
-  };
-  
-  
-  
-
-/***/ }),
-/* 7 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "visLineChart", function() { return visLineChart; });
-const visLineChart = (dataUrl, dataCountry, dataCat, dataPoint) => { 
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "blockUnitedStatesLineGraph", function() { return blockUnitedStatesLineGraph; });
+const blockUnitedStatesLineGraph = (dataUrl, dataPoint, selector) => { 
 
     // set the dimensions and margins of the graph
     var margin = {top: 20, right: 20, bottom: 30, left: 50},
@@ -17384,7 +17335,7 @@ const visLineChart = (dataUrl, dataCountry, dataCat, dataPoint) => {
         height = 500 - margin.top - margin.bottom;
     
     // parse the one / time
-    var parseTime = d3.timeParse("%Y-%m-%d");
+    var parseTime = d3.timeParse("%Y%m%d");
     
     // set the ranges
     var x = d3.scaleTime().range([0, width]);
@@ -17405,13 +17356,13 @@ const visLineChart = (dataUrl, dataCountry, dataCat, dataPoint) => {
     // appends a 'group' element to 'svg'
     // moves the 'group' element to the top left margin
     
-    var svg = d3.select(`[data-parent="${dataCountry}"] [data-point="${dataCat}-${dataPoint}"] [data-item="line-graph"]`).append("svg")
+    var svg = d3.select(`[data-parent="united-states"] [data-point="${selector}"] [data-item="line-graph"]`).append("svg")
         .attr("viewBox", `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
       .append("g")
         .attr("transform",
               "translate(" + margin.left + "," + margin.top + ")");
     // get the data
-    const getDataByCountry = () => {
+    const getUSData = () => {
         // set up the object
         let dataArray = [];
         const dataArrayObjects = {};
@@ -17421,37 +17372,17 @@ const visLineChart = (dataUrl, dataCountry, dataCat, dataPoint) => {
         .then(response => response.json())
         .then(data => {
             console.log(data);
-      
-          // this is unique to the data at https://coviddata.github.io/coviddata/v1/countries/stats.json
-            function findIndexWithAttr(array, name, parent, attr) {
-                for(var i = 0; i < array.length; i += 1) {
-                    if(array[i][parent][attr] === name) {
-                        return i;
-                    }
-                }
-                return -1;
-            }
-            const index = findIndexWithAttr(data, dataCountry, 'country', 'key');
-            console.log(index);
-          
-          let scope = data[index]; // set the scope
-          let scopeName = scope.country.name; // get the name of the scope (in this case country name)
-          let dataOne = scope.dates; // drill down to the arrays of dates
-          
-          
-          
-          // this iterates over and separates the arrays of dates
-          Object.keys(dataOne).forEach(function (key){
-            let one = key;
-            let dataOneEach = dataOne[key]; // separates all the data in the dates so we can drill down further
-            let two = dataOneEach[dataCat][dataPoint]; // get cumulative cases
-      
-            // now we take those pieces of info and make them an array
-            let result = ({one, two});
-            dataArray.push(result);
-          });
-      
-          // console.log(dataArray);
+        
+            for (var i = 0, len = data.length; i < len; i++) { 
+                let one = data[i].date;
+                let two = data[i][dataPoint]; // get cumulative cases
+
+                 // now we take those pieces of info and make them an array
+                let result = ({one, two});
+                dataArray.push(result);
+
+             }
+          console.log(dataArray);
           
                 // format the data
                 dataArray.forEach(function(d) {
@@ -17464,9 +17395,9 @@ const visLineChart = (dataUrl, dataCountry, dataCat, dataPoint) => {
                 x.domain(d3.extent(dataArray, function(d) { return d.one; }));
                 y.domain([0, d3.max(dataArray, function(d) { return d.two; })]);
                 
-                let patternId = `pattern-circles-${dataCat}-${dataPoint}`,
+                let patternId = `pattern-circles-${selector}`,
                     patternURL = `url(#${patternId})`,
-                    clipId = `image-clip-${dataCat}-${dataPoint}`,
+                    clipId = `image-clip-${selector}`,
                     clipURL = `url(#${clipId})`,
                     backgroundSize = 300;
                 // add the background image pattern
@@ -17532,10 +17463,72 @@ const visLineChart = (dataUrl, dataCountry, dataCat, dataPoint) => {
           
     };
 
-
-    getDataByCountry();
+    getUSData();
 };
     
+
+/***/ }),
+/* 7 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDataNational", function() { return getDataNational; });
+const getDataNational = () => {
+
+    fetch('https://covidtracking.com/api/v1/us/daily.json')
+    .then(response => response.json())
+    .then(result => {
+        const totalCases = result[0].positive
+        const totalChange = Math.round(((result[0].positive - result[1].positive) / result[1].positive)  * 100);
+        const totalChangeX = () => {
+          if (isNaN(totalChange)) {
+            return totalCases
+          } else {
+            return totalChange
+          }
+        }
+        const totalPositive = Math.round(((result[0].positive / result[0].negative) * 100));
+        const positiveChange = Math.round(((result[0].positiveIncrease - result[1].positiveIncrease) / result[1].positiveIncrease) * 100);
+        const positiveChangeX = () => {
+          if (isNaN(positiveChange)) {
+            return totalPositive
+          } else {
+            return totalChange
+          }
+        }
+        const totalDeath = result[0].death;
+        const deathChange = Math.round(((result[0].deathIncrease - result[1].deathIncrease) / result[1].deathIncrease) * 100);
+        const deathChangeX = () => {
+          if (isNaN(deathChange)) {
+            return totalDeath
+          } else {
+            return deathChange
+          }
+        }
+        const totalHospitalizedCurrent = result[0].hospitalizedCurrently;
+        const hospitalizedChange = ((result[0].hospitalizedCurrently - result[1].hospitalizedCurrently) / result[1].hospitalizedCurrently) * 100;
+        const hospitalizedChangeX = () => { 
+          if (isNaN(hospitalizedChange)) {
+            return totalHospitalizedCurrent
+          } else {
+            return hospitalizedChange
+          }
+        }
+        
+        let parent = document.querySelector('[data-parent="united-states"]')
+        let printHospitalizations = parent.querySelector('[data-point="hospitalizations"]')
+        .querySelector('[data-item="content"]');
+        
+        printHospitalizations.innerHTML = JSON.stringify(totalHospitalizedCurrent);
+  
+    })
+    .catch(error => console.log('error', error));
+
+  };
+  
+  
+  
 
 /***/ }),
 /* 8 */
@@ -17543,22 +17536,14 @@ const visLineChart = (dataUrl, dataCountry, dataCat, dataPoint) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return blockUnitedStates; });
-/* harmony import */ var _visLineChart__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7);
-/* harmony import */ var _blockUnitedStatesDataPoints__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return blockCounty; });
+/* harmony import */ var _blockCountyDataPoint__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(9);
 
 
-
-
-function blockUnitedStates() {
-    // cumulative cases
-    // console.log("HEY GARRY" + getDataNational.totalCases);
-    Object(_visLineChart__WEBPACK_IMPORTED_MODULE_0__["visLineChart"])("https://coviddata.github.io/coviddata/v1/countries/stats.json", "united-states", "cumulative", "cases");
-    
-    // cumulative deaths
-    Object(_visLineChart__WEBPACK_IMPORTED_MODULE_0__["visLineChart"])("https://coviddata.github.io/coviddata/v1/countries/stats.json", "united-states", "cumulative", "deaths");
-    Object(_blockUnitedStatesDataPoints__WEBPACK_IMPORTED_MODULE_1__["getDataNational"])("United States");
-};
+function blockCounty() {
+  Object(_blockCountyDataPoint__WEBPACK_IMPORTED_MODULE_0__["getDataByPlaces"])("Los Angeles");
+  Object(_blockCountyDataPoint__WEBPACK_IMPORTED_MODULE_0__["getDataByPlaces"])("Lorain");
+}
 
 /***/ }),
 /* 9 */
