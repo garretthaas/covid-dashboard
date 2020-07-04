@@ -94,8 +94,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _module__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
 /* harmony import */ var _module__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_module__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _blockUnitedStates__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(8);
-/* harmony import */ var _blockCounty__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(5);
+/* harmony import */ var _blockUnitedStates__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5);
+/* harmony import */ var _blockCounty__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(8);
 
 
 
@@ -17297,109 +17297,25 @@ module.exports = function(module) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return blockCounty; });
-/* harmony import */ var _blockCountyDataPoint__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(9);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return blockUnitedStates; });
+/* harmony import */ var _visLineChart__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6);
+/* harmony import */ var _blockUnitedStatesDataPoints__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(7);
 
 
-function blockCounty() {
-  Object(_blockCountyDataPoint__WEBPACK_IMPORTED_MODULE_0__["getDataByPlaces"])("Los Angeles");
-  Object(_blockCountyDataPoint__WEBPACK_IMPORTED_MODULE_0__["getDataByPlaces"])("Lorain");
-}
+
+
+function blockUnitedStates() {
+    // cumulative cases
+    // console.log("HEY GARRY" + getDataNational.totalCases);
+    Object(_visLineChart__WEBPACK_IMPORTED_MODULE_0__["visLineChart"])("https://coviddata.github.io/coviddata/v1/countries/stats.json", "united-states", "cumulative", "cases");
+    
+    // cumulative deaths
+    Object(_visLineChart__WEBPACK_IMPORTED_MODULE_0__["visLineChart"])("https://coviddata.github.io/coviddata/v1/countries/stats.json", "united-states", "cumulative", "deaths");
+    Object(_blockUnitedStatesDataPoints__WEBPACK_IMPORTED_MODULE_1__["getDataNational"])("United States");
+};
 
 /***/ }),
 /* 6 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDataNational", function() { return getDataNational; });
-const getDataNational = () => {
-
-    fetch('https://covidtracking.com/api/v1/us/daily.json')
-    .then(response => response.json())
-    .then(result => {
-        const totalCases = result[0].positive
-        const totalChange = Math.round(((result[0].positive - result[1].positive) / result[1].positive)  * 100);
-        const totalChangeX = () => {
-          if (isNaN(totalChange)) {
-            return totalCases
-          } else {
-            return totalChange
-          }
-        }
-        const totalPositive = Math.round(((result[0].positive / result[0].negative) * 100));
-        const positiveChange = Math.round(((result[0].positiveIncrease - result[1].positiveIncrease) / result[1].positiveIncrease) * 100);
-        const positiveChangeX = () => {
-          if (isNaN(positiveChange)) {
-            return totalPositive
-          } else {
-            return totalChange
-          }
-        }
-        const totalDeath = result[0].death;
-        const deathChange = Math.round(((result[0].deathIncrease - result[1].deathIncrease) / result[1].deathIncrease) * 100);
-        const deathChangeX = () => {
-          if (isNaN(deathChange)) {
-            return totalDeath
-          } else {
-            return deathChange
-          }
-        }
-        const totalHospitalizedCurrent = result[0].hospitalizedCurrently;
-        const hospitalizedChange = Math.round(((result[0].hospitalizedCurrently - result[1].hospitalizedCurrently) / result[1].hospitalizedCurrently) * 100);
-        const hospitalizedChangeX = () => { 
-          if (isNaN(hospitalizedChange)) {
-            return totalHospitalizedCurrent
-          } else {
-            return hospitalizedChange
-          }
-        }
-        
-        let parent = document.querySelector('[data-parent="united-states"]')
-        
-
-        let printTotalCases = parent.querySelector('[data-point="cumulative-cases"]')
-        .querySelector('[data-item="content"]')
-        printTotalCases.innerHTML = JSON.stringify(totalCases)
-       
-        let printTotalChange = parent.querySelector('[data-point="cumulative-percent-change"]')
-        .querySelector('[data-item="data"]')
-        printTotalChange.innerHTML = JSON.stringify(totalChangeX()) + '%'
-
-        let printPositiveChange = parent.querySelector('[data-point="positive-tests"]')
-        .querySelector('[data-item="content')
-        printPositiveChange.innerHTML = JSON.stringify(totalPositive) + '%'
-
-        let printPrevDayPos = parent.querySelector('[data-point="positive-percent-change"]')
-        .querySelector('[data-item="data"]')
-        printPrevDayPos.innerHTML = JSON.stringify(positiveChangeX()) + '%'
-
-        let printTotalDeaths  = parent.querySelector('[data-point="cumulative-deaths"]')
-        .querySelector('[data-item="content"]')
-        printTotalDeaths.innerHTML = JSON.stringify(totalDeath)
-
-        let printPrevDayDeaths = parent.querySelector('[data-point="deaths-percent-change"]')
-        .querySelector('[data-item="data"]')
-        printPrevDayDeaths.innerHTML = JSON.stringify(deathChangeX()) + '%'
-
-        let printHospitalizations = parent.querySelector('[data-point="hospitalizations"]')
-        .querySelector('[data-item="content"]')
-        printHospitalizations.innerHTML = JSON.stringify(totalHospitalizedCurrent);
-
-        let printHospitalizationChange = parent.querySelector('[data-point="hospitalized-percent-change"]')
-        .querySelector('[data-item="data"]')
-        printHospitalizationChange.innerHTML = JSON.stringify(hospitalizedChangeX()) + '%'
-        
-    })
-    .catch(error => console.log('error', error));
-
-  };
-  
-  
-  
-
-/***/ }),
-/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -17567,27 +17483,111 @@ const visLineChart = (dataUrl, dataCountry, dataCat, dataPoint) => {
     
 
 /***/ }),
+/* 7 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDataNational", function() { return getDataNational; });
+const getDataNational = () => {
+
+    fetch('https://covidtracking.com/api/v1/us/daily.json')
+    .then(response => response.json())
+    .then(result => {
+        const totalCases = result[0].positive
+        const totalChange = Math.round(((result[0].positive - result[1].positive) / result[1].positive)  * 100);
+        const totalChangeX = () => {
+          if (isNaN(totalChange)) {
+            return totalCases
+          } else {
+            return totalChange
+          }
+        }
+        const totalPositive = Math.round(((result[0].positive / result[0].negative) * 100));
+        const positiveChange = Math.round(((result[0].positiveIncrease - result[1].positiveIncrease) / result[1].positiveIncrease) * 100);
+        const positiveChangeX = () => {
+          if (isNaN(positiveChange)) {
+            return totalPositive
+          } else {
+            return totalChange
+          }
+        }
+        const totalDeath = result[0].death;
+        const deathChange = Math.round(((result[0].deathIncrease - result[1].deathIncrease) / result[1].deathIncrease) * 100);
+        const deathChangeX = () => {
+          if (isNaN(deathChange)) {
+            return totalDeath
+          } else {
+            return deathChange
+          }
+        }
+        const totalHospitalizedCurrent = result[0].hospitalizedCurrently;
+        const hospitalizedChange = Math.round(((result[0].hospitalizedCurrently - result[1].hospitalizedCurrently) / result[1].hospitalizedCurrently) * 100);
+        const hospitalizedChangeX = () => { 
+          if (isNaN(hospitalizedChange)) {
+            return totalHospitalizedCurrent
+          } else {
+            return hospitalizedChange
+          }
+        }
+        
+        let parent = document.querySelector('[data-parent="united-states"]')
+        
+
+        let printTotalCases = parent.querySelector('[data-point="cumulative-cases"]')
+        .querySelector('[data-item="content"]')
+        printTotalCases.innerHTML = totalCases.toLocaleString()
+       
+        let printTotalChange = parent.querySelector('[data-point="cumulative-percent-change"]')
+        .querySelector('[data-item="data"]')
+        printTotalChange.innerHTML = JSON.stringify(totalChangeX()) + '%'
+
+        let printPositiveChange = parent.querySelector('[data-point="positive-tests"]')
+        .querySelector('[data-item="content')
+        printPositiveChange.innerHTML = JSON.stringify(totalPositive) + '%'
+
+        let printPrevDayPos = parent.querySelector('[data-point="positive-percent-change"]')
+        .querySelector('[data-item="data"]')
+        printPrevDayPos.innerHTML = JSON.stringify(positiveChangeX()) + '%'
+
+        let printTotalDeaths  = parent.querySelector('[data-point="cumulative-deaths"]')
+        .querySelector('[data-item="content"]')
+        printTotalDeaths.innerHTML = totalDeath.toLocaleString()
+
+        let printPrevDayDeaths = parent.querySelector('[data-point="deaths-percent-change"]')
+        .querySelector('[data-item="data"]')
+        printPrevDayDeaths.innerHTML = JSON.stringify(deathChangeX()) + '%'
+
+        let printHospitalizations = parent.querySelector('[data-point="hospitalizations"]')
+        .querySelector('[data-item="content"]')
+        printHospitalizations.innerHTML = totalHospitalizedCurrent.toLocaleString();
+
+        let printHospitalizationChange = parent.querySelector('[data-point="hospitalized-percent-change"]')
+        .querySelector('[data-item="data"]')
+        printHospitalizationChange.innerHTML = JSON.stringify(hospitalizedChangeX()) + '%'
+        
+    })
+    .catch(error => console.log('error', error));
+
+  };
+  
+  
+  
+
+/***/ }),
 /* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return blockUnitedStates; });
-/* harmony import */ var _visLineChart__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7);
-/* harmony import */ var _blockUnitedStatesDataPoints__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return blockCounty; });
+/* harmony import */ var _blockCountyDataPoint__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(9);
 
 
-
-
-function blockUnitedStates() {
-    // cumulative cases
-    // console.log("HEY GARRY" + getDataNational.totalCases);
-    Object(_visLineChart__WEBPACK_IMPORTED_MODULE_0__["visLineChart"])("https://coviddata.github.io/coviddata/v1/countries/stats.json", "united-states", "cumulative", "cases");
-    
-    // cumulative deaths
-    Object(_visLineChart__WEBPACK_IMPORTED_MODULE_0__["visLineChart"])("https://coviddata.github.io/coviddata/v1/countries/stats.json", "united-states", "cumulative", "deaths");
-    Object(_blockUnitedStatesDataPoints__WEBPACK_IMPORTED_MODULE_1__["getDataNational"])("United States");
-};
+function blockCounty() {
+  Object(_blockCountyDataPoint__WEBPACK_IMPORTED_MODULE_0__["getDataByPlaces"])("Los Angeles");
+  Object(_blockCountyDataPoint__WEBPACK_IMPORTED_MODULE_0__["getDataByPlaces"])("Lorain");
+}
 
 /***/ }),
 /* 9 */
@@ -17675,15 +17675,14 @@ const getDataByPlaces = (string) => {
     .querySelector('[data-item="content"]')
     let dataThree = parent.querySelector('[data-point="percent-change"]')
     .querySelector('[data-item="content"]') 
-    
-    dataOne.innerHTML = JSON.stringify(casesTotal)
-    dataTwo.innerHTML = JSON.stringify(casesNew)
-    dataThree.innerHTML = JSON.stringify(casesChangeX()) + '%'
+
+    dataOne.innerHTML = casesTotal.toLocaleString()
+    dataTwo.innerHTML = casesNew.toLocaleString()
+    dataThree.innerHTML = casesChangeX() + '%'
     
     }
 
  })
-
 
     return dataArray; // needed to use this in  visLineChart.js (check in there for changes). I couldn't figure out how to export the data. to mess with it
   

@@ -77,15 +77,14 @@ const getDataByPlaces = (string) => {
     .querySelector('[data-item="content"]')
     let dataThree = parent.querySelector('[data-point="percent-change"]')
     .querySelector('[data-item="content"]') 
-    
-    dataOne.innerHTML = JSON.stringify(casesTotal)
-    dataTwo.innerHTML = JSON.stringify(casesNew)
-    dataThree.innerHTML = JSON.stringify(casesChangeX()) + '%'
+
+    dataOne.innerHTML = casesTotal.toLocaleString()
+    dataTwo.innerHTML = casesNew.toLocaleString()
+    dataThree.innerHTML = casesChangeX() + '%'
     
     }
 
  })
-
 
     return dataArray; // needed to use this in  visLineChart.js (check in there for changes). I couldn't figure out how to export the data. to mess with it
   

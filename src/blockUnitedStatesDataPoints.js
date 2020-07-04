@@ -45,7 +45,7 @@ const getDataNational = () => {
 
         let printTotalCases = parent.querySelector('[data-point="cumulative-cases"]')
         .querySelector('[data-item="content"]')
-        printTotalCases.innerHTML = JSON.stringify(totalCases)
+        printTotalCases.innerHTML = totalCases.toLocaleString()
        
         let printTotalChange = parent.querySelector('[data-point="cumulative-percent-change"]')
         .querySelector('[data-item="data"]')
@@ -61,7 +61,7 @@ const getDataNational = () => {
 
         let printTotalDeaths  = parent.querySelector('[data-point="cumulative-deaths"]')
         .querySelector('[data-item="content"]')
-        printTotalDeaths.innerHTML = JSON.stringify(totalDeath)
+        printTotalDeaths.innerHTML = totalDeath.toLocaleString()
 
         let printPrevDayDeaths = parent.querySelector('[data-point="deaths-percent-change"]')
         .querySelector('[data-item="data"]')
@@ -69,7 +69,7 @@ const getDataNational = () => {
 
         let printHospitalizations = parent.querySelector('[data-point="hospitalizations"]')
         .querySelector('[data-item="content"]')
-        printHospitalizations.innerHTML = JSON.stringify(totalHospitalizedCurrent);
+        printHospitalizations.innerHTML = totalHospitalizedCurrent.toLocaleString();
 
         let printHospitalizationChange = parent.querySelector('[data-point="hospitalized-percent-change"]')
         .querySelector('[data-item="data"]')
