@@ -80,7 +80,7 @@ const getDataByPlaces = (string) => {
     
     dataOne.innerHTML = JSON.stringify(casesTotal)
     dataTwo.innerHTML = JSON.stringify(casesNew)
-    dataThree.innerHTML = JSON.stringify(`${casesChangeX()}%`)
+    dataThree.innerHTML = JSON.stringify(casesChangeX()) + '%'
     
     }
 

@@ -17346,7 +17346,7 @@ const getDataNational = () => {
           }
         }
         const totalHospitalizedCurrent = result[0].hospitalizedCurrently;
-        const hospitalizedChange = ((result[0].hospitalizedCurrently - result[1].hospitalizedCurrently) / result[1].hospitalizedCurrently) * 100;
+        const hospitalizedChange = Math.round(((result[0].hospitalizedCurrently - result[1].hospitalizedCurrently) / result[1].hospitalizedCurrently) * 100);
         const hospitalizedChangeX = () => { 
           if (isNaN(hospitalizedChange)) {
             return totalHospitalizedCurrent
@@ -17356,11 +17356,40 @@ const getDataNational = () => {
         }
         
         let parent = document.querySelector('[data-parent="united-states"]')
-        let printHospitalizations = parent.querySelector('[data-point="hospitalizations"]')
-        .querySelector('[data-item="content"]');
         
+
+        let printTotalCases = parent.querySelector('[data-point="cumulative-cases"]')
+        .querySelector('[data-item="content"]')
+        printTotalCases.innerHTML = JSON.stringify(totalCases)
+       
+        let printTotalChange = parent.querySelector('[data-point="cumulative-percent-change"]')
+        .querySelector('[data-item="data"]')
+        printTotalChange.innerHTML = JSON.stringify(totalChangeX()) + '%'
+
+        let printPositiveChange = parent.querySelector('[data-point="positive-tests"]')
+        .querySelector('[data-item="content')
+        printPositiveChange.innerHTML = JSON.stringify(totalPositive) + '%'
+
+        let printPrevDayPos = parent.querySelector('[data-point="positive-percent-change"]')
+        .querySelector('[data-item="data"]')
+        printPrevDayPos.innerHTML = JSON.stringify(positiveChangeX()) + '%'
+
+        let printTotalDeaths  = parent.querySelector('[data-point="cumulative-deaths"]')
+        .querySelector('[data-item="content"]')
+        printTotalDeaths.innerHTML = JSON.stringify(totalDeath)
+
+        let printPrevDayDeaths = parent.querySelector('[data-point="deaths-percent-change"]')
+        .querySelector('[data-item="data"]')
+        printPrevDayDeaths.innerHTML = JSON.stringify(deathChangeX()) + '%'
+
+        let printHospitalizations = parent.querySelector('[data-point="hospitalizations"]')
+        .querySelector('[data-item="content"]')
         printHospitalizations.innerHTML = JSON.stringify(totalHospitalizedCurrent);
-  
+
+        let printHospitalizationChange = parent.querySelector('[data-point="hospitalized-percent-change"]')
+        .querySelector('[data-item="data"]')
+        printHospitalizationChange.innerHTML = JSON.stringify(hospitalizedChangeX()) + '%'
+        
     })
     .catch(error => console.log('error', error));
 
@@ -17649,7 +17678,7 @@ const getDataByPlaces = (string) => {
     
     dataOne.innerHTML = JSON.stringify(casesTotal)
     dataTwo.innerHTML = JSON.stringify(casesNew)
-    dataThree.innerHTML = JSON.stringify(`${casesChangeX()}%`)
+    dataThree.innerHTML = JSON.stringify(casesChangeX()) + '%'
     
     }
 
