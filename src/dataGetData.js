@@ -63,6 +63,11 @@ const getDataNational = () => {
         }
       }
 
+      let element = document.getAttribute('data-parent', 'united-states')
+      .getAttribute('data-point', 'cumulative-cases')
+      .getAttribute('data-item', 'content');
+      element.innerHTML = JSON.stringify(totalCases)
+
       return { totalCases, totalChange, totalChange, totalDeath, totalHospitalizedCurrent, totalPositive, positiveChange, deathChange, hospitalizedChange };
 
       console.log(`United States Total Cases: ${totalCases}`);
@@ -195,7 +200,7 @@ const getDataByRegion = (string, dataPoint) => {
     mainContainer.appendChild(div);}
   })
 
-    return dataArray; // needed to use this in  visLineChart.js (check in there for changes). I couldn't figure out how to export the data. to mess with it
+   return dataArray; // needed to use this in  visLineChart.js (check in there for changes). I couldn't figure out how to export the data. to mess with it
 
 };
 

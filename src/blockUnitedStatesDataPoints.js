@@ -1,4 +1,4 @@
-export const getDataNational = (dataURL, dataPoint) => {
+const getDataNational = () => {
 
     fetch('https://covidtracking.com/api/v1/us/daily.json')
     .then(response => response.json())
@@ -32,41 +32,24 @@ export const getDataNational = (dataURL, dataPoint) => {
         }
         const totalHospitalizedCurrent = result[0].hospitalizedCurrently;
         const hospitalizedChange = ((result[0].hospitalizedCurrently - result[1].hospitalizedCurrently) / result[1].hospitalizedCurrently) * 100;
-        const hospitalizedChangeX = () => {
+        const hospitalizedChangeX = () => { 
           if (isNaN(hospitalizedChange)) {
             return totalHospitalizedCurrent
           } else {
             return hospitalizedChange
           }
         }
-  
-        return { totalCases, totalChange, totalChange, totalDeath, totalHospitalizedCurrent, totalPositive, positiveChange, deathChange, hospitalizedChange };
-  
-        console.log(`United States Total Cases: ${totalCases}`);
-        console.log(`United States Total Percentage Change: ${totalChangeX()}%`);
-        console.log(`United States Daily Positive Percentage: ${totalPositive}%`);
-        console.log(`United States Positive vs Prev Day: ${positiveChangeX()}%`);
-        console.log(`United States Total Deaths: ${totalDeath}`);
-        console.log(`United States Deaths vs Prev Day: ${deathChangeX()}%`)
-        console.log(`United States Total Hospitalizations: ${totalHospitalizedCurrent}`)
-        console.log(`United States Hospitalized vs. Prev Day: ${hospitalizedChangeX().toFixed(2)}%`)
         
-  
-        // const printData = (dataPoint, target) => {
-        //   const parent = document.getElementById("united-states");
-        //     parent.querySelector(target).querySelector('.current')
-        // }
-  
-        // printData(total-cases, total-cases);
+        let parent = document.querySelector('[data-parent="united-states"]')
+        let printHospitalizations = parent.querySelector('[data-point="hospitalizations"]')
+        .querySelector('[data-item="content"]');
         
-        // // print individual data points to the DOM
-        // let 
-        //   parent = document.getElementById("united-states"),
-        //   totalCases = parent.getElementsByClassName("hero--title")
-  
-        //   ;
+        printHospitalizations.innerHTML = JSON.stringify(totalHospitalizedCurrent);
   
     })
     .catch(error => console.log('error', error));
-  }
+
+  };
   
+  
+  export { getDataNational }
