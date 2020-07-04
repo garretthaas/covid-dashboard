@@ -86,7 +86,7 @@ const getDataByPlaces = (string) => {
     let dataFour = parent.querySelector('[data-point="total-deaths"]')
     .querySelector('[data-item="content"]')
     dataFour.innerHTNL = totalDeaths
-
+// 
     let dataFive = parent.querySelector('[data-point="new-deaths"]')
     .querySelector('[data-item="content"]')
     dataFive.innerHTML = deathsNew
