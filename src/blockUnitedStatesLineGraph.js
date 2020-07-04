@@ -86,7 +86,7 @@ export const blockUnitedStatesLineGraph = (dataUrl, dataPoint, selector) => {
                   .attr("xlink:href", "./dist/images/scatter-dots.jpg")
                   .attr("preserveAspectRatio", "xMidYMin slice");
 
-                // add the clipping path
+                // add the clipping path 
                 // as the area
                 svg.append("clipPath")
                   .attr("id", clipId)
