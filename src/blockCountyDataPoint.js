@@ -44,9 +44,9 @@ const getDataByPlaces = (string) => {
       const casesChange = Math.round(((dataOne[todayDate].new.cases - dataOne[yesterdayDate].new.cases) / dataOne[yesterdayDate].new.cases) * 100);
       const casesChangeX = () => {
         if (isNaN(casesChange)) {
-          return `0`
+          return true
         } else { 
-          return casesChange
+          return false
         }
       }
       const totalDeaths = dataOne[todayDate].cumulative.deaths
@@ -80,9 +80,14 @@ const getDataByPlaces = (string) => {
     dataTwo.innerHTML = casesNew.toLocaleString()
 
     let dataThree = parent.querySelector('[data-point="cases-percent-change"]')
-    .querySelector('[data-item="content"]') 
-    dataThree.innerHTML = casesChangeX() + '%'
-    //HELP!!!
+    .querySelector('[data-item="content"]')
+    casesChangeX;
+      if (casesChangeX = true) {
+        dataThree.innerHTML = 0;
+      } else {
+        dataThree.innerHTML = casesChange + '%';
+      }
+    // HELP!!!
     let dataFour = parent.querySelector('[data-point="total-deaths"]')
     .querySelector('[data-item="content"]')
     dataFour.innerHTNL = totalDeaths
@@ -93,7 +98,7 @@ const getDataByPlaces = (string) => {
 
     let dataSix = parent.querySelector('[data-point="deaths-percent-change"]')
     .querySelector('[data-item="content"]')
-    dataSix.innerHTML = deathsChangeX() + '%'
+    dataSix.innerHTML = deathsChangeX(dataSix) + '%'
 
     }
 
