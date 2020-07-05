@@ -40,9 +40,14 @@ const getDataByPlaces = (string) => {
       const casesChange = Math.round(((dataOne[todayDate].new.cases - dataOne[yesterdayDate].new.cases) / dataOne[yesterdayDate].new.cases) * 100);
       const casesChangeX = () => {
         if (isNaN(casesChange) || casesChange === Infinity) {
-          let handleZero = document.querySelector(`[data-parent="${scope.place.key}"] [data-point="cases-percent-change"] [data-item="title"]`)
-          handleZero.innerHTML = 'New on previous day';
+          let handleZeroCases = document.querySelector(`[data-parent="${scope.place.key}"] [data-point="cases-percent-change"] [data-item="title"]`)
+          handleZeroCases.innerHTML = 'New on previous day';
            return '0'
+        } else if (casesChange == -100) {
+          //This edge case handles 0 new cases by injected the new cases from the previous day
+          let handleZeroCases = document.querySelector(`[data-parent="${scope.place.key}"] [data-point="cases-percent-change"] [data-item="title"]`)
+          handleZeroCases.innerHTML = 'New on previous day';
+           return dataOne[yesterdayDate].new.cases
         } else { 
           return casesChange + '%'
         }
@@ -52,9 +57,14 @@ const getDataByPlaces = (string) => {
       const deathsChange = Math.round(((dataOne[todayDate].new.death - dataOne[yesterdayDate].new.deaths) / dataOne[yesterdayDate].new.deaths) * 100);
       const deathsChangeX = () => {
         if (isNaN(deathsChange) || deathsChange === Infinity) {
-          let handleZero = document.querySelector(`[data-parent="${scope.place.key}"] [data-point="deaths-percent-change"] [data-item="title"]`)
-          handleZero.innerHTML = 'New on previous day';
+          let handleZeroDeaths = document.querySelector(`[data-parent="${scope.place.key}"] [data-point="deaths-percent-change"] [data-item="title"]`)
+          handleZeroDeaths.innerHTML = 'New on previous day';
           return `0`
+        } else if (casesChange == -100) {
+          //This edge case handles 0 new cases by injected the new cases from the previous day
+          let handleZeroCases = document.querySelector(`[data-parent="${scope.place.key}"] [data-point="deaths-percent-change"] [data-item="title"]`)
+          handleZeroCases.innerHTML = 'New on previous day';
+           return dataOne[yesterdayDate].new.deaths
         } else {
           return deathsChange + '%'
         }
