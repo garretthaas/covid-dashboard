@@ -2,9 +2,8 @@ import { blockUnitedStatesLineGraph } from "./blockUnitedStatesLineGraph";
 import { getDataNational } from "./blockUnitedStatesDataPoints";
 
 
-export default function blockUnitedStates() {
+export default function blockUnitedStates() {   
     // cumulative cases
-
     blockUnitedStatesLineGraph("https://covidtracking.com/api/v1/us/daily.json", "positive", "cumulative-cases");
 
     // positive tests
@@ -17,4 +16,5 @@ export default function blockUnitedStates() {
     blockUnitedStatesLineGraph("https://covidtracking.com/api/v1/us/daily.json", "hospitalizedCurrently", "hospitalizations");
 
     getDataNational();
+
 };

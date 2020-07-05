@@ -17304,9 +17304,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function blockUnitedStates() {
+function blockUnitedStates() {   
     // cumulative cases
-
     Object(_blockUnitedStatesLineGraph__WEBPACK_IMPORTED_MODULE_0__["blockUnitedStatesLineGraph"])("https://covidtracking.com/api/v1/us/daily.json", "positive", "cumulative-cases");
 
     // positive tests
@@ -17319,6 +17318,7 @@ function blockUnitedStates() {
     Object(_blockUnitedStatesLineGraph__WEBPACK_IMPORTED_MODULE_0__["blockUnitedStatesLineGraph"])("https://covidtracking.com/api/v1/us/daily.json", "hospitalizedCurrently", "hospitalizations");
 
     Object(_blockUnitedStatesDataPoints__WEBPACK_IMPORTED_MODULE_1__["getDataNational"])();
+
 };
 
 /***/ }),
@@ -17416,7 +17416,7 @@ const blockUnitedStatesLineGraph = (dataUrl, dataPoint, selector) => {
                   .attr("xlink:href", "./dist/images/scatter-dots.jpg")
                   .attr("preserveAspectRatio", "xMidYMin slice");
 
-                // add the clipping path
+                // add the clipping path 
                 // as the area
                 svg.append("clipPath")
                   .attr("id", clipId)
