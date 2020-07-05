@@ -1,8 +1,34 @@
 // PARTIALS
 // make sure all scss partials have an _ prefix like this... _module-name.scss
-@import './_modulestyle';
-
+@import './reset';
+@import './grid';
+@import './line-chart';
+@import './typography';
 // global
-h1 {
-    color: green;
+
+html {
+    scroll-behavior: smooth;
+    font-size: 10px;
+    line-height: 1.4;
+}
+
+nav, main {
+    max-width: calc(150em - 4vw);
+    margin-bottom: 4vw;
+    margin:0 auto;
+}
+
+section {
+    margin-bottom: 10em;
+}
+
+footer{
+    background:black;
+    padding: 10em;
+}
+
+.info {
+    max-width: 90em;
+    margin: 0 auto;
+    color: #f1f1f1;
 }

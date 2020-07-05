@@ -1,4 +1,4 @@
-export const visLineChart = (dataUrl, dataCountry, dataCat, dataPoint) => { 
+export const visTrendLine = (dataUrl, dataPlace, dataCat, dataPoint) => { 
 
     // set the dimensions and margins of the graph
     var margin = {top: 20, right: 20, bottom: 30, left: 50},
@@ -27,13 +27,13 @@ export const visLineChart = (dataUrl, dataCountry, dataCat, dataPoint) => {
     // appends a 'group' element to 'svg'
     // moves the 'group' element to the top left margin
     
-    var svg = d3.select(`[data-parent="${dataCountry}"] [data-point="${dataCat}-${dataPoint}"] [data-item="line-graph"]`).append("svg")
+    var svg = d3.select(`[data-parent="${dataPlace}"] [data-cat="${dataPoint}"] [data-item="trend-line"]`).append("svg")
         .attr("viewBox", `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
       .append("g")
         .attr("transform",
               "translate(" + margin.left + "," + margin.top + ")");
     // get the data
-    const getDataByCountry = () => {
+    const getDataByPlace = () => {
         // set up the object
         let dataArray = [];
         const dataArrayObjects = {};
@@ -42,7 +42,7 @@ export const visLineChart = (dataUrl, dataCountry, dataCat, dataPoint) => {
         fetch(dataUrl)
         .then(response => response.json())
         .then(data => {
-            console.log(data);
+            // console.log(data);
       
           // this is unique to the data at https://coviddata.github.io/coviddata/v1/countries/stats.json
             function findIndexWithAttr(array, name, parent, attr) {
@@ -53,11 +53,11 @@ export const visLineChart = (dataUrl, dataCountry, dataCat, dataPoint) => {
                 }
                 return -1;
             }
-            const index = findIndexWithAttr(data, dataCountry, 'country', 'key');
-            console.log(index);
+            const index = findIndexWithAttr(data, dataPlace, 'place', 'key');
+            // console.log(index);
           
           let scope = data[index]; // set the scope
-          let scopeName = scope.country.name; // get the name of the scope (in this case country name)
+          let scopeName = scope.place.name; // get the name of the scope (in this case place name)
           let dataOne = scope.dates; // drill down to the arrays of dates
           
           
@@ -86,53 +86,6 @@ export const visLineChart = (dataUrl, dataCountry, dataCat, dataPoint) => {
                 x.domain(d3.extent(dataArray, function(d) { return d.one; }));
                 y.domain([0, d3.max(dataArray, function(d) { return d.two; })]);
                 
-                let patternId = `pattern-circles-${dataCat}-${dataPoint}`,
-                    patternURL = `url(#${patternId})`,
-                    clipId = `image-clip-${dataCat}-${dataPoint}`,
-                    clipURL = `url(#${clipId})`,
-                    backgroundSize = 300;
-                // add the background image pattern
-                svg.append("pattern")
-                .attr("x", "0")
-                .attr("y", "0")
-                .attr("width", backgroundSize)
-                .attr("height", backgroundSize)
-                .attr("patternUnits", "userSpaceOnUse")
-                .attr("patternContentUnits", "userSpaceOnUse")
-                .attr("id", patternId)
-                .append("image")
-                  .attr("width", backgroundSize)
-                  .attr("height", backgroundSize)
-                  .attr("xlink:href", "./dist/images/scatter-dots.jpg")
-                  .attr("preserveAspectRatio", "xMidYMin slice");
-
-                // add the clipping path
-                // as the area
-                svg.append("clipPath")
-                  .attr("id", clipId)
-                  .append("path")
-                    .data([dataArray])
-                    .attr("class", "area")
-                    .attr("d", area);
-
-                // add the shape to be clipped
-                svg.append("rect")
-                    .attr("clip-path", clipURL)
-                    .attr("id", "rect")
-                    .attr("x", "0")
-                    .attr("y", "0")
-                    .attr("width", "100%")
-                    .attr("height", "100%")
-                    .attr("fill", patternURL);
-                    
-                // add the area
-                // svg.append("path")
-                    // .data([dataArray])
-                    // .attr("class", "area")
-                    // .attr("d", area);
-
-                
-                
                 // add the valueline path.
                 svg.append("path")
                     .data([dataArray])
@@ -155,6 +108,6 @@ export const visLineChart = (dataUrl, dataCountry, dataCat, dataPoint) => {
     };
 
 
-    getDataByCountry();
+    getDataByPlace();
 };
     

@@ -94,26 +94,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _module__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
 /* harmony import */ var _module__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_module__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _dataGetData_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5);
-/* harmony import */ var _dataCallFunctions_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(6);
-/* harmony import */ var _visLineChart__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(7);
+/* harmony import */ var _blockUnitedStates__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5);
+/* harmony import */ var _blockCounty__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(8);
 
 
 
 
 
+Object(_blockUnitedStates__WEBPACK_IMPORTED_MODULE_2__["default"])();
+Object(_blockCounty__WEBPACK_IMPORTED_MODULE_3__["default"])();
 
-//EXAMPLE of export - to be deleted
-Object(_dataGetData_js__WEBPACK_IMPORTED_MODULE_2__["getDataNational"])();
-Object(_dataGetData_js__WEBPACK_IMPORTED_MODULE_2__["getDataByState"])('oh');
-Object(_dataGetData_js__WEBPACK_IMPORTED_MODULE_2__["getDataWorld"])();
-
-// testing d3 visualization - delete when done
-Object(_visLineChart__WEBPACK_IMPORTED_MODULE_4__["visLineChart"])("https://coviddata.github.io/coviddata/v1/countries/stats.json", "india");
-
-//Call all API gets
-
-Object(_dataCallFunctions_js__WEBPACK_IMPORTED_MODULE_3__["default"])();
 
 _module__WEBPACK_IMPORTED_MODULE_1__["module"];
 function component() {
@@ -126,7 +116,9 @@ function component() {
   } 
   
   document.body.appendChild(component());
-  
+ 
+ 
+
 
 /***/ }),
 /* 1 */
@@ -17305,209 +17297,29 @@ module.exports = function(module) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDataNational", function() { return getDataNational; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDataByState", function() { return getDataByState; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDataWorld", function() { return getDataWorld; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDeathsTotalByCity", function() { return getDeathsTotalByCity; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDeathsNewByCity", function() { return getDeathsNewByCity; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getCasesTotalByCity", function() { return getCasesTotalByCity; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getCasesNewByCity", function() { return getCasesNewByCity; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getCasesNewByRegion", function() { return getCasesNewByRegion; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getCasesTotalByRegion", function() { return getCasesTotalByRegion; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDeathsNewByRegion", function() { return getDeathsNewByRegion; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDeathsTotalByRegion", function() { return getDeathsTotalByRegion; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDataByCountry", function() { return getDataByCountry; });
-//US//
-
-//GET COVID Tracking US Current Stats
-//All current datapoint for USA
-const getDataNational = () => {
-    fetch('https://covidtracking.com/api/v1/us/current.json')
-    .then(response => response.json())
-    .then(result => {
-        // console.log(result)
-        //Access Results from promise object
-        // console.log('USA Hospitalizations: ' + result[0].hospitalized)
-    })
-    // .catch(error => console.log('error', error));
-}
-
-//STATES//
-
-//GET COVID Tracking State Data x CA
-//All current datapoints for the States
-//state argument takes a 'string' of the 2 letter code of a state
-const getDataByState = (state) => {
-  const url = `https://covidtracking.com/api/v1/states/${state}/current.json`
-  fetch(url)
-  .then(response => response.json())
-  // .then(data => console.log(data))
-  // .catch(error => console.log('error', error));
-}
-
-//WORLD//
-
-//GET World Total from COVID19API
-//TotalConfirmed, TotalDeaths, TotalRecovered
-const getDataWorld = () => {
-  fetch('https://api.covid19api.com/world/total')
-  .then(response => response.json())
-  // .then(data => console.log(data))
-  // .catch(error => console.log('error', error));
-}
-
-// CITIES //
-//GET places from CovidData
-//Cases, Deaths
-//TO-DO
-//[] 1. Write function to insert current date as YYYY-MM-DD
-
-//Cumulative Deaths
-//string === "City Name"
-const getDeathsTotalByCity = (string) => {
-  fetch('https://coviddata.github.io/coviddata/v1/places/stats.json')
-  .then(response => response.json())
-  .then(data => {
-    const city = data.find(city => city.place.name === string);
-    // console.log(`Total deaths in ${city.place.name}: ${city.dates["2020-06-24"].cumulative.deaths}`)
-  })
-};
-
-//New Deaths
-const getDeathsNewByCity = (string) => {
-  fetch('https://coviddata.github.io/coviddata/v1/places/stats.json')
-  .then(response => response.json())
-  .then(data => {
-    const city = data.find(city => city.place.name === string);
-    // console.log(`New deaths in ${city.place.name}: ${city.dates["2020-06-24"].new.deaths}`)
-  })
-};
-
-//TEST FOR DATAPPOINTS - DELETE
-const test = (string) => {
-  fetch('https://coviddata.github.io/coviddata/v1/places/stats.json')
-  .then(response => response.json())
-  .then(data => {
-    let newArray = [];
-    const city = data.find(city => city.place.name === string);
-    // console.log(`New deaths in ${city.place.name}: ${city.dates["2020-06-24"].new.deaths}`)
-    newArray.push(Object.values(city))
-  })
-};
-
-test("Sullivan");
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return blockUnitedStates; });
+/* harmony import */ var _blockUnitedStatesLineGraph__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6);
+/* harmony import */ var _blockUnitedStatesDataPoints__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(7);
 
 
-//Cumulative Cases
-//string === "City Name"
-const getCasesTotalByCity = (string) => {
-  fetch('https://coviddata.github.io/coviddata/v1/places/stats.json')
-  .then(response => response.json())
-  .then(data => {
-    const city = data.find(city => city.place.name === string);
-    // console.log(`Total cases in ${city.place.name}: ${city.dates["2020-06-24"].cumulative.cases}`)
-  })
-};
 
-//New Cases
-//String === "City Name"
-const getCasesNewByCity = (string) => {
-  fetch('https://coviddata.github.io/coviddata/v1/places/stats.json')
-  .then(response => response.json())
-  .then(data => {
-    const city = data.find(city => city.place.name === string);
-    // console.log(`New cases in ${city.place.name}: ${city.dates["2020-06-24"].new.cases}`)
-  })
-};
 
-//REGIONS     
-//Tokyo, Hong Kong, Sichuan
+function blockUnitedStates() {   
+    // cumulative cases
+    Object(_blockUnitedStatesLineGraph__WEBPACK_IMPORTED_MODULE_0__["blockUnitedStatesLineGraph"])("https://covidtracking.com/api/v1/us/daily.json", "positive", "cumulative-cases");
 
-//New Cases by Region
-const getCasesNewByRegion = (string) => {
-  fetch('https://coviddata.github.io/coviddata/v1/regions/stats.json')
-  .then (response => response.json())
-  .then (data => {
-    //Does using city make sense here? region gets messy
-    const city = data.find(city => city.region.name === string);
-    // console.log(`New cases in ${city.region.name}: ${city.dates["2020-06-24"].new.cases}`)
-  })
-};
-
-//Cumulative Cases by Region
-const getCasesTotalByRegion = (string) => {
-  fetch('https://coviddata.github.io/coviddata/v1/regions/stats.json')
-  .then (response => response.json())
-  .then (data => {
-    //Does using city make sense here? region gets messy
-    const city = data.find(city => city.region.name === string);
-    // console.log(`Total cases in ${city.region.name}: ${city.dates["2020-06-24"].cumulative.cases}`)
-  })
-};
-
-//New Deaths By Region
-const getDeathsNewByRegion = (string) => {
-  fetch('https://coviddata.github.io/coviddata/v1/regions/stats.json')
-  .then (response => response.json())
-  .then (data => {
-    //Does using city make sense here? region gets messy
-    const city = data.find(city => city.region.name === string);
-    // console.log(`New deaths in ${city.region.name}: ${city.dates["2020-06-24"].new.deaths}`)
-  })
-};
-
-//Total Deaths By Region
-const getDeathsTotalByRegion = (string) => {
-  fetch('https://coviddata.github.io/coviddata/v1/regions/stats.json')
-  .then (response => response.json())
-  .then (data => {
-    //Does using city make sense here? region gets messy
-    const city = data.find(city => city.region.name === string);
-    // console.log(`Total Deaths in ${city.region.name}: ${city.dates["2020-06-24"].cumulative.deaths}`)
-  })
-};
-
-//COUNTRIES
-//GET Countries from CovidData
-//China, Cambodia, Japan, Italy, South Korea 
-
-//RED
-//Proof of Concept: Extracting all datapoints from one fetch then pushing them into an array
-const getDataByCountry = () => {
-  // set up the data array
-  let dataArray = [];
-
-  // fetch the data
-  fetch('https://coviddata.github.io/coviddata/v1/countries/stats.json')
-  .then(response => response.json())
-  .then(data => {
-
-    // this is unique to the data at https://coviddata.github.io/coviddata/v1/countries/stats.json
-    let scope = data[0]; // set the scope
-    let scopeName = scope.country.name; // get the name of the scope (in this case country name) to print as a title
-    let dataOne = scope.dates; // drill down to the arrays of dates
+    // positive tests
+    Object(_blockUnitedStatesLineGraph__WEBPACK_IMPORTED_MODULE_0__["blockUnitedStatesLineGraph"])("https://covidtracking.com/api/v1/us/daily.json", "percent-positive", "positive-tests");
     
-    // this iterates over and separates the arrays of dates console.log(key) to see it
-    Object.keys(dataOne).forEach(function (key){
-      //let one = key; // make this the first data point
-      let one = key;
-      //console.log(one);
-      let dataOneEach = dataOne[key]; // separates all the data in the dates so we can drill down further
-      let two = dataOneEach.cumulative.cases; // get cumulative cases and make it the second data point (this can be changed to any nested key in the dates array)
+    // cumulative deaths
+    Object(_blockUnitedStatesLineGraph__WEBPACK_IMPORTED_MODULE_0__["blockUnitedStatesLineGraph"])("https://covidtracking.com/api/v1/us/daily.json", "death", "cumulative-deaths");
+    
+    // hospitalizations
+    Object(_blockUnitedStatesLineGraph__WEBPACK_IMPORTED_MODULE_0__["blockUnitedStatesLineGraph"])("https://covidtracking.com/api/v1/us/daily.json", "hospitalizedCurrently", "hospitalizations");
 
-      // now we take those data points and make them an array
-      let result = ({one, two});
-      dataArray.push(result);
-      
-    });
+    Object(_blockUnitedStatesDataPoints__WEBPACK_IMPORTED_MODULE_1__["getDataNational"])();
 
-  })
-
-  return dataArray; // needed to use this in  visLineChart.js (check in there for changes). I couldn't figure out how to export the data. to mess with it
- 
 };
-
-
 
 /***/ }),
 /* 6 */
@@ -17515,45 +17327,173 @@ const getDataByCountry = () => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return dataCallFunctions; });
-/* harmony import */ var _dataGetData__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "blockUnitedStatesLineGraph", function() { return blockUnitedStatesLineGraph; });
+const blockUnitedStatesLineGraph = (dataUrl, dataPoint, selector) => { 
 
+    // set the dimensions and margins of the graph
+    var margin = {top: 20, right: 20, bottom: 30, left: 50},
+        width = 960 - margin.left - margin.right,
+        height = 500 - margin.top - margin.bottom;
+    
+    // parse the one / time
+    var parseTime = d3.timeParse("%Y%m%d");
+    var formatPercent = d3.format("+.0%");
+    
+    // set the ranges
+    var x = d3.scaleTime().range([0, width]);
+    var y = d3.scaleLinear().range([height, 0]);
+    
+    // define the area
+    var area = d3.area()
+        .x(function(d) { return x(d.one); })
+        .y0(height)
+        .y1(function(d) { return y(d.two); });
+    
+    // define the line
+    var valueline = d3.line()
+        .x(function(d) { return x(d.one); })
+        .y(function(d) { return y(d.two); });
+    
+    // append the svg obgect to the body of the page
+    // appends a 'group' element to 'svg'
+    // moves the 'group' element to the top left margin
+    
+    var svg = d3.select(`[data-parent="united-states"] [data-point="${selector}"] [data-item="line-graph"]`).append("svg")
+        .attr("viewBox", `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
+      .append("g")
+        .attr("transform",
+              "translate(" + margin.left + "," + margin.top + ")");
+    // get the data
+    const getUSData = () => {
+        // set up the object
+        let dataArray = [];
+        const dataArrayObjects = {};
+      
+        // fetch the data
+        fetch(dataUrl)
+        .then(response => response.json())
+        .then(data => {
+            // console.log(data);
 
-function dataCallFunctions() {
-    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataNational"])();
-    //This is wrong, needs refactored
-    const ohio = Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataByState"])('oh');
-    const florida = Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataByState"])('fl');
-    const cali = Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataByState"])('ca');
-    const newyork = Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataByState"])('ny');
-    const texas = Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataByState"])('tx');
-    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getCasesTotalByCity"])("New York City");
-    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getCasesTotalByCity"])("Los Angeles");
-    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getCasesTotalByCity"])("Lorain");
-    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDeathsTotalByCity"])("New York City");
-    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDeathsTotalByCity"])("Los Angeles");
-    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDeathsTotalByCity"])("Lorain");
-    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getCasesNewByCity"])("New York City");
-    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getCasesNewByCity"])("Los Angeles");
-    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getCasesNewByCity"])("Lorain");
-    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getCasesNewByRegion"])("Tokyo");
-    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getCasesNewByRegion"])("Hong Kong");
-    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getCasesNewByRegion"])("Sichuan");
-    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getCasesTotalByRegion"])("Tokyo");
-    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getCasesTotalByRegion"])("Hong Kong");
-    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getCasesTotalByRegion"])("Sichuan");
-    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDeathsNewByRegion"])("Tokyo");
-    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDeathsNewByRegion"])("Hong Kong");
-    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDeathsNewByRegion"])("Sichuan");
-    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDeathsTotalByRegion"])("Tokyo");
-    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDeathsTotalByRegion"])("Hong Kong");
-    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDeathsTotalByRegion"])("Sichuan");
-    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataByCountry"])();
+            if (dataPoint == "percent-positive") {
+        
+                for (var i = 0, len = data.length; i < len; i++) { 
+                    let one = data[i].date;
+                    let twoCalc = ((data[i].positive / data[i].total) * 100);
+                    let twoCheck = () => {
+                        if (isNaN(twoCalc) || twoCalc == Number.POSITIVE_INFINITY || twoCalc == Number.NEGATIVE_INFINITY) {
+                          return 0
+                        } else {
+                          return twoCalc
+                        }
+                      }
+                    let two = twoCheck();
 
-    Object(_dataGetData__WEBPACK_IMPORTED_MODULE_0__["getDataWorld"])();
-}
+                    // get percent positive
+                    console.log("percentage calc: " + two);
 
+                    // now we take those pieces of info and make them an array
+                    let result = ({one, two});
+                    dataArray.push(result);
+                    
 
+                }
+                console.log(dataArray);
+            } else {
+                for (var i = 0, len = data.length; i < len; i++) { 
+                    let one = data[i].date;
+                    let two = data[i][dataPoint]; // get cumulative cases
+
+                    // now we take those pieces of info and make them an array
+                    let result = ({one, two});
+                    dataArray.push(result);
+
+                }
+            }
+            // console.log(dataArray);
+          
+                // format the data
+                dataArray.forEach(function(d) {
+                    d.one = parseTime(d.one);
+                    d.two = +d.two;
+                });      
+        
+                
+                // scale the range of the data
+                x.domain(d3.extent(dataArray, function(d) { return d.one; }));
+                y.domain([0, d3.max(dataArray, function(d) { return d.two; })]);
+                
+                let patternId = `pattern-circles-${selector}`,
+                    patternURL = `url(#${patternId})`,
+                    clipId = `image-clip-${selector}`,
+                    clipURL = `url(#${clipId})`,
+                    backgroundSize = 300;
+                // add the background image pattern
+                svg.append("pattern")
+                .attr("x", "0")
+                .attr("y", "0")
+                .attr("width", backgroundSize)
+                .attr("height", backgroundSize)
+                .attr("patternUnits", "userSpaceOnUse")
+                .attr("patternContentUnits", "userSpaceOnUse")
+                .attr("id", patternId)
+                .append("image")
+                  .attr("width", backgroundSize)
+                  .attr("height", backgroundSize)
+                  .attr("xlink:href", "./dist/images/scatter-dots.jpg")
+                  .attr("preserveAspectRatio", "xMidYMin slice");
+
+                // add the clipping path 
+                // as the area
+                svg.append("clipPath")
+                  .attr("id", clipId)
+                  .append("path")
+                    .data([dataArray])
+                    .attr("class", "area")
+                    .attr("d", area);
+
+                // add the shape to be clipped
+                svg.append("rect")
+                    .attr("clip-path", clipURL)
+                    .attr("id", "rect")
+                    .attr("x", "0")
+                    .attr("y", "0")
+                    .attr("width", "100%")
+                    .attr("height", "100%")
+                    .attr("fill", patternURL);
+                    
+                // add the area
+                // svg.append("path")
+                    // .data([dataArray])
+                    // .attr("class", "area")
+                    // .attr("d", area);
+
+                
+                
+                // add the valueline path.
+                svg.append("path")
+                    .data([dataArray])
+                    .attr("class", "line")
+                    .attr("d", valueline);
+                
+                // // add the X Axis
+                // svg.append("g")
+                //     .attr("transform", "translate(0," + height + ")")
+                //     .call(d3.axisBottom(x));
+                
+                // // add the Y Axis
+                // svg.append("g")
+                //     .call(d3.axisLeft(y));
+                
+                
+                });
+                
+          
+    };
+
+    getUSData();
+};
+    
 
 /***/ }),
 /* 7 */
@@ -17561,8 +17501,240 @@ function dataCallFunctions() {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "visLineChart", function() { return visLineChart; });
-const visLineChart = (dataUrl, dataCountry) => { 
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDataNational", function() { return getDataNational; });
+const getDataNational = () => {
+
+    fetch('https://covidtracking.com/api/v1/us/daily.json')
+    .then(response => response.json())
+    .then(result => {
+        const totalCases = result[0].positive
+        const totalChange = Math.round(((result[0].positive - result[1].positive) / result[1].positive)  * 100);
+        const totalChangeX = () => {
+          if (isNaN(totalChange)) {
+            return totalCases
+          } else {
+            return totalChange
+          }
+        }
+        const totalPositive = Math.round(((result[0].positive / result[0].negative) * 100));
+        const positiveChange = Math.round(((result[0].positiveIncrease - result[1].positiveIncrease) / result[1].positiveIncrease) * 100);
+        const positiveChangeX = () => {
+          if (isNaN(positiveChange)) {
+            return totalPositive
+          } else {
+            return totalChange
+          }
+        }
+        const totalDeath = result[0].death;
+        const deathChange = Math.round(((result[0].deathIncrease - result[1].deathIncrease) / result[1].deathIncrease) * 100);
+        const deathChangeX = () => {
+          if (isNaN(deathChange)) {
+            return totalDeath
+          } else {
+            return deathChange
+          }
+        }
+        const totalHospitalizedCurrent = result[0].hospitalizedCurrently;
+        const hospitalizedChange = Math.round(((result[0].hospitalizedCurrently - result[1].hospitalizedCurrently) / result[1].hospitalizedCurrently) * 100);
+        const hospitalizedChangeX = () => { 
+          if (isNaN(hospitalizedChange)) {
+            return totalHospitalizedCurrent
+          } else {
+            return hospitalizedChange
+          }
+        }
+        
+        let parent = document.querySelector('[data-parent="united-states"]')
+        
+
+        let printTotalCases = parent.querySelector('[data-point="cumulative-cases"]')
+        .querySelector('[data-item="content"]')
+        printTotalCases.innerHTML = totalCases.toLocaleString()
+       
+        let printTotalChange = parent.querySelector('[data-point="cumulative-percent-change"]')
+        .querySelector('[data-item="data"]')
+        printTotalChange.innerHTML = JSON.stringify(totalChangeX()) + '%'
+
+        let printPositiveChange = parent.querySelector('[data-point="positive-tests"]')
+        .querySelector('[data-item="content')
+        printPositiveChange.innerHTML = JSON.stringify(totalPositive) + '%'
+
+        let printPrevDayPos = parent.querySelector('[data-point="positive-percent-change"]')
+        .querySelector('[data-item="data"]')
+        printPrevDayPos.innerHTML = JSON.stringify(positiveChangeX()) + '%'
+
+        let printTotalDeaths  = parent.querySelector('[data-point="cumulative-deaths"]')
+        .querySelector('[data-item="content"]')
+        printTotalDeaths.innerHTML = totalDeath.toLocaleString()
+
+        let printPrevDayDeaths = parent.querySelector('[data-point="deaths-percent-change"]')
+        .querySelector('[data-item="data"]')
+        printPrevDayDeaths.innerHTML = JSON.stringify(deathChangeX()) + '%'
+
+        let printHospitalizations = parent.querySelector('[data-point="hospitalizations"]')
+        .querySelector('[data-item="content"]')
+        printHospitalizations.innerHTML = totalHospitalizedCurrent.toLocaleString();
+
+        let printHospitalizationChange = parent.querySelector('[data-point="hospitalized-percent-change"]')
+        .querySelector('[data-item="data"]')
+        printHospitalizationChange.innerHTML = JSON.stringify(hospitalizedChangeX()) + '%'
+        
+    })
+    .catch(error => console.log('error', error));
+
+  };
+  
+  
+  
+
+/***/ }),
+/* 8 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return blockCounty; });
+/* harmony import */ var _blockCountyDataPoint__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(9);
+/* harmony import */ var _visTrendLine__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(10);
+
+
+
+function blockCounty() {
+  Object(_blockCountyDataPoint__WEBPACK_IMPORTED_MODULE_0__["getDataByPlaces"])("Los Angeles");
+  Object(_blockCountyDataPoint__WEBPACK_IMPORTED_MODULE_0__["getDataByPlaces"])("Lorain");
+
+  Object(_visTrendLine__WEBPACK_IMPORTED_MODULE_1__["visTrendLine"])("https://coviddata.github.io/coviddata/v1/places/stats.json", "los-angeles-california-united-states", "cumulative", "cases");
+  Object(_visTrendLine__WEBPACK_IMPORTED_MODULE_1__["visTrendLine"])("https://coviddata.github.io/coviddata/v1/places/stats.json", "los-angeles-california-united-states", "cumulative", "deaths");
+  Object(_visTrendLine__WEBPACK_IMPORTED_MODULE_1__["visTrendLine"])("https://coviddata.github.io/coviddata/v1/places/stats.json", "lorain-ohio-united-states", "cumulative", "cases");
+  Object(_visTrendLine__WEBPACK_IMPORTED_MODULE_1__["visTrendLine"])("https://coviddata.github.io/coviddata/v1/places/stats.json", "lorain-ohio-united-states", "cumulative", "deaths");
+}
+
+/***/ }),
+/* 9 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDataByPlaces", function() { return getDataByPlaces; });
+//PLACES (Counties)
+//GET Places from CovidData
+//Argument takes a string with a county name. e.g. "Los Angeles", "Lorain"
+const getDataByPlaces = (string) => {
+    // set up the data array
+
+    let dataArray = [];
+  
+    // fetch the data
+    fetch('https://coviddata.github.io/coviddata/v1/places/stats.json')
+    .then(response => response.json())
+    .then(data => {
+      
+      //@GH - I edited this to abstract the the argument
+      let scope = data.find(place => place.place.name === string) // set the scope
+      //@GH - I edited this for Place 
+      let scopeName = scope.place.name; // get the name of the scope (in this case country name) to print as a title
+      let dataOne = scope.dates; // drill down to the arrays of dates
+      
+      // this iterates over and separates the arrays of dates console.log(key) to see it
+      Object.keys(dataOne).forEach(function (key){
+       
+        //let one = key; // make this the first data point
+        let one = key;
+        //console.log(one);
+        let dataOneEach = dataOne[key]; // separates all the data in the dates so we can drill down further
+        let two = dataOneEach.cumulative.cases; // get cumulative cases and make it the second data point (this can be changed to any nested key in the dates array)
+  
+        // now we take those data points and make them an array
+        let result = ({one, two});
+        dataArray.push(result);
+      
+      });
+  
+      //datapoints for places(LA, Lorain, etc.)
+      const todayDate = dataArray[dataArray.length-1].one;
+      const yesterdayDate = dataArray[dataArray.length-2].one;
+      const casesTotal = dataOne[todayDate].cumulative.cases;
+      const casesNew = dataOne[todayDate].new.cases;
+      const casesChange = Math.round(((dataOne[todayDate].new.cases - dataOne[yesterdayDate].new.cases) / dataOne[yesterdayDate].new.cases) * 100);
+      const casesChangeX = () => {
+        if (isNaN(casesChange) || casesChange === Infinity) {
+          let handleZeroCases = document.querySelector(`[data-parent="${scope.place.key}"] [data-point="cases-percent-change"] [data-item="title"]`)
+          handleZeroCases.innerHTML = 'New on previous day';
+           return '0'
+        } else if (casesChange == -100) {
+          //This edge case handles 0 new cases by injected the new cases from the previous day
+          let handleZeroCases = document.querySelector(`[data-parent="${scope.place.key}"] [data-point="cases-percent-change"] [data-item="title"]`)
+          handleZeroCases.innerHTML = 'New on previous day';
+           return dataOne[yesterdayDate].new.cases
+        } else { 
+          return casesChange + '%'
+        }
+      }
+      const totalDeaths = dataOne[todayDate].cumulative.deaths
+      const deathsNew = dataOne[todayDate].new.deaths
+      const deathsChange = Math.round(((dataOne[todayDate].new.death - dataOne[yesterdayDate].new.deaths) / dataOne[yesterdayDate].new.deaths) * 100);
+      const deathsChangeX = () => {
+        if (isNaN(deathsChange) || deathsChange === Infinity) {
+          let handleZeroDeaths = document.querySelector(`[data-parent="${scope.place.key}"] [data-point="deaths-percent-change"] [data-item="title"]`)
+          handleZeroDeaths.innerHTML = 'New on previous day';
+          return `0`
+        } else if (casesChange == -100) {
+          //This edge case handles 0 new cases by injected the new cases from the previous day
+          let handleZeroCases = document.querySelector(`[data-parent="${scope.place.key}"] [data-point="deaths-percent-change"] [data-item="title"]`)
+          handleZeroCases.innerHTML = 'New on previous day';
+           return dataOne[yesterdayDate].new.deaths
+        } else {
+          return deathsChange + '%'
+        }
+      }
+   
+     //The [data-parent="XXX"] query in HTML must match the scope.place.key from the CovidData API.
+    if (string){
+
+      let parent = document.querySelector(`[data-parent="${scope.place.key}"]`)
+      
+      let dataOne = parent.querySelector('[data-point="cumulative-cases"]')
+      .querySelector('[data-item="content"]')
+      dataOne.innerHTML = casesTotal.toLocaleString()
+
+      let dataTwo = parent.querySelector('[data-point="new-cases"]')
+      .querySelector('[data-item="content"]')
+      dataTwo.innerHTML = casesNew.toLocaleString()
+
+      let dataThree = parent.querySelector('[data-point="cases-percent-change"]')
+      .querySelector('[data-item="content"]') 
+      dataThree.innerHTML = casesChangeX();
+      
+      let dataFour = parent.querySelector('[data-point="total-deaths"]')
+      .querySelector('[data-item="content"]')
+      dataFour.innerHTML = totalDeaths.toLocaleString()
+
+      let dataFive = parent.querySelector('[data-point="new-deaths"]')
+      .querySelector('[data-item="content"]')
+      dataFive.innerHTML = deathsNew.toLocaleString()
+
+      let dataSix = parent.querySelector('[data-point="deaths-percent-change"]')
+      .querySelector('[data-item="content"]')
+      dataSix.innerHTML = deathsChangeX()
+
+    }
+
+ })
+
+    return dataArray; // needed to use this in  visLineChart.js (check in there for changes). I couldn't figure out how to export the data. to mess with it
+  
+  };
+
+  
+
+/***/ }),
+/* 10 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "visTrendLine", function() { return visTrendLine; });
+const visTrendLine = (dataUrl, dataPlace, dataCat, dataPoint) => { 
 
     // set the dimensions and margins of the graph
     var margin = {top: 20, right: 20, bottom: 30, left: 50},
@@ -17590,15 +17762,14 @@ const visLineChart = (dataUrl, dataCountry) => {
     // append the svg obgect to the body of the page
     // appends a 'group' element to 'svg'
     // moves the 'group' element to the top left margin
-    var svg = d3.select("body").append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
+    
+    var svg = d3.select(`[data-parent="${dataPlace}"] [data-cat="${dataPoint}"] [data-item="trend-line"]`).append("svg")
+        .attr("viewBox", `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
       .append("g")
         .attr("transform",
               "translate(" + margin.left + "," + margin.top + ")");
-    
     // get the data
-    const getDataByCountry = () => {
+    const getDataByPlace = () => {
         // set up the object
         let dataArray = [];
         const dataArrayObjects = {};
@@ -17607,7 +17778,7 @@ const visLineChart = (dataUrl, dataCountry) => {
         fetch(dataUrl)
         .then(response => response.json())
         .then(data => {
-            console.log(data);
+            // console.log(data);
       
           // this is unique to the data at https://coviddata.github.io/coviddata/v1/countries/stats.json
             function findIndexWithAttr(array, name, parent, attr) {
@@ -17618,11 +17789,11 @@ const visLineChart = (dataUrl, dataCountry) => {
                 }
                 return -1;
             }
-            const index = findIndexWithAttr(data, dataCountry, 'country', 'key');
-            console.log(index);
+            const index = findIndexWithAttr(data, dataPlace, 'place', 'key');
+            // console.log(index);
           
           let scope = data[index]; // set the scope
-          let scopeName = scope.country.name; // get the name of the scope (in this case country name)
+          let scopeName = scope.place.name; // get the name of the scope (in this case place name)
           let dataOne = scope.dates; // drill down to the arrays of dates
           
           
@@ -17631,14 +17802,14 @@ const visLineChart = (dataUrl, dataCountry) => {
           Object.keys(dataOne).forEach(function (key){
             let one = key;
             let dataOneEach = dataOne[key]; // separates all the data in the dates so we can drill down further
-            let two = dataOneEach.cumulative.cases; // get cumulative cases
+            let two = dataOneEach[dataCat][dataPoint]; // get cumulative cases
       
             // now we take those pieces of info and make them an array
             let result = ({one, two});
             dataArray.push(result);
           });
       
-          console.log(dataArray);
+          // console.log(dataArray);
           
                 // format the data
                 dataArray.forEach(function(d) {
@@ -17651,33 +17822,29 @@ const visLineChart = (dataUrl, dataCountry) => {
                 x.domain(d3.extent(dataArray, function(d) { return d.one; }));
                 y.domain([0, d3.max(dataArray, function(d) { return d.two; })]);
                 
-                // add the area
-                    svg.append("path")
-                    .data([dataArray])
-                    .attr("class", "area")
-                    .attr("d", area);
-                
                 // add the valueline path.
                 svg.append("path")
                     .data([dataArray])
                     .attr("class", "line")
                     .attr("d", valueline);
                 
-                // add the X Axis
-                svg.append("g")
-                    .attr("transform", "translate(0," + height + ")")
-                    .call(d3.axisBottom(x));
+                // // add the X Axis
+                // svg.append("g")
+                //     .attr("transform", "translate(0," + height + ")")
+                //     .call(d3.axisBottom(x));
                 
-                // add the Y Axis
-                svg.append("g")
-                    .call(d3.axisLeft(y));
+                // // add the Y Axis
+                // svg.append("g")
+                //     .call(d3.axisLeft(y));
+                
                 
                 });
+                
           
     };
 
-    getDataByCountry();
 
+    getDataByPlace();
 };
     
 
