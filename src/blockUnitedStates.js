@@ -14,7 +14,7 @@ export default function blockUnitedStates() {
     blockUnitedStatesLineGraph("https://covidtracking.com/api/v1/us/daily.json", "death", "cumulative-deaths");
     
     // hospitalizations
-    blockUnitedStatesLineGraph("https://covidtracking.com/api/v1/us/daily.json", "hospitalizedCumulative", "hospitalizations");
+    blockUnitedStatesLineGraph("https://covidtracking.com/api/v1/us/daily.json", "hospitalizedCurrently", "hospitalizations");
 
     getDataNational();
 };

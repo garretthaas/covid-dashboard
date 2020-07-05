@@ -5,7 +5,6 @@ const getDataByPlaces = (string) => {
     // set up the data array
 
     let dataArray = [];
-    let allDates = [];
   
     // fetch the data
     fetch('https://coviddata.github.io/coviddata/v1/places/stats.json')
@@ -30,70 +29,65 @@ const getDataByPlaces = (string) => {
         // now we take those data points and make them an array
         let result = ({one, two});
         dataArray.push(result);
-  
-        //push all dates into an array to find current data day and previous day
-        allDates.push(one)
       
       });
   
       //datapoints for places(LA, Lorain, etc.)
-      const todayDate = allDates[allDates.length-1];
-      const yesterdayDate = allDates[allDates.length-2];
+      const todayDate = dataArray[dataArray.length-1].one;
+      const yesterdayDate = dataArray[dataArray.length-2].one;
       const casesTotal = dataOne[todayDate].cumulative.cases;
       const casesNew = dataOne[todayDate].new.cases;
       const casesChange = Math.round(((dataOne[todayDate].new.cases - dataOne[yesterdayDate].new.cases) / dataOne[yesterdayDate].new.cases) * 100);
       const casesChangeX = () => {
-        if (isNaN(casesChange)) {
-          return `0`
+        if (isNaN(casesChange) || casesChange === Infinity) {
+          let handleZero = document.querySelector(`[data-parent="${scope.place.key}"] [data-point="cases-percent-change"] [data-item="title"]`)
+          handleZero.innerHTML = 'New on previous day';
+           return '0'
         } else { 
-          return casesChange
+          return casesChange + '%'
         }
       }
       const totalDeaths = dataOne[todayDate].cumulative.deaths
       const deathsNew = dataOne[todayDate].new.deaths
       const deathsChange = Math.round(((dataOne[todayDate].new.death - dataOne[yesterdayDate].new.deaths) / dataOne[yesterdayDate].new.deaths) * 100);
       const deathsChangeX = () => {
-        if (isNaN(deathsChange)) {
+        if (isNaN(deathsChange) || deathsChange === Infinity) {
+          let handleZero = document.querySelector(`[data-parent="${scope.place.key}"] [data-point="deaths-percent-change"] [data-item="title"]`)
+          handleZero.innerHTML = 'New on previous day';
           return `0`
         } else {
-          return deathsChange
+          return deathsChange + '%'
         }
       }
-      
-      console.log(`${scopeName} Total Cases: ${casesTotal}`)
-      console.log(`${scopeName} New Cases: ${casesNew}`)
-      console.log(`${scopeName} Total Case % change vs. previous day: ${casesChangeX()}%`)
-      console.log(`${scopeName} Total Deaths: ${totalDeaths}`)
-      console.log(`${scopeName} New Deaths: ${deathsNew}`)
-      console.log(`${scopeName} Total Death % change vs. previous day: ${deathsChangeX()}%`)
-      console.log(`${scopeName} Total Death % change vs. previous day: ${deathsChangeX()}%`)
-     
-    //The [data-parent="XXX"] query in HTML must match the scope.place.key from the CovidData API.
+   
+     //The [data-parent="XXX"] query in HTML must match the scope.place.key from the CovidData API.
     if (string){
-    let parent = document.querySelector(`[data-parent="${scope.place.key}"]`)
-    let dataOne = parent.querySelector('[data-point="cumulative-cases"]')
-    .querySelector('[data-item="content"]')
-    dataOne.innerHTML = casesTotal.toLocaleString()
 
-    let dataTwo = parent.querySelector('[data-point="new-cases"]')
-    .querySelector('[data-item="content"]')
-    dataTwo.innerHTML = casesNew.toLocaleString()
+      let parent = document.querySelector(`[data-parent="${scope.place.key}"]`)
+      
+      let dataOne = parent.querySelector('[data-point="cumulative-cases"]')
+      .querySelector('[data-item="content"]')
+      dataOne.innerHTML = casesTotal.toLocaleString()
 
-    let dataThree = parent.querySelector('[data-point="cases-percent-change"]')
-    .querySelector('[data-item="content"]') 
-    dataThree.innerHTML = casesChangeX() + '%'
-    //HELP!!!
-    let dataFour = parent.querySelector('[data-point="total-deaths"]')
-    .querySelector('[data-item="content"]')
-    dataFour.innerHTNL = totalDeaths
-// 
-    let dataFive = parent.querySelector('[data-point="new-deaths"]')
-    .querySelector('[data-item="content"]')
-    dataFive.innerHTML = deathsNew
+      let dataTwo = parent.querySelector('[data-point="new-cases"]')
+      .querySelector('[data-item="content"]')
+      dataTwo.innerHTML = casesNew.toLocaleString()
 
-    let dataSix = parent.querySelector('[data-point="deaths-percent-change"]')
-    .querySelector('[data-item="content"]')
-    dataSix.innerHTML = deathsChangeX() + '%'
+      let dataThree = parent.querySelector('[data-point="cases-percent-change"]')
+      .querySelector('[data-item="content"]') 
+      dataThree.innerHTML = casesChangeX();
+      
+      let dataFour = parent.querySelector('[data-point="total-deaths"]')
+      .querySelector('[data-item="content"]')
+      dataFour.innerHTML = totalDeaths.toLocaleString()
+
+      let dataFive = parent.querySelector('[data-point="new-deaths"]')
+      .querySelector('[data-item="content"]')
+      dataFive.innerHTML = deathsNew.toLocaleString()
+
+      let dataSix = parent.querySelector('[data-point="deaths-percent-change"]')
+      .querySelector('[data-item="content"]')
+      dataSix.innerHTML = deathsChangeX()
 
     }
 
