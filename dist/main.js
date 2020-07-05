@@ -17309,7 +17309,7 @@ function blockUnitedStates() {
     Object(_blockUnitedStatesLineGraph__WEBPACK_IMPORTED_MODULE_0__["blockUnitedStatesLineGraph"])("https://covidtracking.com/api/v1/us/daily.json", "positive", "cumulative-cases");
 
     // positive tests
-    Object(_blockUnitedStatesLineGraph__WEBPACK_IMPORTED_MODULE_0__["blockUnitedStatesLineGraph"])("https://covidtracking.com/api/v1/us/daily.json", "positive", "positive-tests");
+    Object(_blockUnitedStatesLineGraph__WEBPACK_IMPORTED_MODULE_0__["blockUnitedStatesLineGraph"])("https://covidtracking.com/api/v1/us/daily.json", "percent-positive", "positive-tests");
     
     // cumulative deaths
     Object(_blockUnitedStatesLineGraph__WEBPACK_IMPORTED_MODULE_0__["blockUnitedStatesLineGraph"])("https://covidtracking.com/api/v1/us/daily.json", "death", "cumulative-deaths");
@@ -17337,6 +17337,7 @@ const blockUnitedStatesLineGraph = (dataUrl, dataPoint, selector) => {
     
     // parse the one / time
     var parseTime = d3.timeParse("%Y%m%d");
+    var formatPercent = d3.format("+.0%");
     
     // set the ranges
     var x = d3.scaleTime().range([0, width]);
@@ -17372,18 +17373,44 @@ const blockUnitedStatesLineGraph = (dataUrl, dataPoint, selector) => {
         fetch(dataUrl)
         .then(response => response.json())
         .then(data => {
-            console.log(data);
+            // console.log(data);
+
+            if (dataPoint == "percent-positive") {
         
-            for (var i = 0, len = data.length; i < len; i++) { 
-                let one = data[i].date;
-                let two = data[i][dataPoint]; // get cumulative cases
+                for (var i = 0, len = data.length; i < len; i++) { 
+                    let one = data[i].date;
+                    let twoCalc = ((data[i].positive / data[i].total) * 100);
+                    let twoCheck = () => {
+                        if (isNaN(twoCalc) || twoCalc == Number.POSITIVE_INFINITY || twoCalc == Number.NEGATIVE_INFINITY) {
+                          return 0
+                        } else {
+                          return twoCalc
+                        }
+                      }
+                    let two = twoCheck();
 
-                 // now we take those pieces of info and make them an array
-                let result = ({one, two});
-                dataArray.push(result);
+                    // get percent positive
+                    console.log("percentage calc: " + two);
 
-             }
-          console.log(dataArray);
+                    // now we take those pieces of info and make them an array
+                    let result = ({one, two});
+                    dataArray.push(result);
+                    
+
+                }
+                console.log(dataArray);
+            } else {
+                for (var i = 0, len = data.length; i < len; i++) { 
+                    let one = data[i].date;
+                    let two = data[i][dataPoint]; // get cumulative cases
+
+                    // now we take those pieces of info and make them an array
+                    let result = ({one, two});
+                    dataArray.push(result);
+
+                }
+            }
+            // console.log(dataArray);
           
                 // format the data
                 dataArray.forEach(function(d) {
@@ -17751,7 +17778,7 @@ const visTrendLine = (dataUrl, dataPlace, dataCat, dataPoint) => {
         fetch(dataUrl)
         .then(response => response.json())
         .then(data => {
-            console.log(data);
+            // console.log(data);
       
           // this is unique to the data at https://coviddata.github.io/coviddata/v1/countries/stats.json
             function findIndexWithAttr(array, name, parent, attr) {
@@ -17763,7 +17790,7 @@ const visTrendLine = (dataUrl, dataPlace, dataCat, dataPoint) => {
                 return -1;
             }
             const index = findIndexWithAttr(data, dataPlace, 'place', 'key');
-            console.log(index);
+            // console.log(index);
           
           let scope = data[index]; // set the scope
           let scopeName = scope.place.name; // get the name of the scope (in this case place name)
@@ -17782,7 +17809,7 @@ const visTrendLine = (dataUrl, dataPlace, dataCat, dataPoint) => {
             dataArray.push(result);
           });
       
-          console.log(dataArray);
+          // console.log(dataArray);
           
                 // format the data
                 dataArray.forEach(function(d) {

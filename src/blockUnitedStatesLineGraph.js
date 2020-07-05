@@ -7,6 +7,7 @@ export const blockUnitedStatesLineGraph = (dataUrl, dataPoint, selector) => {
     
     // parse the one / time
     var parseTime = d3.timeParse("%Y%m%d");
+    var formatPercent = d3.format("+.0%");
     
     // set the ranges
     var x = d3.scaleTime().range([0, width]);
@@ -42,18 +43,44 @@ export const blockUnitedStatesLineGraph = (dataUrl, dataPoint, selector) => {
         fetch(dataUrl)
         .then(response => response.json())
         .then(data => {
-            console.log(data);
+            // console.log(data);
+
+            if (dataPoint == "percent-positive") {
         
-            for (var i = 0, len = data.length; i < len; i++) { 
-                let one = data[i].date;
-                let two = data[i][dataPoint]; // get cumulative cases
+                for (var i = 0, len = data.length; i < len; i++) { 
+                    let one = data[i].date;
+                    let twoCalc = ((data[i].positive / data[i].total) * 100);
+                    let twoCheck = () => {
+                        if (isNaN(twoCalc) || twoCalc == Number.POSITIVE_INFINITY || twoCalc == Number.NEGATIVE_INFINITY) {
+                          return 0
+                        } else {
+                          return twoCalc
+                        }
+                      }
+                    let two = twoCheck();
 
-                 // now we take those pieces of info and make them an array
-                let result = ({one, two});
-                dataArray.push(result);
+                    // get percent positive
+                    console.log("percentage calc: " + two);
 
-             }
-          console.log(dataArray);
+                    // now we take those pieces of info and make them an array
+                    let result = ({one, two});
+                    dataArray.push(result);
+                    
+
+                }
+                console.log(dataArray);
+            } else {
+                for (var i = 0, len = data.length; i < len; i++) { 
+                    let one = data[i].date;
+                    let two = data[i][dataPoint]; // get cumulative cases
+
+                    // now we take those pieces of info and make them an array
+                    let result = ({one, two});
+                    dataArray.push(result);
+
+                }
+            }
+            // console.log(dataArray);
           
                 // format the data
                 dataArray.forEach(function(d) {

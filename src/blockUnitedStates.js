@@ -7,7 +7,7 @@ export default function blockUnitedStates() {
     blockUnitedStatesLineGraph("https://covidtracking.com/api/v1/us/daily.json", "positive", "cumulative-cases");
 
     // positive tests
-    blockUnitedStatesLineGraph("https://covidtracking.com/api/v1/us/daily.json", "positive", "positive-tests");
+    blockUnitedStatesLineGraph("https://covidtracking.com/api/v1/us/daily.json", "percent-positive", "positive-tests");
     
     // cumulative deaths
     blockUnitedStatesLineGraph("https://covidtracking.com/api/v1/us/daily.json", "death", "cumulative-deaths");
