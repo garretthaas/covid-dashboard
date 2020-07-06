@@ -1,0 +1,33 @@
+// typography
+
+h1, h2, h3, h4, h5, h6, p, ul, ol, li {
+    font-family: Georgia, serif;
+}
+
+h1 {
+    font-size: 5.063em;
+}
+
+h2 {
+    font-size: 3.375em;
+}
+
+h3 {
+    font-size: 1.5em;
+}
+
+
+p {
+    font-size: 1.5em;
+    color: inherit;
+    line-height: 1;
+
+    &.callout {
+        font-family: 'Oswald', sans-serif;
+        font-size: 7.594em;
+    }
+}
+
+p.small {
+    font-size: 1em;
+}

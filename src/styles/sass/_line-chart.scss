@@ -1,0 +1,38 @@
+// line chart
+
+/* AXES */
+/* ticks */
+.axis line{
+  stroke: #706f6f;
+  stroke-width: 0.5;
+  shape-rendering: crispEdges;
+}
+
+/* axis contour */
+.axis path {
+  stroke: #706f6f;
+  stroke-width: 0.7;
+  shape-rendering: crispEdges;
+}
+
+/* axis text */
+.axis text {
+  fill: #2b2929;
+  font-family: Georgia;
+  font-size: 120%;
+}
+
+.line {
+    fill: none;
+    stroke: #111;
+    stroke-width: 0.3em;
+  }
+  
+  .area {
+    fill: none;
+  }
+
+.trendline .line {
+  stroke: #FF7470;
+  stroke-width: 1.5em;
+}

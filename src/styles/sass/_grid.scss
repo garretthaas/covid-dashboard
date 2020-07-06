@@ -2,5 +2,30 @@
 
 .grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    column-gap: 2em;
+    row-gap: 2em;
+
+    &.two {
+        grid-template-columns: 1fr;
+
+        @include respond-to('medium') {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+
+    &.three {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    &.four {
+        grid-template-columns: 1fr 1fr;
+
+        @include respond-to('medium') {
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+        }
+    }
+
+    &.grid-item.two {
+        grid-template-columns: 1fr 1fr;
+    }
 }

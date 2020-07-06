@@ -2,49 +2,186 @@
 <html>
   <head>
     <title>Covid Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./dist/styles.min.css">
+
   </head>
   <body>
-    <h1>Covid Dashboard</h1>
-    <!-- Create a div where the graph will take place -->
-    <section class="hero">
-      <h2>United States</h2>
-      <div class="grid grid-hero">
-        <article id="hero--united-states-cumulative-cases" class="grid-item inner-grid grid-hero">
-          <div class="grid-item">
-            <h3 id="hero--united-states-cumulative-cases--header">Total Cases</h3>
-          </div>
-          <div class="grid-item">
-            <p id="hero--united-states-cumulative-cases content">400,432</p>
-          </div>
-          <div id="line-graph-united-states-cumulative-cases" class="grid-item relative">
-            <div class="hero--united-states-cumulative-cases--percent-change">
-              <p class="hero--united-states-cumulative-cases--percent-change--content">9%</p>
-              <p>vs. previous day</p>
+    <header>
+      <h1>Covid Dashboard</h1>
+    </header>
+    
+
+    <main>
+    <!--National Section-->
+    <section class="hero" data-parent="united-states">
+      <h2 data-point="location-title">United States</h2>
+
+      <hr class="black-rule">
+      <div class="grid two">
+        <article data-point="cumulative-cases">
+          <h3 data-item="title">Total Cases</h3>
+          <div class="grid-item grid two">
+            <div class="grid-item">
+              <p class="callout" data-item="content">X</p>
+            </div>
+            <div class="grid-item relative" data-item="line-graph">
+              <div class="absolute overlay" data-point="cumulative-percent-change">
+                <p class="detail positive" data-item="data"></p>
+                <p>vs. previous day</p>
+              </div>
             </div>
           </div>
         </article>
 
-        <article id="hero--united-states-cumulative-deaths" class="grid-item inner-grid grid-hero">
-          <div class="grid-item">
-            <h3 id="hero--united-states-cumulative-deaths--header">Total deaths</h3>
+        <article data-point="positive-tests">
+          <h3 data-item="title">Positive Tests</h3>
+          <div class="grid-item grid two">
+            <div class="grid-item">
+              <p class="callout" data-item="content"></p>
+            </div>
+            <div class="grid-item relative" data-item="line-graph">
+              <div class="absolute overlay" data-point="positive-percent-change">
+                <p class="detail positive" data-item="data"></p>
+                <p>vs. previous day</p>
+              </div>
+            </div>
           </div>
-          <div class="grid-item">
-            <p id="hero--united-states-cumulative-deaths content">400,432</p>
+        </article>
+
+        <article data-point="cumulative-deaths">
+          <h3 data-item="title">Total Deaths</h3>
+          <div class="grid-item grid two">
+            <div class="grid-item">
+              <p class="callout" data-item="content"></p>
+            </div>
+            <div class="grid-item relative" data-item="line-graph">
+              <div class="absolute overlay" data-point="deaths-percent-change">
+                <p class="detail positive" data-item="data"></p>
+                <p>vs. previous day</p>
+              </div>
+            </div>
           </div>
-          <div id="line-graph-united-states-cumulative-deaths" class="grid-item">
-            <div class="hero--united-states-cumulative-deaths--percent-change">
-              <p class="hero--united-states-cumulative-deaths--percent-change--content">9%</p>
-              <p>vs. previous day</p>
+        </article>
+
+        <article data-point="hospitalizations">
+          <h3 data-item="title">Hospitalizations Currently</h3>
+          <div class="grid-item grid two">
+            <div class="grid-item">
+              <p class="callout" data-item="content">X</p>
+            </div>
+            <div class="grid-item relative" data-item="line-graph">
+              <div class="absolute overlay" data-point="hospitalized-percent-change">
+                <p class="detail positive" data-item="data"></p>
+                <p>vs. previous day</p>
+              </div>
             </div>
           </div>
         </article>
       </div>
-    </section>
-    
 
-    <div id="dataNational"></div>
-    <script src="https://d3js.org/d3.v5.min.js"></script>
-    <script src="./dist/main.js"></script>
+    </section>
+
+
+    <!--Local Section-->
+    <section class="grid two">
+      <!--Row of Locations-->
+      <article class="grid-item" data-parent="los-angeles-california-united-states">
+        <h2 data-point="location-title">Los Angeles County</h2>
+        <hr class="black-rule">
+        <!--LA Cases-->
+        <h3 data-item="title">Cases</h3>
+        <div class="grid four" data-cat="cases">
+          <div class="grid-item" data-point="cumulative-cases">
+          <p class="callout" data-item="content">X</p>
+            <p>Cumulative</p>
+          </div>
+          <div class="grid-item" data-point="new-cases">
+            <p class="callout" data-item="content">X</p>
+            <p>New</p>
+          </div>
+          <div class="grid-item" data-point="cases-percent-change">
+            <p class="callout" data-item="content">X</p>
+            <p data-item="title">Prev</p>
+          </div>
+          <div class="grid-item trendline" data-item="trend-line">
+            <p>Trendline</p></div>
+        </div>
+        <!--LA Deaths-->
+        <h3 data-item="title">Deaths</h3>
+        <div class="grid four" data-cat="deaths">
+          <div class="grid-item" data-point="total-deaths">
+          <p class="callout" data-item="content">X</p>
+            <p>Total</p>
+          </div>
+          <div class="grid-item" data-point="new-deaths">
+            <p class="callout" data-item="content">X</p>
+            <p>New</p>
+          </div>
+          <div class="grid-item" data-point="deaths-percent-change">
+            <p class="callout" data-item="content">X</p>
+            <p data-item="title">Prev</p>
+          </div>
+          <div class="grid-item trendline" data-item="trend-line">
+            <p>Trendline</p></div>
+        </div>
+      </article>
+
+      <article class="grid-item"  data-parent="lorain-ohio-united-states">
+        <h2 data-point="location-title">Lorain County</h2>
+        <hr class="black-rule">
+        
+        <!--Lorain Cases-->
+        <h3 data-item="title">Cases</h3>
+        <div class="grid four" data-cat="cases">
+          <div class="grid-item" data-point="cumulative-cases">
+          <p class="callout" data-item="content">X</p>
+            <p>Cumulative</p>
+          </div>
+          <div class="grid-item" data-point="new-cases">
+            <p class="callout" data-item="content">X</p>
+            <p>New</p>
+          </div>
+          <div class="grid-item" data-point="cases-percent-change">
+            <p class="callout" data-item="content">X</p>
+            <p data-item="title">Prev</p>
+          </div>
+          <div class="grid-item trendline" data-item="trend-line">
+            <p>Trendline</p></div>
+        </div>
+        <!--Lorain Deaths-->
+        <h3 data-item="title">Deaths</h3>
+        <div class="grid four" data-cat="deaths">
+          <div class="grid-item" data-point="total-deaths">
+          <p class="callout" data-item="content">X</p>
+            <p>Total</p>
+          </div>
+          <div class="grid-item" data-point="new-deaths">
+            <p class="callout" data-item="content">X</p>
+            <p>New</p>
+          </div>
+          <div class="grid-item" data-point="deaths-percent-change">
+            <p class="callout" data-item="content">X</p>
+            <p data-item="title">Prev</p>
+          </div>
+          <div class="grid-item trendline" data-item="trend-line">
+            <p>Trendline</p></div>
+        </div>
+      </article>
+    </section>
+    <!--Info Section-->
+  </main>
+  <footer>
+    <section class="info">
+      <h2>Info</h2>
+      <hr class="black-rule">
+      <h3>About the data</h3>
+      <p>Our data is updated daily from The COVID Tracking Project, CovidData, & COVID19API</p>
+      <h3>About the site</h3>
+      <p>This project was created by Garrett Haas & Ricky Rhodes to share COVID-19 data as it relates to their lives and areas of interest. The dashboard was created D3.js, Lodash, and Vanilla JS.</p>
+    </section>
+  </footer>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/d3/5.16.0/d3.min.js'></script>
+    <script src="./dist/main.js" type="text/javascript"></script>
   </body>
 </html>

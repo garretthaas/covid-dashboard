@@ -1,21 +1,11 @@
 import _ from 'lodash';
 import { module } from './module';
-import { getDataNational, getDataByState, getDataWorld } from './dataGetData.js'
-import dataCallFunctions from './dataCallFunctions.js';
-import { visLineChart } from './visLineChart';
+import blockUnitedStates from './blockUnitedStates';
+import blockCounty from './blockCounty';
 
-//EXAMPLE of export - to be deleted
-getDataNational();
-getDataByState('oh');
-getDataWorld();
+blockUnitedStates();
+blockCounty();
 
-// testing d3 visualization - delete when done
-visLineChart("https://coviddata.github.io/coviddata/v1/countries/stats.json", "united-states", "cumulative", "cases");
-visLineChart("https://coviddata.github.io/coviddata/v1/countries/stats.json", "united-states", "cumulative", "deaths");
-
-//Call all API gets
-
-dataCallFunctions();
 
 module;
 function component() {
@@ -28,4 +18,5 @@ function component() {
   } 
   
   document.body.appendChild(component());
-  
+ 
+ 
