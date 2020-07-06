@@ -83,9 +83,35 @@ const getDataByPlaces = (string) => {
       .querySelector('[data-item="content"]')
       dataTwo.innerHTML = casesNew.toLocaleString()
 
-      let dataThree = parent.querySelector('[data-point="cases-percent-change"]')
-      .querySelector('[data-item="content"]') 
-      dataThree.innerHTML = casesChangeX();
+      // let dataThree = parent.querySelector('[data-point="cases-percent-change"] [data-item="content"]')
+      // dataThree.innerHTML = casesChangeX();
+
+      //replace dataThree
+      if (Math.sign(casesChangeX()) === 1) {
+        let prevDayNeg = parent.querySelector('[data-point="cases-percent-change"] .callout')
+        //@GH — can we use .toggle here?
+          if (prevDayNeg.classList.contains('negative')) {
+            prevDayNeg.classList.remove('negative')
+            prevDayNeg.classList.add('positive')
+            prevDayNeg.innerHTML = casesChangeX()
+          } else {
+            let dataThree = parent.querySelector('[data-point="cases-percent-change"] [data-item="content"]')
+            dataThree.innerHTML = casesChangeX();
+          }
+      } else {
+        let prevDayPos = parent.querySelector('[data-point="cases-percent-change"] .callout')
+
+        //@GH — can we use .toggle here?
+        if (prevDayPos.classList.contains('positive')) {
+          prevDayPos.classList.remove('positive')
+          prevDayPos.classList.add('negative')
+          console.log(casesChangeX())
+          prevDayPos.innerHTML = casesChangeX()
+        } else {
+          let dataThree = parent.querySelector('[data-point="cases-percent-change"] [data-item="content"]')
+          dataThree.innerHTML = casesChangeX();
+        }
+      }
       
       let dataFour = parent.querySelector('[data-point="total-deaths"]')
       .querySelector('[data-item="content"]')
@@ -95,9 +121,36 @@ const getDataByPlaces = (string) => {
       .querySelector('[data-item="content"]')
       dataFive.innerHTML = deathsNew.toLocaleString()
 
-      let dataSix = parent.querySelector('[data-point="deaths-percent-change"]')
-      .querySelector('[data-item="content"]')
-      dataSix.innerHTML = deathsChangeX()
+      // let dataSix = parent.querySelector('[data-point="deaths-percent-change"] [data-item="content"]')
+      // dataSix.innerHTML = deathsChangeX()
+
+      //replace dataSix
+      if (Math.sign(deathsChangeX()) === 1) {
+        let printDeathsChange = parent.querySelector('[data-point="deaths-percent-change"] [data-item="content"]')
+        let prevDayNeg = parent.querySelector('[data-point="deaths-percent-change"] .callout')
+        //@GH — can we use .toggle here?
+          if (prevDayNeg.classList.contains('negative')) {
+            prevDayNeg.classList.remove('negative')
+            prevDayNeg.classList.add('positive')
+            prevDayNeg.innerHTML = deathsChangeX()
+          } else {
+            let dataSix = parent.querySelector('[data-point="deaths-percent-change"] [data-item="content"]')
+            dataSix.innerHTML = deathsChangeX()
+          }
+      } else {
+        let prevDayPos = parent.querySelector('[data-point="deaths-percent-change"] .callout')
+
+        //@GH — can we use .toggle here?
+        if (prevDayPos.classList.contains('positive')) {
+          prevDayPos.classList.remove('positive')
+          prevDayPos.classList.add('negative')
+          console.log(deathsChangeX())
+          prevDayPos.innerHTML = deathsChangeX()
+        } else {
+          let dataSix = parent.querySelector('[data-point="deaths-percent-change"] [data-item="content"]')
+          dataSix.innerHTML = deathsChangeX()
+        }
+      }
 
     }
 
