@@ -95,8 +95,8 @@ const getDataByPlaces = (string) => {
             prevDayNeg.classList.add('positive')
             prevDayNeg.innerHTML = casesChangeX()
           } else {
-            let dataThree = parent.querySelector('[data-point="cases-percent-change"] [data-item="content"]')
-            dataThree.innerHTML = casesChangeX();
+            let printCasesChange = parent.querySelector('[data-point="cases-percent-change"] [data-item="content"]')
+            printCasesChange.innerHTML = casesChangeX();
           }
       } else {
         let prevDayPos = parent.querySelector('[data-point="cases-percent-change"] .callout')
@@ -114,12 +114,10 @@ const getDataByPlaces = (string) => {
       }
 
       
-      let dataFour = parent.querySelector('[data-point="total-deaths"]')
-      .querySelector('[data-item="content"]')
+      let dataFour = parent.querySelector('[data-point="total-deaths"] [data-item="content"]')
       dataFour.innerHTML = totalDeaths.toLocaleString()
 
-      let dataFive = parent.querySelector('[data-point="new-deaths"]')
-      .querySelector('[data-item="content"]')
+      let dataFive = parent.querySelector('[data-point="new-deaths"] [data-item="content"]')
       dataFive.innerHTML = deathsNew.toLocaleString()
 
 
