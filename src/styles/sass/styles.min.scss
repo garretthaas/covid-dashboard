@@ -1,6 +1,6 @@
 // PARTIALS
 // make sure all scss partials have an _ prefix like this... _module-name.scss
-@import './reset';
+@import './helpers';
 @import './grid';
 @import './line-chart';
 @import './typography';
@@ -12,9 +12,10 @@ html {
     line-height: 1.4;
 }
 
-nav, main {
+header, main {
     max-width: calc(150em - 4vw);
     margin-bottom: 4vw;
+    padding: 0 4vw 4vw;
     margin:0 auto;
 }
 
@@ -31,4 +32,41 @@ footer{
     max-width: 90em;
     margin: 0 auto;
     color: #f1f1f1;
+}
+
+.relative {
+    position: relative;
+}
+
+.absolute {
+    position: absolute;
+}
+
+.positive {
+    &:before {
+        content: '▲';
+        display: inline-block;
+    }
+}
+
+.negative {
+    &:before {
+        content: '▼';
+        display: inline-block;
+    }
+}
+
+
+
+// hero section
+.hero {
+
+    article {
+        border-bottom: 1px solid lightgray;
+    }
+
+    .overlay {
+        background: white;
+        padding: 0 1em 1em 0;
+    }
 }

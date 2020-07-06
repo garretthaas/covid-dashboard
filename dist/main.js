@@ -17624,6 +17624,11 @@ const getDataNational = () => {
         printTotalDeaths.innerHTML = totalDeath.toLocaleString()
 
 
+  };
+  
+  
+  
+
         if (Math.sign(deathChangeX()) === 1) {
           let changePosDeaths = parent.querySelector('[data-point="deaths-percent-change"] .detail')
           //@GH — can we use .toggle here?
@@ -17883,6 +17888,7 @@ const getDataByPlaces = (string) => {
       }
 
     }
+
 
  })
 

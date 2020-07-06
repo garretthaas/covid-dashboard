@@ -8,7 +8,7 @@
     "styles": "node-sass -w ./src/styles/sass/ -o ./dist --output-style compressed",
     "start": "webpack",
     "server": "http-server", 
-    "build": "node-sass ./src/styles/sass/styles.min.scss ./dist/styles.min.css --output-style compressed && webpack"
+    "build": "node-sass ./src/styles/sass/styles.min.scss ./dist/styles.min.css --output-style compressed && webpack --config webpack.prod.js"
   },
   "repository": {
     "type": "git",
