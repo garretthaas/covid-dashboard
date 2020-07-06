@@ -17507,6 +17507,8 @@ const getDataNational = () => {
     fetch('https://covidtracking.com/api/v1/us/daily.json')
     .then(response => response.json())
     .then(result => {
+
+        //Storing calculations in variables and handling edge cases
         const totalCases = result[0].positive
         const totalChange = Math.round(((result[0].positive - result[1].positive) / result[1].positive)  * 100);
         const totalChangeX = () => {
@@ -17544,37 +17546,36 @@ const getDataNational = () => {
           }
         }
         
+        //DOM Manipulation
         let parent = document.querySelector('[data-parent="united-states"]')
         
-
-        let printTotalCases = parent.querySelector('[data-point="cumulative-cases"]')
-        .querySelector('[data-item="content"]')
+        let printTotalCases = parent.querySelector('[data-point="cumulative-cases"] [data-item="content"]')
         printTotalCases.innerHTML = totalCases.toLocaleString()
-              
+        
+        //REFACTOR NAMING CONVENTION
        if (Math.sign(totalChangeX()) === 1) {
-        let printTotalChange = parent.querySelector('[data-point="cumulative-percent-change"]')
-        .querySelector('[data-item="data"]')
-        let prevDayNeg = parent.querySelector('[data-point="cumulative-percent-change"] .positive')
+        let prevDayNeg = parent.querySelector('[data-point="cumulative-percent-change"] .detail')
+        console.log(prevDayNeg.classList)
         //@GH — can we use .toggle here?
           if (prevDayNeg.classList.contains('negative')) {
             prevDayNeg.classList.remove('negative')
             prevDayNeg.classList.add('positive')
-            printTotalChange.innerHTML = totalChangeX()  + '%'
+            prevDayNeg.innerHTML = totalChangeX()  + '%'
           } else {
-            let printTotalChange = parent.querySelector('[data-point="cumulative-percent-change"]')
-            .querySelector('[data-item="data"]')
+            let printTotalChange = parent.querySelector('[data-point="cumulative-percent-change"] [data-item="data"]')
             printTotalChange.innerHTML = totalChangeX()  + '%'
           }
       } else {
-        let printTotalChange = parent.querySelector('[data-point="cumulative-percent-change"]')
-        .querySelector('[data-item="data"]')
-        let prevDayPos = parent.querySelector('[data-point="cumulative-percent-change"] .negative')
+        let prevDayPos = parent.querySelector('[data-point="cumulative-percent-change"] .detail')
         //@GH — can we use .toggle here?
         if (prevDayPos.classList.contains('positive')) {
           prevDayPos.classList.remove('positive')
           prevDayPos.classList.add('negative')
-          printTotalChange.innerHTML = totalChangeX()  + '%'
-          } 
+          prevDayPos.innerHTML = totalChangeX()  + '%' 
+          } else {
+            let printTotalChange = parent.querySelector('[data-point="cumulative-percent-change"] [data-item="data"]')
+            printTotalChange.innerHTML = totalChangeX()  + '%'
+          }
       }
 
         let printPositiveChange = parent.querySelector('[data-point="positive-tests"]')
@@ -17585,40 +17586,29 @@ const getDataNational = () => {
         // .querySelector('[data-item="data"]')
         // printPrevDayPos.innerHTML = positiveChangeX()
 
-
         if (Math.sign(positiveChangeX()) === 1) {
-          console.log('Conditional 1 running')
           //scope into printing location 
-          let printPrevDayPos = parent.querySelector('[data-point="positive-percent-change"]')
-          .querySelector('[data-item="data"]')
+          let printPrevDayPos = parent.querySelector('[data-point="positive-percent-change"] [data-item="data"]')
           
           //scope into negative class
-          let changeNegPositive = parent.querySelector('[data-point="positive-percent-change"] .negative')
+          let changeNegPositive = parent.querySelector('[data-point="positive-percent-change"] .detail')
            
           //if negative, statement runs changing .negative to .positive
           if (changeNegPositive.classList.contains('negative')) {
-            console.log('Conditional Nested If running')
             changeNegPositive.classList.remove('negative')
             changeNegPositive.classList.add('positive')
-            printPrevDayPos.innerHTML = positiveChangeX() + '%'
+            changeNegPositive.innerHTML = positiveChangeX() + '%'
             } else {
-              console.log('Conditional Nested If ELSE running')
-
               //if class is positive, print function to browser
-              let printPrevDayPos = parent.querySelector('[data-point="positive-percent-change"]')
-              .querySelector('[data-item="data"]')
               printPrevDayPos.innerHTML = positiveChangeX() + '%'
             }
         } else {
-          console.log('Conditional ELSE running')
-
           //if function is negative
           //scope into printing location
-          let printPrevDayPos = parent.querySelector('[data-point="positive-percent-change"]')
-          .querySelector('[data-item="data"]')
+          let printPrevDayPos = parent.querySelector('[data-point="positive-percent-change"] [data-item="data"]')
           
           //scope into positive class
-          let changePosPositive = parent.querySelector('[data-point="positive-percent-change"] .positive')
+          let changePosPositive = parent.querySelector('[data-point="positive-percent-change"] .detail')
           
           //if .positive, change .positive to .negative
           if (changePosPositive.classList.contains('positive')) {
@@ -17634,35 +17624,34 @@ const getDataNational = () => {
         printTotalDeaths.innerHTML = totalDeath.toLocaleString()
 
 
+  };
+  
+  
+  
+
         if (Math.sign(deathChangeX()) === 1) {
-          let printChangeDeaths = parent.querySelector('[data-point="deaths-percent-change"]')
-          .querySelector('[data-item="data"]')
-          let changePosDeaths = parent.querySelector('[data-point="deaths-percent-change"] .negative')
+          let changePosDeaths = parent.querySelector('[data-point="deaths-percent-change"] .detail')
           //@GH — can we use .toggle here?
             if (changePosDeaths.classList.contains('negative')) {
               changePosDeaths.classList.remove('negative')
               changePosDeaths.classList.add('positive')
-              printChangeDeaths.innerHTML = deathChangeX() + '%'
+              changePosDeaths.innerHTML = deathChangeX() + '%'
             } else {
-              let printChangeDeaths = parent.querySelector('[data-point="deaths-percent-change"]')
-              .querySelector('[data-item="data"]')
               printChangeDeaths.innerHTML = deathChangeX() + '%'
             }
         } else {
-          let printChangeDeaths = parent.querySelector('[data-point="deaths-percent-change"]')
-          .querySelector('[data-item="data"]')
-          let changeNegDeaths = parent.querySelector('[data-point="deaths-percent-change"] .positive')
+          let changeNegDeaths = parent.querySelector('[data-point="deaths-percent-change"] .detail')
           //@GH — can we use .toggle here?
           if (changeNegDeaths.classList.contains('positive')) {
             changeNegDeaths.classList.remove('positive')
             changeNegDeaths.classList.add('negative')
-            printChangeDeaths.innerHTML = deathChangeX()  + '%'
-            } 
+            changeNegDeaths.innerHTML = deathChangeX()  + '%'
+            } else {
+              printChangeDeaths.innerHTML = deathChangeX() + '%'
+            }
         }
       
-
-        let printHospitalizations = parent.querySelector('[data-point="hospitalizations"]')
-        .querySelector('[data-item="content"]')
+        let printHospitalizations = parent.querySelector('[data-point="hospitalizations"] [data-item="content"]')
         printHospitalizations.innerHTML = totalHospitalizedCurrent.toLocaleString();
 
         // let printHospitalizationChange = parent.querySelector('[data-point="hospitalized-percent-change"]')
@@ -17671,42 +17660,40 @@ const getDataNational = () => {
         
         //if statement determines if +/-
         if (Math.sign(hospitalizedChangeX()) === 1) {
-          
-          //scope into printing location 
-          let printChangeHospitalized = parent.querySelector('[data-point="hospitalized-percent-change"]')
-          .querySelector('[data-item="data"]')
-          
           //scope into negative class
-          let changeNegHospitalized = parent.querySelector('[data-point="hospitalized-percent-change"] .positive')
-           
+          let changeNegHospitalized = parent.querySelector('[data-point="hospitalized-percent-change"] .detail')
           //if negative, statement runs changing .negative to .positive
           if (changeNegHospitalized.classList.contains('negative')) {
-            changeNegHospitalized.classList.remove('negative')
-            changeNegHospitalized.classList.add('positive')
-            printChangeHospitalized.innerHTML = hospitalizedChangeX() + '%'
+                changeNegHospitalized.classList.remove('negative')
+                changeNegHospitalized.classList.add('positive')
+                changeNegHospitalized.innerHTML = hospitalizedChangeX() + '%'
             } else {
-              
               //if class is positive, print function to browser
-              let printChangeHospitalized = parent.querySelector('[data-point="hospitalized-percent-change"]')
-              .querySelector('[data-item="data"]')
-              printChangeHospitalized.innerHTML = hospitalizedChangeX() + '%'
+              //scope into printing location 
+              let printHospitalizationChange = parent.querySelector('[data-point="hospitalized-percent-change"] [data-item="data"]')
+              printHospitalizationChange.innerHTML = hospitalizedChangeX() + '%'
             }
         } else {
           
           //if function is negative
-          //scope into printing location
-          let printChangeHospitalized = parent.querySelector('[data-point="hospitalized-percent-change"]')
-          .querySelector('[data-item="data"]')
-          
+
           //scope into positive class
-          let changePosHospitalized = parent.querySelector('[data-point="hospitalized-percent-change"] .negative')
-          
+          let changePosHospitalized = parent.querySelector('[data-point="hospitalized-percent-change"] .detail')
+          console.log('else')
+          console.log(changePosHospitalized)
+
           //if .positive, change .positive to .negative
           if (changePosHospitalized.classList.contains('positive')) {
-            changePosHospitalized.classList.remove('positive')
-            changePosHospitalized.classList.add('negative')
-            printChangeHospitalized.innerHTML = hospitalizedChangeX()  + '%'
-            } 
+              changePosHospitalized.classList.remove('positive')
+              changePosHospitalized.classList.add('negative')
+              changePosHospitalized.innerHTML = hospitalizedChangeX()  + '%'
+            } else {
+              //if class is positive, print function to browser
+              
+              //scope into printing location
+              let printHospitalizationChange = parent.querySelector('[data-point="hospitalized-percent-change"] [data-item="data"]')
+              printHospitalizationChange.innerHTML = hospitalizedChangeX()
+            }
         }
         
     })
@@ -17831,9 +17818,35 @@ const getDataByPlaces = (string) => {
       .querySelector('[data-item="content"]')
       dataTwo.innerHTML = casesNew.toLocaleString()
 
-      let dataThree = parent.querySelector('[data-point="cases-percent-change"]')
-      .querySelector('[data-item="content"]') 
-      dataThree.innerHTML = casesChangeX();
+      // let dataThree = parent.querySelector('[data-point="cases-percent-change"] [data-item="content"]')
+      // dataThree.innerHTML = casesChangeX();
+
+      //replace dataThree
+      if (Math.sign(casesChangeX()) === 1) {
+        let prevDayNeg = parent.querySelector('[data-point="cases-percent-change"] .callout')
+        //@GH — can we use .toggle here?
+          if (prevDayNeg.classList.contains('negative')) {
+            prevDayNeg.classList.remove('negative')
+            prevDayNeg.classList.add('positive')
+            prevDayNeg.innerHTML = casesChangeX()
+          } else {
+            let dataThree = parent.querySelector('[data-point="cases-percent-change"] [data-item="content"]')
+            dataThree.innerHTML = casesChangeX();
+          }
+      } else {
+        let prevDayPos = parent.querySelector('[data-point="cases-percent-change"] .callout')
+
+        //@GH — can we use .toggle here?
+        if (prevDayPos.classList.contains('positive')) {
+          prevDayPos.classList.remove('positive')
+          prevDayPos.classList.add('negative')
+          console.log(casesChangeX())
+          prevDayPos.innerHTML = casesChangeX()
+        } else {
+          let dataThree = parent.querySelector('[data-point="cases-percent-change"] [data-item="content"]')
+          dataThree.innerHTML = casesChangeX();
+        }
+      }
       
       let dataFour = parent.querySelector('[data-point="total-deaths"]')
       .querySelector('[data-item="content"]')
@@ -17843,11 +17856,39 @@ const getDataByPlaces = (string) => {
       .querySelector('[data-item="content"]')
       dataFive.innerHTML = deathsNew.toLocaleString()
 
-      let dataSix = parent.querySelector('[data-point="deaths-percent-change"]')
-      .querySelector('[data-item="content"]')
-      dataSix.innerHTML = deathsChangeX()
+      // let dataSix = parent.querySelector('[data-point="deaths-percent-change"] [data-item="content"]')
+      // dataSix.innerHTML = deathsChangeX()
+
+      //replace dataSix
+      if (Math.sign(deathsChangeX()) === 1) {
+        let printDeathsChange = parent.querySelector('[data-point="deaths-percent-change"] [data-item="content"]')
+        let prevDayNeg = parent.querySelector('[data-point="deaths-percent-change"] .callout')
+        //@GH — can we use .toggle here?
+          if (prevDayNeg.classList.contains('negative')) {
+            prevDayNeg.classList.remove('negative')
+            prevDayNeg.classList.add('positive')
+            prevDayNeg.innerHTML = deathsChangeX()
+          } else {
+            let dataSix = parent.querySelector('[data-point="deaths-percent-change"] [data-item="content"]')
+            dataSix.innerHTML = deathsChangeX()
+          }
+      } else {
+        let prevDayPos = parent.querySelector('[data-point="deaths-percent-change"] .callout')
+
+        //@GH — can we use .toggle here?
+        if (prevDayPos.classList.contains('positive')) {
+          prevDayPos.classList.remove('positive')
+          prevDayPos.classList.add('negative')
+          console.log(deathsChangeX())
+          prevDayPos.innerHTML = deathsChangeX()
+        } else {
+          let dataSix = parent.querySelector('[data-point="deaths-percent-change"] [data-item="content"]')
+          dataSix.innerHTML = deathsChangeX()
+        }
+      }
 
     }
+
 
  })
 
