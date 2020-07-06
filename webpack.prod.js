@@ -1,24 +1,23 @@
-const merge = require('webpack-merge');
-const common = require('./webpack.common.js');
+const path = require('path');
 
-module.exports = merge(common, {
+module.exports = {
     mode: 'production',
     entry: './src/index.js',
     output: {
-      filename: 'main.js',
-      path: path.resolve(__dirname, 'dist'),
+        filename: 'main.js',
+        path: path.resolve(__dirname, 'dist'),
     },
     module: {
-      rules: [
+        rules: [
         {
-          test: /\.csv$/,
-          loader: 'csv-loader',
-          options: {
+            test: /\.csv$/,
+            loader: 'csv-loader',
+            options: {
             dynamicTyping: true,
             header: true,
             skipEmptyLines: true
-          }
+            }
         }
-      ]
-    },
-  });
+        ]
+    }
+};

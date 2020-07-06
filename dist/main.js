@@ -17546,6 +17546,7 @@ const getDataNational = () => {
           }
         }
         
+
         //DOM Manipulation
         let parent = document.querySelector('[data-parent="united-states"]')
         
@@ -17556,10 +17557,12 @@ const getDataNational = () => {
        if (Math.sign(totalChangeX()) === 1) {
         let prevDayNeg = parent.querySelector('[data-point="cumulative-percent-change"] .detail')
         console.log(prevDayNeg.classList)
+
         //@GH — can we use .toggle here?
           if (prevDayNeg.classList.contains('negative')) {
             prevDayNeg.classList.remove('negative')
             prevDayNeg.classList.add('positive')
+
             prevDayNeg.innerHTML = totalChangeX()  + '%'
           } else {
             let printTotalChange = parent.querySelector('[data-point="cumulative-percent-change"] [data-item="data"]')
@@ -17567,15 +17570,18 @@ const getDataNational = () => {
           }
       } else {
         let prevDayPos = parent.querySelector('[data-point="cumulative-percent-change"] .detail')
+
         //@GH — can we use .toggle here?
         if (prevDayPos.classList.contains('positive')) {
           prevDayPos.classList.remove('positive')
           prevDayPos.classList.add('negative')
+
           prevDayPos.innerHTML = totalChangeX()  + '%' 
           } else {
             let printTotalChange = parent.querySelector('[data-point="cumulative-percent-change"] [data-item="data"]')
             printTotalChange.innerHTML = totalChangeX()  + '%'
           }
+
       }
 
         let printPositiveChange = parent.querySelector('[data-point="positive-tests"]')
@@ -17609,6 +17615,7 @@ const getDataNational = () => {
           
           //scope into positive class
           let changePosPositive = parent.querySelector('[data-point="positive-percent-change"] .detail')
+
           
           //if .positive, change .positive to .negative
           if (changePosPositive.classList.contains('positive')) {
@@ -17623,11 +17630,6 @@ const getDataNational = () => {
         .querySelector('[data-item="content"]')
         printTotalDeaths.innerHTML = totalDeath.toLocaleString()
 
-
-  };
-  
-  
-  
 
         if (Math.sign(deathChangeX()) === 1) {
           let changePosDeaths = parent.querySelector('[data-point="deaths-percent-change"] .detail')
@@ -17847,6 +17849,7 @@ const getDataByPlaces = (string) => {
           dataThree.innerHTML = casesChangeX();
         }
       }
+
       
       let dataFour = parent.querySelector('[data-point="total-deaths"]')
       .querySelector('[data-item="content"]')
@@ -17855,6 +17858,7 @@ const getDataByPlaces = (string) => {
       let dataFive = parent.querySelector('[data-point="new-deaths"]')
       .querySelector('[data-item="content"]')
       dataFive.innerHTML = deathsNew.toLocaleString()
+
 
       // let dataSix = parent.querySelector('[data-point="deaths-percent-change"] [data-item="content"]')
       // dataSix.innerHTML = deathsChangeX()
@@ -17888,7 +17892,6 @@ const getDataByPlaces = (string) => {
       }
 
     }
-
 
  })
 
