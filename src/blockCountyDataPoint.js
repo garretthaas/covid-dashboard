@@ -112,12 +112,14 @@ const getDataByPlaces = (string) => {
           dataThree.innerHTML = casesChangeX();
         }
       }
+
       
       let dataFour = parent.querySelector('[data-point="total-deaths"] [data-item="content"]')
       dataFour.innerHTML = totalDeaths.toLocaleString()
 
       let dataFive = parent.querySelector('[data-point="new-deaths"] [data-item="content"]')
       dataFive.innerHTML = deathsNew.toLocaleString()
+
 
       // let dataSix = parent.querySelector('[data-point="deaths-percent-change"] [data-item="content"]')
       // dataSix.innerHTML = deathsChangeX()

@@ -6,7 +6,11 @@
     row-gap: 2em;
 
     &.two {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr;
+
+        @include respond-to('medium') {
+            grid-template-columns: 1fr 1fr;
+        }
     }
 
     &.three {
@@ -14,6 +18,14 @@
     }
 
     &.four {
-        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
+
+        @include respond-to('medium') {
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+        }
+    }
+
+    &.grid-item.two {
+        grid-template-columns: 1fr 1fr;
     }
 }

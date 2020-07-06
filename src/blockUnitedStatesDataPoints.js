@@ -42,6 +42,7 @@ const getDataNational = () => {
           }
         }
         
+
         //DOM Manipulation
         let parent = document.querySelector('[data-parent="united-states"]')
         
@@ -52,10 +53,12 @@ const getDataNational = () => {
        if (Math.sign(totalChangeX()) === 1) {
         let prevDayNeg = parent.querySelector('[data-point="cumulative-percent-change"] .detail')
         console.log(prevDayNeg.classList)
+
         //@GH — can we use .toggle here?
           if (prevDayNeg.classList.contains('negative')) {
             prevDayNeg.classList.remove('negative')
             prevDayNeg.classList.add('positive')
+
             prevDayNeg.innerHTML = totalChangeX()  + '%'
           } else {
             let printTotalChange = parent.querySelector('[data-point="cumulative-percent-change"] [data-item="data"]')
@@ -63,15 +66,18 @@ const getDataNational = () => {
           }
       } else {
         let prevDayPos = parent.querySelector('[data-point="cumulative-percent-change"] .detail')
+
         //@GH — can we use .toggle here?
         if (prevDayPos.classList.contains('positive')) {
           prevDayPos.classList.remove('positive')
           prevDayPos.classList.add('negative')
+
           prevDayPos.innerHTML = totalChangeX()  + '%' 
           } else {
             let printTotalChange = parent.querySelector('[data-point="cumulative-percent-change"] [data-item="data"]')
             printTotalChange.innerHTML = totalChangeX()  + '%'
           }
+
       }
 
         let printPositiveChange = parent.querySelector('[data-point="positive-tests"]')
@@ -105,6 +111,7 @@ const getDataNational = () => {
           
           //scope into positive class
           let changePosPositive = parent.querySelector('[data-point="positive-percent-change"] .detail')
+
           
           //if .positive, change .positive to .negative
           if (changePosPositive.classList.contains('positive')) {

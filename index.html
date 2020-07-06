@@ -7,76 +7,76 @@
 
   </head>
   <body>
-    <nav class="flex navbar">
-      <div>
-        <h1>Covid Dashboard</h1>
-      </div>
-      <div>
-        <a href="#info">info</a>
-      </div>
-    </nav>
+    <header>
+      <h1>Covid Dashboard</h1>
+    </header>
+    
 
     <main>
-    
     <!--National Section-->
     <section class="hero" data-parent="united-states">
       <h2 data-point="location-title">United States</h2>
 
       <hr class="black-rule">
       <div class="grid two">
-        <article class="grid-item grid two" data-point="cumulative-cases">
-          <div class="grid-item">
-            <h3 data-item="title">Total Cases</h3>
-            <p class="callout" data-item="content">X</p>
-          </div>
-          <div class="grid-item relative" data-item="line-graph">
-            <div class="absolute-overlay" data-point="cumulative-percent-change">
-              <p class="detail positive" data-item="data"></p>
-              <p>vs. previous day</p>
+        <article data-point="cumulative-cases">
+          <h3 data-item="title">Total Cases</h3>
+          <div class="grid-item grid two">
+            <div class="grid-item">
+              <p class="callout" data-item="content">X</p>
             </div>
-            
+            <div class="grid-item relative" data-item="line-graph">
+              <div class="absolute overlay" data-point="cumulative-percent-change">
+                <p class="detail positive" data-item="data"></p>
+                <p>vs. previous day</p>
+              </div>
+            </div>
           </div>
         </article>
 
-        <article class="grid-item grid two" data-point="positive-tests">
-          <div class="grid-item">
-            <h3 data-item="title">Positive Tests</h3>
-            <p class="callout" data-item="content"></p>
-          </div>
-          <div class="grid-item relative" data-item="line-graph">
-            <div class="absolute-overlay" data-point="positive-percent-change">
-              <p class="detail positive" data-item="data"></p>
-              <p>vs. previous day</p>
+        <article data-point="positive-tests">
+          <h3 data-item="title">Positive Tests</h3>
+          <div class="grid-item grid two">
+            <div class="grid-item">
+              <p class="callout" data-item="content"></p>
             </div>
-            
+            <div class="grid-item relative" data-item="line-graph">
+              <div class="absolute overlay" data-point="positive-percent-change">
+                <p class="detail positive" data-item="data"></p>
+                <p>vs. previous day</p>
+              </div>
+            </div>
           </div>
         </article>
 
-        <article class="grid-item grid two" data-point="cumulative-deaths">
-          <div class="grid-item">
-            <h3 data-item="title">Total Deaths</h3>
-            <p class="callout" data-item="content"></p>
-          </div>
-          <div class="grid-item relative" data-item="line-graph">
-            <div class="absolute-overlay" data-point="deaths-percent-change">
-              <p class="detail positive" data-item="data"></p>
-              <p>vs. previous day</p>
+        <article data-point="cumulative-deaths">
+          <h3 data-item="title">Total Deaths</h3>
+          <div class="grid-item grid two">
+            <div class="grid-item">
+              <p class="callout" data-item="content"></p>
             </div>
-            
+            <div class="grid-item relative" data-item="line-graph">
+              <div class="absolute overlay" data-point="deaths-percent-change">
+                <p class="detail positive" data-item="data"></p>
+                <p>vs. previous day</p>
+              </div>
+            </div>
           </div>
         </article>
 
-        <article class="grid-item grid two" data-point="hospitalizations">
-          <div class="grid-item">
-            <h3 data-item="title">Hospitalizations Currently</h3>
-            <p class="callout" data-item="content">X</p>
-          </div>
-          <div class="grid-item relative" data-item="line-graph">
-            <div class="absolute-overlay" data-point="hospitalized-percent-change">
-              <p class="detail positive" data-item="data"></p>
-              <p>vs. previous day</p>
+        <article data-point="hospitalizations">
+          <h3 data-item="title">Hospitalizations Currently</h3>
+          <div class="grid-item grid two">
+            <div class="grid-item">
+              <p class="callout" data-item="content">X</p>
             </div>
-            
+            <div class="grid-item relative" data-item="line-graph">
+              <div class="absolute overlay" data-point="hospitalized-percent-change">
+                <p class="detail positive" data-item="data"></p>
+                <p>vs. previous day</p>
+              </div>
+            </div>
+
           </div>
         </article>
       </div>
@@ -102,7 +102,7 @@
             <p>New</p>
           </div>
           <div class="grid-item" data-point="cases-percent-change">
-            <p class="callout positive" data-item="content">X</p>
+            <p class="callout" data-item="content">X</p>
             <p data-item="title">Prev</p>
           </div>
           <div class="grid-item trendline" data-item="trend-line">
@@ -120,7 +120,7 @@
             <p>New</p>
           </div>
           <div class="grid-item" data-point="deaths-percent-change">
-            <p class="callout positive" data-item="content">X</p>
+            <p class="callout" data-item="content">X</p>
             <p data-item="title">Prev</p>
           </div>
           <div class="grid-item trendline" data-item="trend-line">
@@ -144,7 +144,7 @@
             <p>New</p>
           </div>
           <div class="grid-item" data-point="cases-percent-change">
-            <p class="callout positive" data-item="content">X</p>
+            <p class="callout" data-item="content">X</p>
             <p data-item="title">Prev</p>
           </div>
           <div class="grid-item trendline" data-item="trend-line">
@@ -162,7 +162,7 @@
             <p>New</p>
           </div>
           <div class="grid-item" data-point="deaths-percent-change">
-            <p class="callout positive" data-item="content">X</p>
+            <p class="callout" data-item="content">X</p>
             <p data-item="title">Prev</p>
           </div>
           <div class="grid-item trendline" data-item="trend-line">
