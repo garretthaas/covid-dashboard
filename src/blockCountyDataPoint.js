@@ -85,7 +85,7 @@ const getDataByPlaces = (string) => {
 
       // let dataThree = parent.querySelector('[data-point="cases-percent-change"] [data-item="content"]')
       // dataThree.innerHTML = casesChangeX();
-
+  
       //replace dataThree
       if (Math.sign(casesChangeX()) === 1) {
         let prevDayNeg = parent.querySelector('[data-point="cases-percent-change"] .callout')
@@ -126,7 +126,6 @@ const getDataByPlaces = (string) => {
 
       //replace dataSix
       if (Math.sign(deathsChangeX()) === 1) {
-        let printDeathsChange = parent.querySelector('[data-point="deaths-percent-change"] [data-item="content"]')
         let prevDayNeg = parent.querySelector('[data-point="deaths-percent-change"] .callout')
         //@GH — can we use .toggle here?
           if (prevDayNeg.classList.contains('negative')) {
