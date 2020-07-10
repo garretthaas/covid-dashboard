@@ -6,6 +6,22 @@ const getDataNational = () => {
 
         //Storing calculations in variables and handling edge cases
         const totalCases = result[0].positive
+        const totalRollingAverage = () => {
+          //Array of all cases by day
+          let weeklyCases = []
+          
+          //Loop through API to fill weeklyCases array
+          for (let i = 0; i < 7; i++) {
+           let dailyPositive = result[i].positive
+           weeklyCases.push(dailyPositive)
+          }
+          console.log(weeklyCases)
+          let totalRollingAverage = (weeklyCases.reduce((a, b) => a + b, 0) / 7)
+          console.log(`Cases rolling Average: ${totalRollingAverage}`)
+
+        }
+        totalRollingAverage();
+
         const totalChange = Math.round(((result[0].positive - result[1].positive) / result[1].positive)  * 100);
         const totalChangeX = () => {
           if (isNaN(totalChange)) {

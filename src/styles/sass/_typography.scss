@@ -28,6 +28,24 @@ p {
     }
 }
 
+.callout {
+
+
+    &.positive {
+    
+        &::before {
+           font-size: 2rem;
+        }
+    }
+    
+    &.negative {
+    
+        &::before {
+           font-size: 2rem;
+        }
+    }
+}
+
 p.small {
     font-size: 1em;
 }
