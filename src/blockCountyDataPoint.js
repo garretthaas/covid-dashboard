@@ -105,7 +105,6 @@ const getDataByPlaces = (string) => {
         if (prevDayPos.classList.contains('positive')) {
           prevDayPos.classList.remove('positive')
           prevDayPos.classList.add('negative')
-          console.log(casesChangeX())
           prevDayPos.innerHTML = casesChangeX()
         } else {
           let dataThree = parent.querySelector('[data-point="cases-percent-change"] [data-item="content"]')
@@ -143,7 +142,6 @@ const getDataByPlaces = (string) => {
         if (prevDayPos.classList.contains('positive')) {
           prevDayPos.classList.remove('positive')
           prevDayPos.classList.add('negative')
-          console.log(deathsChangeX())
           prevDayPos.innerHTML = deathsChangeX()
         } else {
           let dataSix = parent.querySelector('[data-point="deaths-percent-change"] [data-item="content"]')
