@@ -23,7 +23,7 @@ p {
 
     &.callout {
         font-family: 'Oswald', sans-serif;
-        font-size: 7.594em;
+        font-size: 5.8em;
     }
 }
 
@@ -31,11 +31,9 @@ p {
 
 
     &.positive {
-    
+        
         &::before {
            font-size: 2rem;
-
-
         }
     }
     
