@@ -21,7 +21,7 @@
         grid-template-columns: 1fr 1fr;
 
         @include respond-to('medium') {
-            grid-template-columns: 1fr 1fr 1fr 1fr;
+            grid-template-columns: 1fr 1fr 1.3fr 1fr;
         }
     }
 
