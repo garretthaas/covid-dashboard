@@ -1,5 +1,4 @@
-# TODO
-[ ] Refactor
+Work in Progress, Covid dashboard.
 
 # Getting Started Locally
 
