@@ -146,10 +146,10 @@ const getDataNational = () => {
           prevDayPos.classList.remove('positive')
           prevDayPos.classList.add('negative')
 
-          prevDayPos.innerHTML = totalChangeX()  + '%' 
+          prevDayPos.innerHTML = totalChangeRollingAverage()  + '%' 
           } else {
             let printTotalChange = parent.querySelector('[data-point="cumulative-percent-change"] [data-item="data"]')
-            printTotalChange.innerHTML = totalChangeX()  + '%'
+            printTotalChange.innerHTML = totalChangeRollingAverage()  + '%'
           }
 
       }

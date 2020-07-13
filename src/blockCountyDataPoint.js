@@ -29,7 +29,6 @@ const getDataByPlaces = (string) => {
         // now we take those data points and make them an array
         let result = ({one, two});
         dataArray.push(result);
-      
       });
   
       //datapoints for places(LA, Lorain, etc.)
@@ -37,44 +36,83 @@ const getDataByPlaces = (string) => {
       const yesterdayDate = dataArray[dataArray.length-2].one;
       const casesTotal = dataOne[todayDate].cumulative.cases;
       const casesNew = dataOne[todayDate].new.cases;
-      const casesChange = Math.round(((dataOne[todayDate].new.cases - dataOne[yesterdayDate].new.cases) / dataOne[yesterdayDate].new.cases) * 100);
-      const casesChangeX = () => {
-        if (isNaN(casesChange) || casesChange === Infinity) {
-          let handleZeroCases = document.querySelector(`[data-parent="${scope.place.key}"] [data-point="cases-percent-change"] [data-item="title"]`)
-          handleZeroCases.innerHTML = 'New on previous day';
-           return '0'
-        } else if (casesChange == -100) {
-          //This edge case handles 0 new cases by injected the new cases from the previous day
-          let handleZeroCases = document.querySelector(`[data-parent="${scope.place.key}"] [data-point="cases-percent-change"] [data-item="title"]`)
-          handleZeroCases.innerHTML = 'New on previous day';
-           return dataOne[yesterdayDate].new.cases
-        } else { 
-          return casesChange + '%'
+      
+      //DEPRECATED
+      // const casesChange = Math.round(((dataOne[todayDate].new.cases - dataOne[yesterdayDate].new.cases) / dataOne[yesterdayDate].new.cases) * 100);
+      // const casesChangeRollingAverage = () => {
+      //   if (isNaN(casesChange) || casesChange === Infinity) {
+      //     let handleZeroCases = document.querySelector(`[data-parent="${scope.place.key}"] [data-point="cases-percent-change"] [data-item="title"]`)
+      //     handleZeroCases.innerHTML = 'New on previous day';
+      //      return '0'
+      //   } else if (casesChange == -100) {
+      //     //This edge case handles 0 new cases by injected the new cases from the previous day
+      //     let handleZeroCases = document.querySelector(`[data-parent="${scope.place.key}"] [data-point="cases-percent-change"] [data-item="title"]`)
+      //     handleZeroCases.innerHTML = 'New on previous day';
+      //      return dataOne[yesterdayDate].new.cases
+      //   } else { 
+      //     return casesChange + '%'
+      //   }
+      // }
+
+      //7 Day Rolling Average Percentage Change in Cases. Inherently handles previous edge cases by evening out days with 0 cases.
+      const casesChangeRollingAverage = () => {
+        let dailyTotalCases = [];
+  
+        for (let j = 0; j < 7; j++) {
+          let y2 = dataArray[dataArray.length - (j + 1)].one;
+          let y1 = dataArray[dataArray.length - (j + 2)].one;
+          let dailyNewCases = (dataOne[y2].new.cases - dataOne[y1].new.cases) / dataOne[y1].new.cases * 100;
+          dailyTotalCases.push(dailyNewCases)
         }
+        let currentCasesChange = dailyTotalCases.reduce((a, b) => a + b) / 7
+        return currentCasesChange.toFixed(1)
+
       }
+      
+
       const totalDeaths = dataOne[todayDate].cumulative.deaths
       const deathsNew = dataOne[todayDate].new.deaths
-      const deathsChange = Math.round(((dataOne[todayDate].new.death - dataOne[yesterdayDate].new.deaths) / dataOne[yesterdayDate].new.deaths) * 100);
-      const deathsChangeX = () => {
-        if (isNaN(deathsChange) || deathsChange === Infinity) {
-          let handleZeroDeaths = document.querySelector(`[data-parent="${scope.place.key}"] [data-point="deaths-percent-change"] [data-item="title"]`)
-          handleZeroDeaths.innerHTML = 'New on previous day';
-          return `0`
-        } else if (casesChange == -100) {
-          //This edge case handles 0 new cases by injected the new cases from the previous day
-          let handleZeroCases = document.querySelector(`[data-parent="${scope.place.key}"] [data-point="deaths-percent-change"] [data-item="title"]`)
-          handleZeroCases.innerHTML = 'New on previous day';
-           return dataOne[yesterdayDate].new.deaths
-        } else {
-          return deathsChange + '%'
-        }
-      }
+      
+      //DEPRECATED
+      // const deathsChange = Math.round(((dataOne[todayDate].new.deaths - dataOne[yesterdayDate].new.deaths) / dataOne[yesterdayDate].new.deaths) * 100);
+      // const deathsChangeX = () => {
+      //   if (isNaN(deathsChange) || deathsChange === Infinity) {
+      //     let handleZeroDeaths = document.querySelector(`[data-parent="${scope.place.key}"] [data-point="deaths-percent-change"] [data-item="title"]`)
+      //     handleZeroDeaths.innerHTML = 'New on previous day';
+      //     return `0`
+      //   } else if (casesChange == -100) {
+      //     //This edge case handles 0 new cases by injected the new cases from the previous day
+      //     let handleZeroCases = document.querySelector(`[data-parent="${scope.place.key}"] [data-point="deaths-percent-change"] [data-item="title"]`)
+      //     handleZeroCases.innerHTML = 'New on previous day';
+      //      return dataOne[yesterdayDate].new.deaths
+      //   } else {
+      //     return deathsChange + '%'
+      //   }
+      // }
    
+      const deathChangeRollingAverage = () => {
+        let dailyTotalDeath = [];
+      
+        for (let j = 0; j < 7; j++) {
+          let y2 = dataArray[dataArray.length - (j + 1)].one;
+          let y1 = dataArray[dataArray.length - (j + 2)].one;
+          
+          let dailyNewDeath = (dataOne[y2].new.deaths - dataOne[y1].new.deaths) / dataOne[y1].new.deaths * 100;
+          if (isFinite(dailyNewDeath)) {
+            dailyTotalDeath.push(dailyNewDeath)
+          } else {
+            dailyTotalDeath.push(0)
+          }
+        }
+        let currentAvgDeath = dailyTotalDeath.reduce((a, b) => a+b) / 7;
+        return currentAvgDeath.toFixed(1);
+      }
+
      //The [data-parent="XXX"] query in HTML must match the scope.place.key from the CovidData API.
     if (string){
 
       let parent = document.querySelector(`[data-parent="${scope.place.key}"]`)
-      
+      console.log(parent)
       let dataOne = parent.querySelector('[data-point="cumulative-cases"]')
       .querySelector('[data-item="content"]')
       dataOne.innerHTML = casesTotal.toLocaleString()
@@ -84,19 +122,19 @@ const getDataByPlaces = (string) => {
       dataTwo.innerHTML = casesNew.toLocaleString()
 
       // let dataThree = parent.querySelector('[data-point="cases-percent-change"] [data-item="content"]')
-      // dataThree.innerHTML = casesChangeX();
+      // dataThree.innerHTML = casesChangeRollingAverage();
   
       //replace dataThree
-      if (Math.sign(casesChangeX()) === 1) {
+      if (Math.sign(casesChangeRollingAverage()) === 1) {
         let prevDayNeg = parent.querySelector('[data-point="cases-percent-change"] .callout')
         //@GH — can we use .toggle here?
           if (prevDayNeg.classList.contains('negative')) {
             prevDayNeg.classList.remove('negative')
             prevDayNeg.classList.add('positive')
-            prevDayNeg.innerHTML = casesChangeX()
+            prevDayNeg.innerHTML = casesChangeRollingAverage() + '%'
           } else {
             let printCasesChange = parent.querySelector('[data-point="cases-percent-change"] [data-item="content"]')
-            printCasesChange.innerHTML = casesChangeX();
+            printCasesChange.innerHTML = casesChangeRollingAverage() + '%'
           }
       } else {
         let prevDayPos = parent.querySelector('[data-point="cases-percent-change"] .callout')
@@ -105,10 +143,10 @@ const getDataByPlaces = (string) => {
         if (prevDayPos.classList.contains('positive')) {
           prevDayPos.classList.remove('positive')
           prevDayPos.classList.add('negative')
-          prevDayPos.innerHTML = casesChangeX()
+          prevDayPos.innerHTML = casesChangeRollingAverage() + '%'
         } else {
           let dataThree = parent.querySelector('[data-point="cases-percent-change"] [data-item="content"]')
-          dataThree.innerHTML = casesChangeX();
+          dataThree.innerHTML = casesChangeRollingAverage()  + '%'
         }
       }
 
@@ -124,16 +162,16 @@ const getDataByPlaces = (string) => {
       // dataSix.innerHTML = deathsChangeX()
 
       //replace dataSix
-      if (Math.sign(deathsChangeX()) === 1) {
+      if (Math.sign(deathChangeRollingAverage()) === 1) {
         let prevDayNeg = parent.querySelector('[data-point="deaths-percent-change"] .callout')
         //@GH — can we use .toggle here?
           if (prevDayNeg.classList.contains('negative')) {
             prevDayNeg.classList.remove('negative')
             prevDayNeg.classList.add('positive')
-            prevDayNeg.innerHTML = deathsChangeX()
+            prevDayNeg.innerHTML = deathChangeRollingAverage() + '%'
           } else {
             let dataSix = parent.querySelector('[data-point="deaths-percent-change"] [data-item="content"]')
-            dataSix.innerHTML = deathsChangeX()
+            dataSix.innerHTML = deathChangeRollingAverage() + '%'
           }
       } else {
         let prevDayPos = parent.querySelector('[data-point="deaths-percent-change"] .callout')
@@ -142,10 +180,10 @@ const getDataByPlaces = (string) => {
         if (prevDayPos.classList.contains('positive')) {
           prevDayPos.classList.remove('positive')
           prevDayPos.classList.add('negative')
-          prevDayPos.innerHTML = deathsChangeX()
+          prevDayPos.innerHTML = deathChangeRollingAverage() + '%'
         } else {
           let dataSix = parent.querySelector('[data-point="deaths-percent-change"] [data-item="content"]')
-          dataSix.innerHTML = deathsChangeX()
+          dataSix.innerHTML = deathChangeRollingAverage() + '%'
         }
       }
 
