@@ -140,23 +140,23 @@ const getDataNational = () => {
         
 
         //Current Hospitalizations
-        let printCurrentHospitalizations = parent.querySelector('[data-point="hospitalizations"] [data-item="content"]')
+        let printCurrentHospitalizations = parent.querySelector('[data-point="hospitalizations"] [data-item="content"]');
         printCurrentHospitalizations.innerHTML = totalHospitalizedCurrent.toLocaleString();
         
         //Conditional statement determines if +/-
         if (Math.sign(hopitalizedChangeRollingAverage()) === 1) {
           //scope into negative class
-          let changeNegHospitalized = parent.querySelector('[data-point="hospitalized-percent-change"] .detail')
+          let changeNegHospitalized = parent.querySelector('[data-point="hospitalized-percent-change"] .detail');
           //if negative, statement runs changing .negative to .positive
           if (changeNegHospitalized.classList.contains('negative')) {
-                changeNegHospitalized.classList.remove('negative')
-                changeNegHospitalized.classList.add('positive')
-                changeNegHospitalized.innerHTML = hopitalizedChangeRollingAverage() + '%'
+                changeNegHospitalized.classList.remove('negative');
+                changeNegHospitalized.classList.add('positive');
+                changeNegHospitalized.innerHTML = hopitalizedChangeRollingAverage() + '%';
             } else {
               //if class is positive, print function to browser
               //scope into printing location 
-              let printHospitalizationChange = parent.querySelector('[data-point="hospitalized-percent-change"] [data-item="data"]')
-              printHospitalizationChange.innerHTML = hopitalizedChangeRollingAverage() + '%'
+              let printHospitalizationChange = parent.querySelector('[data-point="hospitalized-percent-change"] [data-item="data"]');
+              printHospitalizationChange.innerHTML = hopitalizedChangeRollingAverage() + '%';
             }
         };
         

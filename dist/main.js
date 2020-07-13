@@ -17644,23 +17644,23 @@ const getDataNational = () => {
         
 
         //Current Hospitalizations
-        let printCurrentHospitalizations = parent.querySelector('[data-point="hospitalizations"] [data-item="content"]')
+        let printCurrentHospitalizations = parent.querySelector('[data-point="hospitalizations"] [data-item="content"]');
         printCurrentHospitalizations.innerHTML = totalHospitalizedCurrent.toLocaleString();
         
         //Conditional statement determines if +/-
         if (Math.sign(hopitalizedChangeRollingAverage()) === 1) {
           //scope into negative class
-          let changeNegHospitalized = parent.querySelector('[data-point="hospitalized-percent-change"] .detail')
+          let changeNegHospitalized = parent.querySelector('[data-point="hospitalized-percent-change"] .detail');
           //if negative, statement runs changing .negative to .positive
           if (changeNegHospitalized.classList.contains('negative')) {
-                changeNegHospitalized.classList.remove('negative')
-                changeNegHospitalized.classList.add('positive')
-                changeNegHospitalized.innerHTML = hopitalizedChangeRollingAverage() + '%'
+                changeNegHospitalized.classList.remove('negative');
+                changeNegHospitalized.classList.add('positive');
+                changeNegHospitalized.innerHTML = hopitalizedChangeRollingAverage() + '%';
             } else {
               //if class is positive, print function to browser
               //scope into printing location 
-              let printHospitalizationChange = parent.querySelector('[data-point="hospitalized-percent-change"] [data-item="data"]')
-              printHospitalizationChange.innerHTML = hopitalizedChangeRollingAverage() + '%'
+              let printHospitalizationChange = parent.querySelector('[data-point="hospitalized-percent-change"] [data-item="data"]');
+              printHospitalizationChange.innerHTML = hopitalizedChangeRollingAverage() + '%';
             }
         };
         
@@ -17706,7 +17706,6 @@ __webpack_require__.r(__webpack_exports__);
 //Argument takes a string with a county name. e.g. "Los Angeles", "Lorain"
 const getDataByPlaces = (string) => {
     // set up the data array
-
     let dataArray = [];
   
     // fetch the data
@@ -17739,59 +17738,42 @@ const getDataByPlaces = (string) => {
       const yesterdayDate = dataArray[dataArray.length-2].one;
       const casesTotal = dataOne[todayDate].cumulative.cases;
       const casesNew = dataOne[todayDate].new.cases;
-      
-      //DEPRECATED
-      // const casesChange = Math.round(((dataOne[todayDate].new.cases - dataOne[yesterdayDate].new.cases) / dataOne[yesterdayDate].new.cases) * 100);
-      // const casesChangeRollingAverage = () => {
-      //   if (isNaN(casesChange) || casesChange === Infinity) {
-      //     let handleZeroCases = document.querySelector(`[data-parent="${scope.place.key}"] [data-point="cases-percent-change"] [data-item="title"]`)
-      //     handleZeroCases.innerHTML = 'New on previous day';
-      //      return '0'
-      //   } else if (casesChange == -100) {
-      //     //This edge case handles 0 new cases by injected the new cases from the previous day
-      //     let handleZeroCases = document.querySelector(`[data-parent="${scope.place.key}"] [data-point="cases-percent-change"] [data-item="title"]`)
-      //     handleZeroCases.innerHTML = 'New on previous day';
-      //      return dataOne[yesterdayDate].new.cases
-      //   } else { 
-      //     return casesChange + '%'
-      //   }
-      // }
+
 
       //7 Day Rolling Average Percentage Change in Cases. Inherently handles previous edge cases by evening out days with 0 cases.
       const casesChangeRollingAverage = () => {
+        //Initialize array to hold calulated averages
         let dailyTotalCases = [];
   
+        //Loop through calculations to populate array
         for (let j = 0; j < 7; j++) {
+          //Scope into iterable dates
           let y2 = dataArray[dataArray.length - (j + 1)].one;
           let y1 = dataArray[dataArray.length - (j + 2)].one;
+         
+          //Get daily day-over-day averages
           let dailyNewCases = (dataOne[y2].new.cases - dataOne[y1].new.cases) / dataOne[y1].new.cases * 100;
-          dailyTotalCases.push(dailyNewCases)
+          
+          //Check if the number is finite to avoid edge cases errors due to 0 cases/bad data from API
+          if (isFinite(dailyNewCases)) {
+            //Push data to array
+            dailyTotalCases.push(dailyNewCases)
+        } else {
+          //Push 0 to array if Inifinity is present
+          dailyTotalCases.push(0)
         }
+        
+        //Find 7-day average
         let currentCasesChange = dailyTotalCases.reduce((a, b) => a + b) / 7
         return currentCasesChange.toFixed(1)
 
-      }
-      
+          }
+        };
 
+      
+      //Deaths
       const totalDeaths = dataOne[todayDate].cumulative.deaths
       const deathsNew = dataOne[todayDate].new.deaths
-      
-      //DEPRECATED
-      // const deathsChange = Math.round(((dataOne[todayDate].new.deaths - dataOne[yesterdayDate].new.deaths) / dataOne[yesterdayDate].new.deaths) * 100);
-      // const deathsChangeX = () => {
-      //   if (isNaN(deathsChange) || deathsChange === Infinity) {
-      //     let handleZeroDeaths = document.querySelector(`[data-parent="${scope.place.key}"] [data-point="deaths-percent-change"] [data-item="title"]`)
-      //     handleZeroDeaths.innerHTML = 'New on previous day';
-      //     return `0`
-      //   } else if (casesChange == -100) {
-      //     //This edge case handles 0 new cases by injected the new cases from the previous day
-      //     let handleZeroCases = document.querySelector(`[data-parent="${scope.place.key}"] [data-point="deaths-percent-change"] [data-item="title"]`)
-      //     handleZeroCases.innerHTML = 'New on previous day';
-      //      return dataOne[yesterdayDate].new.deaths
-      //   } else {
-      //     return deathsChange + '%'
-      //   }
-      // }
    
       const deathChangeRollingAverage = () => {
         let dailyTotalDeath = [];
@@ -17802,99 +17784,85 @@ const getDataByPlaces = (string) => {
           
           let dailyNewDeath = (dataOne[y2].new.deaths - dataOne[y1].new.deaths) / dataOne[y1].new.deaths * 100;
           if (isFinite(dailyNewDeath)) {
-            dailyTotalDeath.push(dailyNewDeath)
+            dailyTotalDeath.push(dailyNewDeath);
           } else {
-            dailyTotalDeath.push(0)
+            dailyTotalDeath.push(0);
           }
-        }
+        };
         let currentAvgDeath = dailyTotalDeath.reduce((a, b) => a+b) / 7;
         return currentAvgDeath.toFixed(1);
       }
 
+      //DOM Manipulation
      //The [data-parent="XXX"] query in HTML must match the scope.place.key from the CovidData API.
     if (string){
 
-      let parent = document.querySelector(`[data-parent="${scope.place.key}"]`)
-      console.log(parent)
-      let dataOne = parent.querySelector('[data-point="cumulative-cases"]')
-      .querySelector('[data-item="content"]')
-      dataOne.innerHTML = casesTotal.toLocaleString()
+      let parent = document.querySelector(`[data-parent="${scope.place.key}"]`);
+      let dataOne = parent.querySelector('[data-point="cumulative-cases"] [data-item="content"]');
+      dataOne.innerHTML = casesTotal.toLocaleString();
 
-      let dataTwo = parent.querySelector('[data-point="new-cases"]')
-      .querySelector('[data-item="content"]')
-      dataTwo.innerHTML = casesNew.toLocaleString()
-
-      // let dataThree = parent.querySelector('[data-point="cases-percent-change"] [data-item="content"]')
-      // dataThree.innerHTML = casesChangeRollingAverage();
+      let dataTwo = parent.querySelector('[data-point="new-cases"] [data-item="content"]');
+      dataTwo.innerHTML = casesNew.toLocaleString();
   
-      //replace dataThree
       if (Math.sign(casesChangeRollingAverage()) === 1) {
-        let prevDayNeg = parent.querySelector('[data-point="cases-percent-change"] .callout')
+        let prevDayNeg = parent.querySelector('[data-point="cases-percent-change"] .callout');
         //@GH — can we use .toggle here?
           if (prevDayNeg.classList.contains('negative')) {
-            prevDayNeg.classList.remove('negative')
-            prevDayNeg.classList.add('positive')
-            prevDayNeg.innerHTML = casesChangeRollingAverage() + '%'
+            prevDayNeg.classList.remove('negative');
+            prevDayNeg.classList.add('positive');
+            prevDayNeg.innerHTML = casesChangeRollingAverage() + '%';
           } else {
-            let printCasesChange = parent.querySelector('[data-point="cases-percent-change"] [data-item="content"]')
-            printCasesChange.innerHTML = casesChangeRollingAverage() + '%'
+            let printCasesChange = parent.querySelector('[data-point="cases-percent-change"] [data-item="content"]');
+            printCasesChange.innerHTML = casesChangeRollingAverage() + '%';
           }
       } else {
-        let prevDayPos = parent.querySelector('[data-point="cases-percent-change"] .callout')
+        let prevDayPos = parent.querySelector('[data-point="cases-percent-change"] .callout');
 
         //@GH — can we use .toggle here?
         if (prevDayPos.classList.contains('positive')) {
-          prevDayPos.classList.remove('positive')
-          prevDayPos.classList.add('negative')
-          prevDayPos.innerHTML = casesChangeRollingAverage() + '%'
+          prevDayPos.classList.remove('positive');
+          prevDayPos.classList.add('negative');
+          prevDayPos.innerHTML = casesChangeRollingAverage() + '%';
         } else {
-          let dataThree = parent.querySelector('[data-point="cases-percent-change"] [data-item="content"]')
-          dataThree.innerHTML = casesChangeRollingAverage()  + '%'
+          let dataThree = parent.querySelector('[data-point="cases-percent-change"] [data-item="content"]');
+          dataThree.innerHTML = casesChangeRollingAverage()  + '%';
         }
-      }
-
+      };
       
-      let dataFour = parent.querySelector('[data-point="total-deaths"] [data-item="content"]')
-      dataFour.innerHTML = totalDeaths.toLocaleString()
+      let dataFour = parent.querySelector('[data-point="total-deaths"] [data-item="content"]');
+      dataFour.innerHTML = totalDeaths.toLocaleString();
 
       let dataFive = parent.querySelector('[data-point="new-deaths"] [data-item="content"]')
-      dataFive.innerHTML = deathsNew.toLocaleString()
+      dataFive.innerHTML = deathsNew.toLocaleString();
 
-
-      // let dataSix = parent.querySelector('[data-point="deaths-percent-change"] [data-item="content"]')
-      // dataSix.innerHTML = deathsChangeX()
-
-      //replace dataSix
       if (Math.sign(deathChangeRollingAverage()) === 1) {
-        let prevDayNeg = parent.querySelector('[data-point="deaths-percent-change"] .callout')
+        let prevDayNeg = parent.querySelector('[data-point="deaths-percent-change"] .callout');
         //@GH — can we use .toggle here?
           if (prevDayNeg.classList.contains('negative')) {
-            prevDayNeg.classList.remove('negative')
-            prevDayNeg.classList.add('positive')
-            prevDayNeg.innerHTML = deathChangeRollingAverage() + '%'
+            prevDayNeg.classList.remove('negative');
+            prevDayNeg.classList.add('positive');
+            prevDayNeg.innerHTML = deathChangeRollingAverage() + '%';
           } else {
-            let dataSix = parent.querySelector('[data-point="deaths-percent-change"] [data-item="content"]')
-            dataSix.innerHTML = deathChangeRollingAverage() + '%'
+            let dataSix = parent.querySelector('[data-point="deaths-percent-change"] [data-item="content"]');
+            dataSix.innerHTML = deathChangeRollingAverage() + '%';
           }
       } else {
-        let prevDayPos = parent.querySelector('[data-point="deaths-percent-change"] .callout')
+        let prevDayPos = parent.querySelector('[data-point="deaths-percent-change"] .callout');
 
         //@GH — can we use .toggle here?
         if (prevDayPos.classList.contains('positive')) {
-          prevDayPos.classList.remove('positive')
-          prevDayPos.classList.add('negative')
-          prevDayPos.innerHTML = deathChangeRollingAverage() + '%'
+          prevDayPos.classList.remove('positive');
+          prevDayPos.classList.add('negative');
+          prevDayPos.innerHTML = deathChangeRollingAverage() + '%';
         } else {
-          let dataSix = parent.querySelector('[data-point="deaths-percent-change"] [data-item="content"]')
-          dataSix.innerHTML = deathChangeRollingAverage() + '%'
+        let dataSix = parent.querySelector('[data-point="deaths-percent-change"] [data-item="content"]');
+        dataSix.innerHTML = deathChangeRollingAverage() + '%';
         }
       }
-
     }
+  });
 
- })
-
-    return dataArray; // needed to use this in  visLineChart.js (check in there for changes). I couldn't figure out how to export the data. to mess with it
+    return dataArray; // needed to use this in  visLineChart.js (check in there for changes). I couldn't figure out how to export the data to mess with it.
   
   };
 
