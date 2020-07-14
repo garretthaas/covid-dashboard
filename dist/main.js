@@ -110,7 +110,7 @@ function component() {
     const element = document.createElement('div');
   
     // Lodash, now imported by this script
-    element.innerHTML = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.join(['Hello', 'Garrett'], ' ');
+    element.innerHTML = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.join(['Made in Los Angeles, CA & Cleveland, OH'], ' ');
   
     return element;
   } 
