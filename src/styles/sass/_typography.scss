@@ -1,3 +1,68 @@
+// typography
+
+h1, h2, h3, h4, h5, h6, p, ul, ol, li {
+    font-family: Georgia, serif;
+}
+
+h1 {
+    font-size: 5.063em;
+}
+
+h2 {
+    font-size: 3.375em;
+}
+
+h3 {
+    font-size: 1.5em;
+    padding-bottom: .1em;
+}
+
+p {
+    font-size: 1.4em;
+    color: inherit;
+    line-height: 1;
+
+    &.callout {
+        font-family: 'Oswald', sans-serif;
+        font-size: 3.8vw;
+        padding-bottom: .05rem;
+
+    }
+}
+
+a {
+    text-decoration: none;
+    color: white;
+    font-weight: 800;
+}
+
+a:visited {
+    text-decoration: none;
+    color: white;
+    font-weight: 800;
+}
+
+.callout {
+
+    &.positive {
+        
+        &::before {
+           font-size: 2rem;
+        }
+    }
+    
+    &.negative {
+    
+        &::before {
+           font-size: 2rem;
+        }
+    }
+}
+
+p.small {
+    font-size: 1em;
+}
+
 
 //for Desktop
 @media only screen 
