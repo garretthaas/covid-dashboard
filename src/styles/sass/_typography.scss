@@ -24,8 +24,8 @@ p {
 
     &.callout {
         font-family: 'Oswald', sans-serif;
-        font-size: 5.8em;
-        padding-bottom: .05em;
+        font-size: 3.8vw;
+        padding-bottom: .05rem;
 
     }
 }
@@ -63,8 +63,7 @@ p.small {
     font-size: 1em;
 }
 
-//for iPad Pro
-
+//for iPad Pro/Desktop
 @media only screen 
   and (min-device-width: 834px) 
   and (max-device-width: 1367px)
@@ -74,23 +73,20 @@ p.small {
 
       &.callout {
           font-family: 'Oswald', sans-serif;
-          font-size: 4.9em;
+          font-size: 3.8vw;
           padding-bottom: .05em;
         }
       }
   }
 
   @media only screen 
-  and (min-device-width: 1024px) 
-  and (max-device-width: 1367px)
+  and (min-device-width: 1020px) 
+  and (max-device-width: 1450px)
   and (orientation: portrait) {
        
     p { 
-
       &.callout {
-          font-family: 'Oswald', sans-serif;
-          font-size: 3.7em;
-          padding-bottom: .05em;
+          font-size: 3.9rem;
         }
     }
   }
