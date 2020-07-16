@@ -26,11 +26,23 @@ p {
         font-family: 'Oswald', sans-serif;
         font-size: 5.8em;
         padding-bottom: .05em;
+
     }
 }
 
-.callout {
+a {
+    text-decoration: none;
+    color: white;
+    font-weight: 800;
+}
 
+a:visited {
+    text-decoration: none;
+    color: white;
+    font-weight: 800;
+}
+
+.callout {
 
     &.positive {
         
@@ -50,3 +62,35 @@ p {
 p.small {
     font-size: 1em;
 }
+
+//for iPad Pro
+
+@media only screen 
+  and (min-device-width: 834px) 
+  and (max-device-width: 1367px)
+  and (orientation: landscape) {
+       
+    p { 
+
+      &.callout {
+          font-family: 'Oswald', sans-serif;
+          font-size: 4.9em;
+          padding-bottom: .05em;
+        }
+      }
+  }
+
+  @media only screen 
+  and (min-device-width: 1024px) 
+  and (max-device-width: 1367px)
+  and (orientation: portrait) {
+       
+    p { 
+
+      &.callout {
+          font-family: 'Oswald', sans-serif;
+          font-size: 3.7em;
+          padding-bottom: .05em;
+        }
+    }
+  }

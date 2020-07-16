@@ -23,7 +23,7 @@ export const visLineChart = (dataUrl, dataCountry, dataCat, dataPoint) => {
         .x(function(d) { return x(d.one); })
         .y(function(d) { return y(d.two); });
     
-    // append the svg obgect to the body of the page
+    // append the svg object to the body of the page
     // appends a 'group' element to 'svg'
     // moves the 'group' element to the top left margin
     
@@ -42,7 +42,7 @@ export const visLineChart = (dataUrl, dataCountry, dataCat, dataPoint) => {
         fetch(dataUrl)
         .then(response => response.json())
         .then(data => {
-            console.log(data);
+            // console.log(data);
       
           // this is unique to the data at https://coviddata.github.io/coviddata/v1/countries/stats.json
             function findIndexWithAttr(array, name, parent, attr) {
@@ -54,7 +54,7 @@ export const visLineChart = (dataUrl, dataCountry, dataCat, dataPoint) => {
                 return -1;
             }
             const index = findIndexWithAttr(data, dataCountry, 'country', 'key');
-            console.log(index);
+            // console.log(index);
           
           let scope = data[index]; // set the scope
           let scopeName = scope.country.name; // get the name of the scope (in this case country name)

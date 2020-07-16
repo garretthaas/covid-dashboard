@@ -100,6 +100,7 @@ const getDataNational = () => {
         //Positive Percentage of Total Cases
         let printPositiveChange = parent.querySelector('[data-point="positive-tests"] [data-item="content"]');
         printPositiveChange.innerHTML = totalPositive + '%';
+        console.log(totalPositive);
 
         //Positive Percentage 7-day average
         if (Math.sign(positiveChangeRollingAverage()) === 1) {

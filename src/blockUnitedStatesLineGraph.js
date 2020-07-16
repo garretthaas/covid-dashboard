@@ -60,7 +60,7 @@ export const blockUnitedStatesLineGraph = (dataUrl, dataPoint, selector) => {
                     let two = twoCheck();
 
                     // get percent positive
-                    console.log("percentage calc: " + two);
+                    // console.log("percentage calc: " + two);
 
                     // now we take those pieces of info and make them an array
                     let result = ({one, two});
@@ -68,7 +68,7 @@ export const blockUnitedStatesLineGraph = (dataUrl, dataPoint, selector) => {
                     
 
                 }
-                console.log(dataArray);
+                // console.log(dataArray);
             } else {
                 for (var i = 0, len = data.length; i < len; i++) { 
                     let one = data[i].date;
