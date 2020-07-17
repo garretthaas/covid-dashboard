@@ -12,7 +12,7 @@ function component() {
     const element = document.createElement('div');
   
     // Lodash, now imported by this script
-    element.innerHTML = _.join(['Made with 😷 Los Angeles, CA & Cleveland, OH'], ' ');
+    element.innerHTML = _.join(['Made with 😷 in Los Angeles, CA & Cleveland, OH'], ' ');
   
     return element;
   } 

@@ -1,5 +1,7 @@
 Work in Progress, Covid dashboard.
 
+Live Beta v0.2: https://naughty-booth-abbd7d.netlify.app/
+
 # Getting Started Locally
 
 ## Setting up the package manager

@@ -63,6 +63,7 @@ p.small {
     font-size: 1em;
 }
 
+
 //for Desktop
 @media only screen 
   and (max-width: 1439px)
@@ -91,53 +92,40 @@ p.small {
 
 
     @media only screen 
-    //   and (min-width: 1438px)
-      and (max-width: 1188px)
-      and (orientation: landscape) {
-           
-        p { 
-    
-          &.callout {
-              font-size: 3.8em;
-            }
-          }
-      }
-
-    @media only screen 
-    and (max-width: 1052px)
-    and (orientation: landscape) {
+        and (max-width: 1188px)
+        and (orientation: landscape) {
             
         p { 
+
+            &.callout {
+                font-size: 3.8em;
+                }
+            }
+        }
     
-        &.callout {
-            font-size: 3.5em;
+        @media only screen 
+        and (max-width: 1064px)
+        and (orientation: landscape) {
+            
+        p { 
+
+            &.callout {
+                font-size: 3.5em;
+                }
             }
         }
-    }
-
-    @media only screen 
-
-    and (max-width: 1018px)
-    and (orientation: landscape) {
-        
-    p { 
-
-        &.callout {
-            font-size: 5.8em;
-            }
-        }
-    }
+  
 
 //for iPad Pro
   @media only screen 
-  and (min-device-width: 1020px) 
-  and (max-device-width: 1450px)
-  and (-webkit-min-device-pixel-ratio: 1)
-  and (orientation: portrait) {
-       
-    p { 
-      &.callout {
-          font-size: 3.7rem;
+    and (min-device-width: 1020px) 
+    and (max-device-width: 1450px)
+    and (-webkit-min-device-pixel-ratio: 1)
+    and (orientation: portrait) {
+        
+        p { 
+        &.callout {
+            font-size: 3.7rem;
+            }
         }
-    }
   }
