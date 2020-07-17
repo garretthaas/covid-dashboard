@@ -1,6 +1,10 @@
 Work in Progress, Covid dashboard.
 
-Live Beta v0.2: https://naughty-booth-abbd7d.netlify.app/
+Live Beta v0.9: https://naughty-booth-abbd7d.netlify.app/
+
+To Do:
+[] Adjust trendline for responsive
+[] Build out locales
 
 # Getting Started Locally
 
