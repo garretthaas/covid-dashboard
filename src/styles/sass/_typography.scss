@@ -92,8 +92,20 @@ p.small {
 
 
     @media only screen 
-        and (max-width: 1188px)
-        and (orientation: landscape) {
+      and (max-width: 1188px)
+      and (orientation: landscape) {
+           
+        p { 
+    
+          &.callout {
+              font-size: 3.8em;
+            }
+          }
+      }
+
+    @media only screen 
+    and (max-width: 1052px)
+    and (orientation: landscape) {
             
         p { 
 
@@ -102,12 +114,12 @@ p.small {
                 }
             }
         }
-    
-        @media only screen 
-        and (max-width: 1064px)
-        and (orientation: landscape) {
-            
-        p { 
+
+
+    //Takes over when switching to 1 column
+    @media only screen 
+    and (max-width: 1017px) {
+    p { 
 
             &.callout {
                 font-size: 3.5em;
@@ -118,14 +130,49 @@ p.small {
 
 //for iPad Pro
   @media only screen 
-    and (min-device-width: 1020px) 
-    and (max-device-width: 1450px)
-    and (-webkit-min-device-pixel-ratio: 1)
-    and (orientation: portrait) {
-        
-        p { 
-        &.callout {
-            font-size: 3.7rem;
-            }
+  and (min-device-width: 1020px) 
+  and (max-device-width: 1450px)
+  and (-webkit-min-device-pixel-ratio: 1)
+  and (orientation: portrait) {
+       
+    p { 
+      &.callout {
+          font-size: 3.5rem;
         }
   }
+
+  //for iPhone
+  @media only screen
+    and (max-device-width: 813px)
+    and (-webkit-min-device-pixel-ratio: 1)
+    and (orientation: portrait) {
+
+        p {
+            padding-bottom: 0.5em;
+
+            &.callout {    
+                font-size: 9em;
+            }
+            &.mobile-resize {
+                font-size: 3.2em;
+            }
+        }
+    }
+
+    @media only screen
+    and (max-device-width: 813px)
+    and (-webkit-min-device-pixel-ratio: 1)
+    and (orientation: landscape) {
+
+        p {
+            padding-bottom: 0.5em;
+
+            &.callout {    
+                font-size: 9em;
+            }
+            &.mobile-resize {
+                font-size: 2em;
+            }
+        }
+    }
+}
