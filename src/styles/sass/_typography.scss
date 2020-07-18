@@ -92,7 +92,6 @@ p.small {
 
 
     @media only screen 
-    //   and (min-width: 1438px)
       and (max-width: 1188px)
       and (orientation: landscape) {
            
@@ -116,11 +115,9 @@ p.small {
         }
     }
 
+    //Takes over when switching to 1 column
     @media only screen 
-
-    and (max-width: 1018px)
-    and (orientation: landscape) {
-        
+    and (max-width: 1017px) {
     p { 
 
         &.callout {
@@ -138,7 +135,43 @@ p.small {
        
     p { 
       &.callout {
-          font-size: 3.7rem;
+          font-size: 3.5rem;
         }
     }
   }
+
+  //for iPhone
+  @media only screen
+    and (max-device-width: 813px)
+    and (-webkit-min-device-pixel-ratio: 1)
+    and (orientation: portrait) {
+
+        p {
+            padding-bottom: 0.5em;
+
+            &.callout {    
+                font-size: 9em;
+            }
+            &.mobile-resize {
+                font-size: 3.2em;
+            }
+        }
+    }
+
+    @media only screen
+    and (max-device-width: 813px)
+    and (-webkit-min-device-pixel-ratio: 1)
+    and (orientation: landscape) {
+
+        p {
+            padding-bottom: 0.5em;
+
+            &.callout {    
+                font-size: 9em;
+            }
+            &.mobile-resize {
+                font-size: 2em;
+            }
+        }
+    }
+
