@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/garretthaas/covid-dashboard/dist/index.html",
   "dependencies": {
-    "lodash": "^4.17.15"
+    "lodash": "^4.17.19"
   },
   "devDependencies": {
     "csv-loader": "^3.0.3",
