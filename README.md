@@ -19,6 +19,7 @@ _Work in Progress_
 
 ## Tech
 - [d3.js](https://d3js.org/)
+- [PACE.js](https://www.npmjs.com/package/pace-js)
 - Vanilla Javascript
 
 ## Authors
