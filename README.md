@@ -22,8 +22,8 @@ _Work in Progress_
 - Vanilla Javascript
 
 ## Authors
--[Garret Haas](https://github.com/garretthaas)
--[Ricky Rhodes](https://github.com/h0plyn)
+- [Garrett Haas](https://github.com/garretthaas)
+- [Ricky Rhodes](https://github.com/h0plyn)
 
 <br/>
 <br/>
