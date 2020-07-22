@@ -1,14 +1,14 @@
-Covid dashboard.
 <h1 align="center"><img src="./assets/README-title.jpg"></h1>
 
 Version 1.0: https://bit.ly/3fRrAuZ
+<br />
 Work in Progress
 
 To Do:
 1. Adjust trendline for responsive.
 2. Build out state locales javascript.
 
-#Screenshot
+# Screenshot
 ![Covid Dashboard screenshot](./assets/Covid-Dashboard-Screenshot.png)
 
 # Getting Started Locally
