@@ -1,15 +1,32 @@
 <h1 align="center"><img src="./assets/README-title.jpg"></h1>
 
-Version 1.0: https://bit.ly/3fRrAuZ
-<br />
-Work in Progress
+This project was created by Garrett Haas & Ricky Rhodes to share COVID-19 data as it relates to their lives and areas of interest. The dashboard was created D3.js & Vanilla JS.
 
-To Do:
+<br />
+
+_Version 1.0_:
+<br />
+https://bit.ly/3fRrAuZ
+<br />
+_Work in Progress_
+
+## To Do:
 1. Adjust trendline for responsive.
 2. Build out state locales javascript.
 
-# Screenshot
+## Screenshot
 ![Covid Dashboard screenshot](./assets/Covid-Dashboard-Screenshot.png)
+
+## Tech
+- [d3.js](https://d3js.org/)
+- Vanilla Javascript
+
+## Authors
+-[Garret Haas](https://github.com/garretthaas)
+-[Ricky Rhodes](https://github.com/h0plyn)
+
+<br/>
+<br/>
 
 # Getting Started Locally
 
