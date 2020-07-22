@@ -1,6 +1,6 @@
 <h1 align="center"><img src="./assets/README-title.jpg"></h1>
 
-This project was created by Garrett Haas & Ricky Rhodes to share COVID-19 data as it relates to their lives and areas of interest. The dashboard was created D3.js & Vanilla JS.
+This project was created share COVID-19 data as it relates to the authors lives and areas of interest. The dashboard was created with D3.js & Vanilla JS.
 
 <br />
 
