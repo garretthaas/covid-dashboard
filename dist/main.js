@@ -17524,11 +17524,10 @@ const getDataNational = () => {
             //Pushing daily results to array
             totalDailyChange.push(dailyChange);
           };
-          //Reduce to 7 day average
+          //Reduce to 7-day average
           let currentDailyChange = totalDailyChange.reduce((a, b) => a + b) / 7;
           return currentDailyChange.toFixed(1);
         };
-
 
         //Positive Percentage of Total Tests
         const totalPositive = ((result[0].positive / result[0].negative) * 100).toFixed(1);
@@ -17554,14 +17553,18 @@ const getDataNational = () => {
           let deathsDailyChange = [];
 
           for (let i = 0; i < 7; i++) {
+            
             let deathChange = (result[i].deathIncrease - result[i+1].deathIncrease) / result[i+1].deathIncrease * 100;
             deathsDailyChange.push(deathChange);
-          }
+          
+          };
+          
           let currentDeathChange =  deathsDailyChange.reduce((a, b) => a + b) / 7;
           return currentDeathChange.toFixed(1);
-        }
+        
+        };
 
-
+        
         //Current Hospitalizations
         const totalHospitalizedCurrent = result[0].hospitalizedCurrently;
         
@@ -17571,12 +17574,14 @@ const getDataNational = () => {
           for (let i = 0; i < 7; i++) {
             let hospitalizedChange = (result[i].hospitalizedCurrently - result[i+1].hospitalizedCurrently) / result[i+1].hospitalizedCurrently * 100;
             hospitalizedDailyChange.push(hospitalizedChange);
-          }
+          };
+
           let currentHospitalizedChange = hospitalizedDailyChange.reduce((a, b) => a + b) / 7;
           return currentHospitalizedChange.toFixed(1);
-        }
-
         
+        };
+
+
 
         //DOM Manipulation
         let parent = document.querySelector('[data-parent="united-states"]');
@@ -17585,47 +17590,68 @@ const getDataNational = () => {
         let printTotalCases = parent.querySelector('[data-point="cumulative-cases"] [data-item="content"]');
         printTotalCases.innerHTML = totalCases.toLocaleString();
         
-        //REFACTOR NAMING CONVENTION
         //Total Cases 7-day average
-        let prevDayNeg = parent.querySelector('[data-point="cumulative-percent-change"] .detail');
+        let handleCasesClassChange = parent.querySelector('[data-point="cumulative-percent-change"] .detail');
+        let printTotalChange = parent.querySelector('[data-point="cumulative-percent-change"] [data-item="data"]');
 
-          if (prevDayNeg.classList.contains('negative')) {
-            prevDayNeg.classList.remove('negative');
-            prevDayNeg.classList.add('positive');
-            prevDayNeg.innerHTML = totalChangeRollingAverage()  + '%';
-          } else {
-            let printTotalChange = parent.querySelector('[data-point="cumulative-percent-change"] [data-item="data"]');
+        //IF 7-day average is positive && class is negative, change the class to positive. ELSE, Print 7-day average.
+        //This changes the direction of the arrow on the page.
+        if (Math.sign(Number(totalChangeRollingAverage())) === 1) {
+            if (handleCasesClassChange.classList.contains('negative')) {
+              handleCasesClassChange.classList.remove('negative');
+              handleCasesClassChange.classList.add('positive');
+              printTotalChange.innerHTML = totalChangeRollingAverage()  + '%';
+            } else {
+              printTotalChange.innerHTML = totalChangeRollingAverage()  + '%';
+            }
+        };
+        
+        //IF 7-day average is negative && class is positive, change the class to negative. ELSE, Print 7-day average.
+        //This changes the direction of the arrow on the page.
+        if (Math.sign(Number(totalChangeRollingAverage())) === -1) {
+          if (handleCasesClassChange.classList.contains('positive')) {
+            handleCasesClassChange.classList.remove('negative');
+            handleCasesClassChange.classList.add('add');
             printTotalChange.innerHTML = totalChangeRollingAverage()  + '%';
-          };
-    
+          } else {
+            printTotalChange.innerHTML = totalChangeRollingAverage()  + '%';
+          }
+        };
+
+
 
         //Positive Percentage of Total Cases
         let printPositiveChange = parent.querySelector('[data-point="positive-tests"] [data-item="content"]');
         printPositiveChange.innerHTML = totalPositive + '%';
 
         //Positive Percentage 7-day average
+        //Scope into printing location
+        
+        //Scope into class
+        let handlePositiveClassChange = parent.querySelector('[data-point="positive-percent-change"] .detail');
+        let printPositiveRollingAverage = parent.querySelector('[data-point="positive-percent-change"] [data-item="data"]');
 
+       if (Math.sign(Number(positiveChangeRollingAverage())) === 1) {
+        if (handlePositiveClassChange.classList.contains('negative')) {
+          handlePositiveClassChange.classList.remove('negative');
+          handlePositiveClassChange.classList.add('positive');
+          printPositiveRollingAverage.innerHTML = positiveChangeRollingAverage() + '%';
+          } else {
+            printPositiveRollingAverage.innerHTML = positiveChangeRollingAverage() + '%';
+          }
+       };
 
-          //Scope into printing location 
-          let printPrevDayPos = parent.querySelector('[data-point="positive-percent-change"] [data-item="data"]');
-          
-          //Scope into negative class
-          let changeNegPositive = parent.querySelector('[data-point="positive-percent-change"] .detail');
-           console.log(changeNegPositive)
-           console.log(printPrevDayPos)
-          //If negative, statement runs changing .negative to .positive
-          if (changeNegPositive.classList.contains('negative')) {
-            changeNegPositive.classList.remove('negative');
-            changeNegPositive.classList.add('positive');
-            changeNegPositive.innerHTML = positiveChangeRollingAverage() + '%';
-            } else {
-              //if class is positive, print function to browser
-              printPrevDayPos.innerHTML = positiveChangeRollingAverage() + '%';
-            };
+       if (Math.sign(Number(positiveChangeRollingAverage())) === -1) {
+         if (handlePositiveClassChange.classList.contains('positive')) {
+           handlePositiveClassChange.classList.remove('positive');
+           handlePositiveClassChange.classList.add('negative');
+           printPositiveRollingAverage.innerHTML = positiveChangeRollingAverage() + '%';
+         } else {
+         printPositiveRollingAverage.innerHTML = positiveChangeRollingAverage() + '%';
+        }
+       };
 
-
-
-
+       
 
         //Total Deaths
         let printTotalDeaths  = parent.querySelector('[data-point="cumulative-deaths"] [data-item="content"]')
@@ -17633,15 +17659,30 @@ const getDataNational = () => {
 
         //Total Deaths 7-day average
 
-          let changePosDeaths = parent.querySelector('[data-point="deaths-percent-change"] .detail')
-          //@GH — can we use .toggle here?
-            if (changePosDeaths.classList.contains('negative')) {
-              changePosDeaths.classList.remove('negative')
-              changePosDeaths.classList.add('positive')
-              changePosDeaths.innerHTML = deathChangeRollingAverage() + '%'
+          //Scope into death change
+          let handleDeathChange = parent.querySelector('[data-point="deaths-percent-change"] .detail')
+          let printDeathChange = parent.querySelector('[data-point="deaths-percent-change"] [data-item="data"]')
+        
+          //Handle Class Change
+          if (Math.sign(Number(deathChangeRollingAverage())) === 1) {
+            if (handleDeathChange.classList.contains('negative')) {
+              handleDeathChange.classList.remove('negative');
+              handleDeathChange.classList.add('positive');
+              printDeathChange.innerHTML = deathChangeRollingAverage() + '%';
             } else {
-              changePosDeaths.innerHTML = deathChangeRollingAverage() + '%'
-            };
+              printDeathChange.innerHTML = deathChangeRollingAverage() + '%';
+            }
+          };
+
+          if (Math.sign(Number(deathChangeRollingAverage())) === -1) {
+            if (handleDeathChange.classList.contains('positive')) {
+              handleDeathChange.classList.add('negative');
+              handleDeathChange.classList.remove('positive');
+              handleDeathChange.innerHTML = deathChangeRollingAverage() + '%';
+            } else {
+              handleDeathChange.innerHTML = deathChangeRollingAverage() + '%';
+            }
+          };
 
         
 
@@ -17649,21 +17690,32 @@ const getDataNational = () => {
         let printCurrentHospitalizations = parent.querySelector('[data-point="hospitalizations"] [data-item="content"]');
         printCurrentHospitalizations.innerHTML = totalHospitalizedCurrent.toLocaleString();
 
-
-          let changeNegHospitalized = parent.querySelector('[data-point="hospitalized-percent-change"] .detail')
-          let printHospitalizationChange = parent.querySelector('[data-point="hospitalized-percent-change"] [data-item="data"]');
-          //@GH — can we use .toggle here?
-            if (changeNegHospitalized.classList.contains('negative')) {
-              changeNegHospitalized.classList.remove('negative')
-              changeNegHospitalized.classList.add('positive')
-              printHospitalizationChange.innerHTML = hopitalizedChangeRollingAverage() + '%'
-
+        //Hospitalizations Change
+        let handleHospitalizedClass = parent.querySelector('[data-point="hospitalized-percent-change"] .detail')
+        let printHospitalizationChange = parent.querySelector('[data-point="hospitalized-percent-change"] [data-item="data"]');
+        
+          //Handle Postive Change Hospitalized
+          if (Math.sign(Number(hopitalizedChangeRollingAverage())) === 1) {
+            if (handleHospitalizedClass.classList.contains('negative')) {
+              handleHospitalizedClass.classList.remove('negative');
+              handleHospitalizedClass.classList.add('positive');
             } else {
               printHospitalizationChange.innerHTML = hopitalizedChangeRollingAverage() + '%'
-              console.log(hopitalizedChangeRollingAverage())
-
-            };
+            }
+          };
         
+          // Handle Negative Change Hospitalized
+          if (Math.sign(Number(hopitalizedChangeRollingAverage())) === -1) {
+            if (handleHospitalizedClass.classList.contains('positive')) {
+                handleHospitalizedClass.classList.remove('positive')
+                handleHospitalizedClass.classList.add('negative')
+                printHospitalizationChange.innerHTML = hopitalizedChangeRollingAverage() + '%'
+              } else {
+                printHospitalizationChange.innerHTML = hopitalizedChangeRollingAverage() + '%'
+              }
+          };
+
+       
     })
     .catch(error => console.log('error', error));
 
