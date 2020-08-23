@@ -17307,16 +17307,16 @@ __webpack_require__.r(__webpack_exports__);
 
 function blockUnitedStates() {   
     // cumulative cases
-    Object(_blockUnitedStatesLineGraph__WEBPACK_IMPORTED_MODULE_0__["blockUnitedStatesLineGraph"])("https://cors-anywhere.herokuapp.com/https://api.covidtracking.com/v1/us/daily.json", "positive", "cumulative-cases");
+    Object(_blockUnitedStatesLineGraph__WEBPACK_IMPORTED_MODULE_0__["blockUnitedStatesLineGraph"])("https://api.covidtracking.com/v1/us/daily.json", "positive", "cumulative-cases");
 
     // positive tests
-    Object(_blockUnitedStatesLineGraph__WEBPACK_IMPORTED_MODULE_0__["blockUnitedStatesLineGraph"])("https://cors-anywhere.herokuapp.com/https://api.covidtracking.com/v1/us/daily.json", "percent-positive", "positive-tests");
+    Object(_blockUnitedStatesLineGraph__WEBPACK_IMPORTED_MODULE_0__["blockUnitedStatesLineGraph"])("https://api.covidtracking.com/v1/us/daily.json", "percent-positive", "positive-tests");
     
     // cumulative deaths
-    Object(_blockUnitedStatesLineGraph__WEBPACK_IMPORTED_MODULE_0__["blockUnitedStatesLineGraph"])("https://cors-anywhere.herokuapp.com/https://api.covidtracking.com/v1/us/daily.json", "death", "cumulative-deaths");
+    Object(_blockUnitedStatesLineGraph__WEBPACK_IMPORTED_MODULE_0__["blockUnitedStatesLineGraph"])("https://api.covidtracking.com/v1/us/daily.json", "death", "cumulative-deaths");
     
     // hospitalizations
-    Object(_blockUnitedStatesLineGraph__WEBPACK_IMPORTED_MODULE_0__["blockUnitedStatesLineGraph"])("https://cors-anywhere.herokuapp.com/https://api.covidtracking.com/v1/us/daily.json", "hospitalizedCurrently", "hospitalizations");
+    Object(_blockUnitedStatesLineGraph__WEBPACK_IMPORTED_MODULE_0__["blockUnitedStatesLineGraph"])("https://api.covidtracking.com/v1/us/daily.json", "hospitalizedCurrently", "hospitalizations");
 
     Object(_blockUnitedStatesDataPoints__WEBPACK_IMPORTED_MODULE_1__["getDataNational"])();
 
@@ -17505,7 +17505,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDataNational", function() { return getDataNational; });
 const getDataNational = () => {
 
-    fetch('https://cors-anywhere.herokuapp.com/https://api.covidtracking.com/v1/us/daily.json')
+    fetch('https://api.covidtracking.com/v1/us/daily.json')
     .then(response => response.json())
     .then(result => {
         //Storing calculations in variables and handling rolling averages

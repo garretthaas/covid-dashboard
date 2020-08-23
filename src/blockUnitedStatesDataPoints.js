@@ -1,6 +1,6 @@
 const getDataNational = () => {
 
-    fetch('https://cors-anywhere.herokuapp.com/https://api.covidtracking.com/v1/us/daily.json')
+    fetch('https://api.covidtracking.com/v1/us/daily.json')
     .then(response => response.json())
     .then(result => {
         //Storing calculations in variables and handling rolling averages
