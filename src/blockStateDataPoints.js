@@ -19,7 +19,7 @@ const getDataByState = (state, dataPoint, target) => {
 
 const getDataNational = (state, datPoint, target) => {
 
-    fetch('https://covidtracking.com/api/v1/us/daily.json')
+    fetch('https://cors-anywhere.herokuapp.com/https://api.covidtracking.com/v1/us/daily.json')
     .then(response => response.json())
     .then(result => {
 
