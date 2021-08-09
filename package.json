@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "styles": "node-sass -w ./src/styles/sass/ -o ./dist --output-style compressed",
     "start": "webpack",
-    "server": "http-server", 
+    "server": "http-server",
     "build": "node-sass ./src/styles/sass/styles.min.scss ./dist/styles.min.css --output-style compressed && webpack --config webpack.prod.js"
   },
   "repository": {
