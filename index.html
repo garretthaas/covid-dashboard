@@ -1,10 +1,12 @@
 <!doctype html>
 <html>
   <head>
+    
+    <link href="src/pace/pace-theme-center-simple.css" rel="stylesheet">
     <title>Covid Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./dist/styles.min.css">
-
+    
   </head>
   <body>
     <header>
@@ -23,27 +25,27 @@
           <h3 data-item="title">Total Cases</h3>
           <div class="grid-item grid two">
             <div class="grid-item">
-              <p class="callout" data-item="content">X</p>
+              <p class="callout" data-item="content"></p>
             </div>
             <div class="grid-item relative" data-item="line-graph">
               <div class="absolute overlay" data-point="cumulative-percent-change">
-                <p class="detail positive" data-item="data"></p>
-                <p>vs. previous day</p>
+                <p class="detail positive mobile-resize" data-item="data"></p>
+                <p class="mobile-resize">vs. prev. 7 day avg.</p>
               </div>
             </div>
           </div>
         </article>
 
         <article data-point="positive-tests">
-          <h3 data-item="title">Positive Tests</h3>
+          <h3 data-item="title">Positive Test Rate</h3>
           <div class="grid-item grid two">
             <div class="grid-item">
               <p class="callout" data-item="content"></p>
             </div>
             <div class="grid-item relative" data-item="line-graph">
               <div class="absolute overlay" data-point="positive-percent-change">
-                <p class="detail positive" data-item="data"></p>
-                <p>vs. previous day</p>
+                <p class="detail positive mobile-resize" data-item="data"></p>
+                <p class="mobile-resize">vs. prev. 7 day avg.</p>
               </div>
             </div>
           </div>
@@ -53,12 +55,12 @@
           <h3 data-item="title">Total Deaths</h3>
           <div class="grid-item grid two">
             <div class="grid-item">
-              <p class="callout" data-item="content"></p>
+              <p class="callout " data-item="content"></p>
             </div>
             <div class="grid-item relative" data-item="line-graph">
               <div class="absolute overlay" data-point="deaths-percent-change">
-                <p class="detail positive" data-item="data"></p>
-                <p>vs. previous day</p>
+                <p class="detail positive mobile-resize" data-item="data"></p>
+                <p class="mobile-resize">vs. prev. 7 day avg.</p>
               </div>
             </div>
           </div>
@@ -68,12 +70,12 @@
           <h3 data-item="title">Hospitalizations Currently</h3>
           <div class="grid-item grid two">
             <div class="grid-item">
-              <p class="callout" data-item="content">X</p>
+              <p class="callout" data-item="content"></p>
             </div>
             <div class="grid-item relative" data-item="line-graph">
               <div class="absolute overlay" data-point="hospitalized-percent-change">
-                <p class="detail positive" data-item="data"></p>
-                <p>vs. previous day</p>
+                <p class="detail positive mobile-resize" data-item="data"></p>
+                <p class="mobile-resize">vs. prev. 7 day avg.</p>
               </div>
             </div>
 
@@ -87,6 +89,7 @@
     <!--Local Section-->
     <section class="grid two">
       <!--Row of Locations-->
+      <!--LOS ANGELES-->
       <article class="grid-item" data-parent="los-angeles-california-united-states">
         <h2 data-point="location-title">Los Angeles County</h2>
         <hr class="black-rule">
@@ -94,40 +97,41 @@
         <h3 data-item="title">Cases</h3>
         <div class="grid four" data-cat="cases">
           <div class="grid-item" data-point="cumulative-cases">
-          <p class="callout" data-item="content">X</p>
+          <p class="callout" data-item="content"></p>
             <p>Cumulative</p>
           </div>
           <div class="grid-item" data-point="new-cases">
-            <p class="callout" data-item="content">X</p>
+            <p class="callout" data-item="content"></p>
             <p>New</p>
           </div>
           <div class="grid-item" data-point="cases-percent-change">
-            <p class="callout" data-item="content">X</p>
-            <p data-item="title">Prev</p>
+            <p class="callout positive" data-item="content"></p>
+            <p data-item="title">vs. prev. 7 day avg.</p>
           </div>
           <div class="grid-item trendline" data-item="trend-line">
-            <p>Trendline</p></div>
+            <p></p></div>
         </div>
         <!--LA Deaths-->
         <h3 data-item="title">Deaths</h3>
         <div class="grid four" data-cat="deaths">
           <div class="grid-item" data-point="total-deaths">
-          <p class="callout" data-item="content">X</p>
+          <p class="callout" data-item="content"></p>
             <p>Total</p>
           </div>
           <div class="grid-item" data-point="new-deaths">
-            <p class="callout" data-item="content">X</p>
+            <p class="callout" data-item="content"></p>
             <p>New</p>
           </div>
           <div class="grid-item" data-point="deaths-percent-change">
-            <p class="callout" data-item="content">X</p>
-            <p data-item="title">Prev</p>
+            <p class="callout positive" data-item="content"></p>
+            <p data-item="title">vs. prev. 7 day avg.</p>
           </div>
           <div class="grid-item trendline" data-item="trend-line">
-            <p>Trendline</p></div>
+            <p></p></div>
         </div>
       </article>
 
+      <!--LORAIN-->
       <article class="grid-item"  data-parent="lorain-ohio-united-states">
         <h2 data-point="location-title">Lorain County</h2>
         <hr class="black-rule">
@@ -136,39 +140,211 @@
         <h3 data-item="title">Cases</h3>
         <div class="grid four" data-cat="cases">
           <div class="grid-item" data-point="cumulative-cases">
-          <p class="callout" data-item="content">X</p>
+          <p class="callout" data-item="content"></p>
             <p>Cumulative</p>
           </div>
           <div class="grid-item" data-point="new-cases">
-            <p class="callout" data-item="content">X</p>
+            <p class="callout" data-item="content"></p>
             <p>New</p>
           </div>
           <div class="grid-item" data-point="cases-percent-change">
-            <p class="callout" data-item="content">X</p>
-            <p data-item="title">Prev</p>
+            <p class="callout positive" data-item="content"></p>
+            <p data-item="title">vs. prev. 7 day avg.</p>
           </div>
           <div class="grid-item trendline" data-item="trend-line">
-            <p>Trendline</p></div>
+            <p></p></div>
         </div>
         <!--Lorain Deaths-->
         <h3 data-item="title">Deaths</h3>
         <div class="grid four" data-cat="deaths">
           <div class="grid-item" data-point="total-deaths">
-          <p class="callout" data-item="content">X</p>
+          <p class="callout" data-item="content"></p>
             <p>Total</p>
           </div>
           <div class="grid-item" data-point="new-deaths">
-            <p class="callout" data-item="content">X</p>
+            <p class="callout" data-item="content"></p>
             <p>New</p>
           </div>
           <div class="grid-item" data-point="deaths-percent-change">
-            <p class="callout" data-item="content">X</p>
-            <p data-item="title">Prev</p>
+            <p class="callout positive" data-item="content"></p>
+            <p data-item="title">vs. prev. 7 day avg.</p>
           </div>
           <div class="grid-item trendline" data-item="trend-line">
-            <p>Trendline</p></div>
+            <p></p></div>
         </div>
       </article>
+      
+      <!--NYC-->
+      <article class="grid-item" data-parent="new-york-city-new-york-united-states">
+        <h2 data-point="location-title">New York City</h2>
+        <hr class="black-rule">
+        <!--NYC Cases-->
+        <h3 data-item="title">Cases</h3>
+        <div class="grid four" data-cat="cases">
+          <div class="grid-item" data-point="cumulative-cases">
+          <p class="callout" data-item="content"></p>
+            <p>Cumulative</p>
+          </div>
+          <div class="grid-item" data-point="new-cases">
+            <p class="callout" data-item="content"></p>
+            <p>New</p>
+          </div>
+          <div class="grid-item" data-point="cases-percent-change">
+            <p class="callout positive" data-item="content"></p>
+            <p data-item="title">vs. prev. 7 day avg.</p>
+          </div>
+          <div class="grid-item trendline" data-item="trend-line">
+            <p></p></div>
+        </div>
+        <!--NYC Deaths-->
+        <h3 data-item="title">Deaths</h3>
+        <div class="grid four" data-cat="deaths">
+          <div class="grid-item" data-point="total-deaths">
+          <p class="callout" data-item="content"></p>
+            <p>Total</p>
+          </div>
+          <div class="grid-item" data-point="new-deaths">
+            <p class="callout" data-item="content"></p>
+            <p>New</p>
+          </div>
+          <div class="grid-item" data-point="deaths-percent-change">
+            <p class="callout positive" data-item="content"></p>
+            <p data-item="title">vs. prev. 7 day avg.</p>
+          </div>
+          <div class="grid-item trendline" data-item="trend-line">
+            <p></p></div>
+        </div>
+      </article>
+
+      <!--COLLIER-->
+      <article class="grid-item"  data-parent="collier-florida-united-states">
+        <h2 data-point="location-title">Collier County</h2>
+        <hr class="black-rule">
+        
+        <!--Collier Cases-->
+        <h3 data-item="title">Cases</h3>
+        <div class="grid four" data-cat="cases">
+          <div class="grid-item" data-point="cumulative-cases">
+          <p class="callout" data-item="content"></p>
+            <p>Cumulative</p>
+          </div>
+          <div class="grid-item" data-point="new-cases">
+            <p class="callout" data-item="content"></p>
+            <p>New</p>
+          </div>
+          <div class="grid-item" data-point="cases-percent-change">
+            <p class="callout positive" data-item="content"></p>
+            <p data-item="title">vs. prev. 7 day avg.</p>
+          </div>
+          <div class="grid-item trendline" data-item="trend-line">
+            <p></p></div>
+        </div>
+        <!--Collier Deaths-->
+        <h3 data-item="title">Deaths</h3>
+        <div class="grid four" data-cat="deaths">
+          <div class="grid-item" data-point="total-deaths">
+          <p class="callout" data-item="content"></p>
+            <p>Total</p>
+          </div>
+          <div class="grid-item" data-point="new-deaths">
+            <p class="callout" data-item="content"></p>
+            <p>New</p>
+          </div>
+          <div class="grid-item" data-point="deaths-percent-change">
+            <p class="callout positive" data-item="content"></p>
+            <p data-item="title">vs. prev. 7 day avg.</p>
+          </div>
+          <div class="grid-item trendline" data-item="trend-line">
+            <p></p></div>
+        </div>
+      </article>
+
+      <!--NEW JERSEY-->
+      <article class="grid-item"  data-parent="hunterdon-new-jersey-united-states">
+        <h2 data-point="location-title">Hunterdon County</h2>
+        <hr class="black-rule">
+        
+        <!--Hunterdon Cases-->
+        <h3 data-item="title">Cases</h3>
+        <div class="grid four" data-cat="cases">
+          <div class="grid-item" data-point="cumulative-cases">
+          <p class="callout" data-item="content"></p>
+            <p>Cumulative</p>
+          </div>
+          <div class="grid-item" data-point="new-cases">
+            <p class="callout" data-item="content"></p>
+            <p>New</p>
+          </div>
+          <div class="grid-item" data-point="cases-percent-change">
+            <p class="callout positive" data-item="content"></p>
+            <p data-item="title">vs. prev. 7 day avg.</p>
+          </div>
+          <div class="grid-item trendline" data-item="trend-line">
+            <p></p></div>
+        </div>
+        <!--Hunterdon Deaths-->
+        <h3 data-item="title">Deaths</h3>
+        <div class="grid four" data-cat="deaths">
+          <div class="grid-item" data-point="total-deaths">
+          <p class="callout" data-item="content"></p>
+            <p>Total</p>
+          </div>
+          <div class="grid-item" data-point="new-deaths">
+            <p class="callout" data-item="content"></p>
+            <p>New</p>
+          </div>
+          <div class="grid-item" data-point="deaths-percent-change">
+            <p class="callout positive" data-item="content"></p>
+            <p data-item="title">vs. prev. 7 day avg.</p>
+          </div>
+          <div class="grid-item trendline" data-item="trend-line">
+            <p></p></div>
+        </div>
+      </article>
+
+      <!--ILLINOIS-->
+      <article class="grid-item"  data-parent="cook-illinois-united-states">
+        <h2 data-point="location-title">Cook County</h2>
+        <hr class="black-rule">
+        
+        <!--Cook Cases-->
+        <h3 data-item="title">Cases</h3>
+        <div class="grid four" data-cat="cases">
+          <div class="grid-item" data-point="cumulative-cases">
+          <p class="callout" data-item="content"></p>
+            <p>Cumulative</p>
+          </div>
+          <div class="grid-item" data-point="new-cases">
+            <p class="callout" data-item="content"></p>
+            <p>New</p>
+          </div>
+          <div class="grid-item" data-point="cases-percent-change">
+            <p class="callout positive" data-item="content"></p>
+            <p data-item="title">vs. prev. 7 day avg.</p>
+          </div>
+          <div class="grid-item trendline" data-item="trend-line">
+            <p></p></div>
+        </div>
+        <!--Cook Deaths-->
+        <h3 data-item="title">Deaths</h3>
+        <div class="grid four" data-cat="deaths">
+          <div class="grid-item" data-point="total-deaths">
+          <p class="callout" data-item="content"></p>
+            <p>Total</p>
+          </div>
+          <div class="grid-item" data-point="new-deaths">
+            <p class="callout" data-item="content"></p>
+            <p>New</p>
+          </div>
+          <div class="grid-item" data-point="deaths-percent-change">
+            <p class="callout positive" data-item="content"></p>
+            <p data-item="title">vs. prev. 7 day avg.</p>
+          </div>
+          <div class="grid-item trendline" data-item="trend-line">
+            <p></p></div>
+        </div>
+      </article>
+      
     </section>
     <!--Info Section-->
   </main>
@@ -177,11 +353,20 @@
       <h2>Info</h2>
       <hr class="black-rule">
       <h3>About the data</h3>
-      <p>Our data is updated daily from The COVID Tracking Project, CovidData, & COVID19API</p>
+      <p>Our data is updated daily from <a href="https://covidtracking.com"/>The COVID Tracking Project</a> & <a href="https://coviddata.github.io/coviddata">Covid Data</a></p>
       <h3>About the site</h3>
-      <p>This project was created by Garrett Haas & Ricky Rhodes to share COVID-19 data as it relates to their lives and areas of interest. The dashboard was created D3.js, Lodash, and Vanilla JS.</p>
+      <p>This project was created by Garrett Haas & Ricky Rhodes to share COVID-19 data as it relates to their lives and areas of interest. The dashboard was created D3.js & Vanilla JS.</p>
     </section>
   </footer>
+    <script>
+      paceOptions = { 
+      document: true,
+      minTime: 2500,
+      ghostTime: 100,
+    };
+    </script>
+    <script src="src/pace/pace.min.js">
+  </script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/d3/5.16.0/d3.min.js'></script>
     <script src="./dist/main.js" type="text/javascript"></script>
   </body>

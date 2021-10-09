@@ -69,31 +69,6 @@ const getDataNational = () => {
       element.innerHTML = JSON.stringify(totalCases)
 
       return { totalCases, totalChange, totalChange, totalDeath, totalHospitalizedCurrent, totalPositive, positiveChange, deathChange, hospitalizedChange };
-
-      console.log(`United States Total Cases: ${totalCases}`);
-      console.log(`United States Total Percentage Change: ${totalChangeX()}%`);
-      console.log(`United States Daily Positive Percentage: ${totalPositive}%`);
-      console.log(`United States Positive vs Prev Day: ${positiveChangeX()}%`);
-      console.log(`United States Total Deaths: ${totalDeath}`);
-      console.log(`United States Deaths vs Prev Day: ${deathChangeX()}%`)
-      console.log(`United States Total Hospitalizations: ${totalHospitalizedCurrent}`)
-      console.log(`United States Hospitalized vs. Prev Day: ${hospitalizedChangeX().toFixed(2)}%`)
-      
-
-      // const printData = (dataPoint, target) => {
-      //   const parent = document.getElementById("united-states");
-      //     parent.querySelector(target).querySelector('.current')
-      // }
-
-      // printData(total-cases, total-cases);
-      
-      // // print individual data points to the DOM
-      // let 
-      //   parent = document.getElementById("united-states"),
-      //   totalCases = parent.getElementsByClassName("hero--title")
-
-      //   ;
-
   })
   .catch(error => console.log('error', error));
 }
@@ -111,18 +86,12 @@ fetch(url)
 .then(response => response.json())
 .then(data => {
   const attr = data[dataPoint]
-  return console.log(JSON.stringify(attr));
+  // return console.log(JSON.stringify(attr));
 })
 .catch(error => console.log('error', error));
 
-  // // print
-  // const parent = document.getElementById(`state-${state}`);
-  // return parent.querySelector(`.${target}.content`).innerHTML(attr);
-
 }
 
-
-console.log(`OHIO ${getDataByState('oh', 'positive')}`)
 
 //REGIONS
 //GET Regions from CovidData
@@ -185,12 +154,12 @@ const getDataByRegion = (string, dataPoint) => {
     }
 
     //Log datapoints in the console
-    console.log(`${scopeName} New Cases: ${casesNew}`)
-    console.log(scopeName);
-    console.log(`${scopeName} Total Case % change vs. previous day: ${casesChangeX()}%`)
-    console.log(`${scopeName} Total Deaths: ${deathsTotal}`)
-    console.log(`${scopeName} New Deaths: ${deathsNew}`)
-    console.log(`${scopeName} Total Death % change vs. previous day: ${deathsChangeX()}%`)
+    // console.log(`${scopeName} New Cases: ${casesNew}`)
+    // console.log(scopeName);
+    // console.log(`${scopeName} Total Case % change vs. previous day: ${casesChangeX()}%`)
+    // console.log(`${scopeName} Total Deaths: ${deathsTotal}`)
+    // console.log(`${scopeName} New Deaths: ${deathsNew}`)
+    // console.log(`${scopeName} Total Death % change vs. previous day: ${deathsChangeX()}%`)
     
     //Print variables onto index.html - @GH, this is currently printing all Regions for onto the page when called
     if (scopeName === 'Tokyo') {
@@ -265,12 +234,12 @@ const getDataByPlaces = (string) => {
       }
     }
 
-    console.log(`${scopeName} Total Cases: ${casesTotal}`)
-    console.log(`${scopeName} New Cases: ${casesNew}`)
-    console.log(`${scopeName} Total Case % change vs. previous day: ${casesChangeX()}%`)
-    console.log(`${scopeName} Total Deaths: ${dataPoint}`)
-    console.log(`${scopeName} New Deaths: ${deathsNew}`)
-    console.log(`${scopeName} Total Death % change vs. previous day: ${deathsChangeX()}%`)
+    // console.log(`${scopeName} Total Cases: ${casesTotal}`)
+    // console.log(`${scopeName} New Cases: ${casesNew}`)
+    // console.log(`${scopeName} Total Case % change vs. previous day: ${casesChangeX()}%`)
+    // console.log(`${scopeName} Total Deaths: ${dataPoint}`)
+    // console.log(`${scopeName} New Deaths: ${deathsNew}`)
+    // console.log(`${scopeName} Total Death % change vs. previous day: ${deathsChangeX()}%`)
 
   })
 

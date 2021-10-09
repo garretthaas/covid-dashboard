@@ -56,8 +56,6 @@ footer{
     }
 }
 
-
-
 // hero section
 .hero {
 
@@ -70,3 +68,14 @@ footer{
         padding: 0 1em 1em 0;
     }
 }
+
+//for iPad Pro
+@media only screen 
+and (min-device-width: 1024px) 
+and (max-device-width: 1367px)
+and (orientation: portrait) {
+  footer {
+  padding: 15em;
+  }
+}
+

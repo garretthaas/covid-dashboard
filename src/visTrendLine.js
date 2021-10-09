@@ -29,7 +29,7 @@ export const visTrendLine = (dataUrl, dataPlace, dataCat, dataPoint) => {
     
     var svg = d3.select(`[data-parent="${dataPlace}"] [data-cat="${dataPoint}"] [data-item="trend-line"]`).append("svg")
         .attr("viewBox", `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
-      .append("g")
+        .append("g")
         .attr("transform",
               "translate(" + margin.left + "," + margin.top + ")");
     // get the data

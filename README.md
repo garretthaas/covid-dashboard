@@ -1,3 +1,34 @@
+<h1 align="center"><img src="./assets/README-title.jpg"></h1>
+
+This project was created share COVID-19 data as it relates to the authors lives and areas of interest. The dashboard was created with D3.js & Vanilla JS.
+
+<br />
+
+_Version 1.0_:
+<br />
+https://bit.ly/3fRrAuZ
+<br />
+_Work in Progress_
+
+## To Do:
+1. Adjust trendline for responsive.
+2. Build out state locales javascript.
+
+## Screenshot
+![Covid Dashboard screenshot](./assets/Covid-Dashboard-Screenshot.png)
+
+## Tech
+- [d3.js](https://d3js.org/)
+- [PACE.js](https://www.npmjs.com/package/pace-js)
+- Vanilla Javascript
+
+## Authors
+- [Garrett Haas](https://github.com/garretthaas)
+- [Ricky Rhodes](https://github.com/h0plyn)
+
+<br/>
+<br/>
+
 # Getting Started Locally
 
 ## Setting up the package manager

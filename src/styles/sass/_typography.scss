@@ -14,20 +14,164 @@ h2 {
 
 h3 {
     font-size: 1.5em;
+    padding-bottom: .1em;
 }
 
-
 p {
-    font-size: 1.5em;
+    font-size: 1.4em;
     color: inherit;
     line-height: 1;
 
     &.callout {
         font-family: 'Oswald', sans-serif;
-        font-size: 7.594em;
+        font-size: 5.8em;
+        padding-bottom: .05rem;
+
+    }
+}
+
+a {
+    text-decoration: none;
+    color: white;
+    font-weight: 800;
+}
+
+a:visited {
+    text-decoration: none;
+    color: white;
+    font-weight: 800;
+}
+
+.callout {
+
+    &.positive {
+        
+        &::before {
+           font-size: 2rem;
+        }
+    }
+    
+    &.negative {
+    
+        &::before {
+           font-size: 2rem;
+        }
     }
 }
 
 p.small {
     font-size: 1em;
 }
+
+
+//for Desktop
+@media only screen 
+  and (max-width: 1439px)
+  and (orientation: landscape) {
+       
+    p { 
+
+      &.callout {
+          font-size: 5.2em;
+        }
+      }
+  }
+
+  @media only screen 
+  and (max-width: 1324px)
+  and (orientation: landscape) {
+       
+    p { 
+
+      &.callout {
+          font-size: 4.5em;
+          padding-bottom: .05em;
+        }
+      }
+  }
+
+
+    @media only screen 
+      and (max-width: 1188px)
+      and (orientation: landscape) {
+           
+        p { 
+    
+          &.callout {
+              font-size: 3.8em;
+            }
+          }
+      }
+
+    @media only screen 
+    and (max-width: 1052px)
+    and (orientation: landscape) {
+            
+        p { 
+    
+        &.callout {
+            font-size: 3.5em;
+            }
+        }
+    }
+
+    //Takes over when switching to 1 column
+    @media only screen 
+    and (max-width: 1017px) {
+    p { 
+
+        &.callout {
+            font-size: 5.8em;
+            }
+        }
+    }
+
+//for iPad Pro
+  @media only screen 
+  and (min-device-width: 1020px) 
+  and (max-device-width: 1450px)
+  and (-webkit-min-device-pixel-ratio: 1)
+  and (orientation: portrait) {
+       
+    p { 
+      &.callout {
+          font-size: 3rem;
+        }
+    }
+  }
+
+  //for iPhone
+  @media only screen
+    and (max-device-width: 813px)
+    and (-webkit-min-device-pixel-ratio: 1)
+    and (orientation: portrait) {
+
+        p {
+            padding-bottom: 0.5em;
+
+            &.callout {    
+                font-size: 9em;
+            }
+            &.mobile-resize {
+                font-size: 3.2em;
+            }
+        }
+    }
+
+    @media only screen
+    and (max-device-width: 813px)
+    and (-webkit-min-device-pixel-ratio: 1)
+    and (orientation: landscape) {
+
+        p {
+            padding-bottom: 0.5em;
+
+            &.callout {    
+                font-size: 9em;
+            }
+            &.mobile-resize {
+                font-size: 2em;
+            }
+        }
+    }
+
